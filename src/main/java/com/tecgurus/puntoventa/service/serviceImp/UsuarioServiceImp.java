@@ -22,7 +22,6 @@ public class UsuarioServiceImp implements UsuarioService {
 	private UsuarioRepository usuarioR;
 	@Autowired
 	private Utilidades utilidad;
-	
 
 	/***
 	 * Lista de todos los usuarios registrados.
@@ -65,22 +64,9 @@ public class UsuarioServiceImp implements UsuarioService {
 		Usuario user = usuarioR.findById(idUsuario)
 				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
 		if (user != null) {
-			user.setActivo(
-					usuario.getEstatus().compareToIgnoreCase("activo") == 0 ? 1 
-							: usuario.getEstatus().compareToIgnoreCase("cancelado") == 0 ? 2 : 0
-							);
-			/**
-			 * if (usuario.getEstatus().compareToIgnoreCase("activo") == 0) {
-			 * } if (usuario.getEstatus().compareToIgnoreCase("cancelado") == 0) {
-			 * } else {
-			 * }
-			 * 
-			 */
-			user.setPassword(usuario.getPassword());
-			usuarioR.save(user);
-			
+            usuario.setClave(user.getIdUsuario());
+			usuarioR.save(utilidad.usuarioEntity(usuario));
 		}
-		
 		return usuario;
 	}
 
@@ -98,7 +84,6 @@ public class UsuarioServiceImp implements UsuarioService {
 		if (user != null) {
 			dto.setClave("200");
 			dto.setValor("Registro eliminado con exito!");
-			// eliminacion por objeto.
 			usuarioR.delete(user);
 		}
 		return dto;

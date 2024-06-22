@@ -177,7 +177,7 @@ public class UsuarioController {
 	public UsuarioDTO infoUser(
 			@Parameter(name = "correo", 
 					   description = "correo del usuario obtenido del token", example = "example@example.com")
-			@RequestParam final String correo) {
+			@RequestParam("correo") final String correo) {
 		return usuarioS.infoUsuario(correo);
 	}
 	

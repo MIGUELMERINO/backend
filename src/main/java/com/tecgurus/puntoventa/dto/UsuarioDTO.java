@@ -27,15 +27,6 @@ public class UsuarioDTO implements Serializable{
 	@Schema(description = "password", example = "TecGur1$")
 	@NotNull(message = Constantes.NOTNULL)
 	@NotBlank(message = Constantes.NOTBLANK)
-	/**
-	 * como se construye una clave segura: 
-	 * 1. Minimo de caracteres 8
-	 * 2. Al menos una mayuscula
-	 * 3. Al menos un numero
-	 * 4. Al menos un simbolo o caracter especial.
-	 * 5. No debe de ser alguna fecha importante para ti.
-	 * 
-	 */
 	@Pattern(regexp = Constantes.VALID_PASSWORD, 
 	 message = "No cumple con los requerimiento minimos de un password seguro")
 	private String password = "";

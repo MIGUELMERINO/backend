@@ -57,6 +57,8 @@ public class ConfigSecurity {
 						.requestMatchers("/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
 						.permitAll()
 						.requestMatchers("/api/authentication").permitAll()
+						.requestMatchers("/api/categoria").permitAll()
+						.requestMatchers("/api/categoria/*").permitAll()
 						.anyRequest().authenticated()) // los demas servicios o path debe de llevar el filter y la autorizacion
 				.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

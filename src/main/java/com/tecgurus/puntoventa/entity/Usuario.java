@@ -34,5 +34,5 @@ public class Usuario {
 	private Integer activo; // 0 inactivo, 1 activo, 2 cancelado estatos logicos de los datos.
 	@Column(length = 50)
 	private String perfil;
-
+    
 }
