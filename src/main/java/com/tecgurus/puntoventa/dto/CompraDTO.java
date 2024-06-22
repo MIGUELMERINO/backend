@@ -16,7 +16,7 @@ import lombok.Setter;
 public class CompraDTO implements Serializable {
 
 	private static final long serialVersionUID = 4501916349860510806L;
-	
+
 	@Schema(description = "identificador de la compra", example = "1")
 	private Integer clave;
 	@Schema(description = "total de la compra", example = "100.90")
@@ -31,18 +31,5 @@ public class CompraDTO implements Serializable {
 	private UsuarioDTO usuario;
 	@Schema(description = "datos del cliente")
 	private ClienteDTO cliente;
-	
-	/***
-	 *  /compra/usuario/clientefrencuentes
-	 *  compra json 
-	 *  {
-	 * 	 clave : "1",
-	 *   total: 0.0,
-	 *   fecha : "2023-11-18"
-	 *   usuarioPortal : {},
-	 *   frecuentes : [{}]
-	 *  }
-	 *  como se lee un objeto json para generar un DTO que cumpla
-	 *  con los solicitado por el Front end.
-	 */
+
 }

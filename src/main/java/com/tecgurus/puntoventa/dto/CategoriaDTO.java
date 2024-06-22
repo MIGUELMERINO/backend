@@ -28,19 +28,4 @@ public class CategoriaDTO implements Serializable{
 	@Schema(description = "descripcion de la categoria", example = "refresco de x marca de 600 ml desechable.")
 	private String descripcion;
 	
-	/**
-	 * ejemplo 1
-	 * {
-	 * 	"nombre" : undefined, // internamente es null
-	 *  "descripcion" : null
-	 * }
-	 * 
-	 * ejemplo 2
-	 * {
-	 * 	"nombre" : "", // el valor no pude ir en blanco o vacio.
-	 *  "descripcion" : null
-	 * }
-	 * 
-	 */
-
 }
