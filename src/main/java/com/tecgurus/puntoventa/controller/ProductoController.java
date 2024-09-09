@@ -31,7 +31,7 @@ import jakarta.validation.Valid;
 @Tag(name = "Producto", 
 	 description = "Servicio que manejena los productos.")
 @RestController
-@RequestMapping("/api/producto")
+@RequestMapping(Constantes.API + "producto")
 @CrossOrigin
 public class ProductoController {
 	
@@ -51,7 +51,7 @@ public class ProductoController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping
 	public List<ProductoDTO> listaProductos() {
@@ -74,7 +74,7 @@ public class ProductoController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PostMapping
 	public ProductoDTO agregaProducto(
@@ -99,7 +99,7 @@ public class ProductoController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PutMapping("/{idProducto}")
 	public ProductoDTO actualizarproducto(
@@ -125,7 +125,7 @@ public class ProductoController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@DeleteMapping("/{idProducto}")
 	public ResponseDTO eliminaProducto(
@@ -148,7 +148,7 @@ public class ProductoController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping("/busqueda")
 	public List<ProductoDTO> busqueda(

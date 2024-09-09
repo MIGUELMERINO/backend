@@ -1,6 +1,6 @@
 package com.tecgurus.puntoventa.service.serviceImp;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +11,7 @@ import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.entity.Categoria;
 import com.tecgurus.puntoventa.repository.CategoriaRepository;
 import com.tecgurus.puntoventa.service.CategoriaService;
-import com.tecgurus.puntoventa.utils.Utilidades;
+import com.tecgurus.puntoventa.mapper.CategoriaMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -21,7 +21,7 @@ public class CategoriaServiceImp implements CategoriaService{
 
 	
 	private CategoriaRepository categoriaR;
-	private Utilidades utilidades;
+	private CategoriaMapper categoriaMapper;
 	
 	
 	/**
@@ -31,24 +31,18 @@ public class CategoriaServiceImp implements CategoriaService{
 	 */
 	@Override
 	public List<CategoriaDTO> listaCategorias() {
-		// return categoriaR.findAll();
-		// si genera una instancia de ArrayList para colocar un vacio dentro de mi lista -> lista = [];
-		List<CategoriaDTO> categoria = new ArrayList<>();
-		// mediante una funcion lamda realiza una conversion de Entidad a DTO.
-		categoriaR.findAll().forEach(item -> {
-			categoria.add(utilidades.categoriaDTO(item));
-		});
-		return categoria;
+        // return categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
+        return categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
 	}
 
 	/**
 	 * Metodo que va a registrar una categoria nueva.
+     * @param categoria datos enviados por el usuario para crear una categoria nueva.
 	 * @return una categoria registrada existosamente.
 	 */
 	@Override
 	public CategoriaDTO agregaCategoria(final CategoriaDTO categoria) {
-		Categoria cate = utilidades.categoriaEntity(categoria);
-		return utilidades.categoriaDTO(categoriaR.save(cate));
+		return categoriaMapper.categoriaDTO(categoriaR.save(categoriaMapper.categoriaEntity(categoria)));
 	}
 
 	/***
@@ -64,7 +58,7 @@ public class CategoriaServiceImp implements CategoriaService{
 			cate.setNombre(categoria.getNombre());
 			cate.setDescripcion(categoria.getDescripcion());
 		}
-		return utilidades.categoriaDTO(categoriaR.save(cate));
+		return categoriaMapper.categoriaDTO(categoriaR.save(cate));
 	}
 
 	/***
@@ -93,7 +87,7 @@ public class CategoriaServiceImp implements CategoriaService{
 	@Override
 	public List<CategoriaDTO> busquedaCategoria(final String nombre) {
 		// stream forma de recoleccion de datos, map (mapeo de datos), genera una coleccion de datos y se el asignan a una lista.
-		return categoriaR.findByNombre(nombre).stream().map(utilidades::categoriaDTO).collect(Collectors.toList());
+		return categoriaR.findByNombre(nombre).stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
 	}
 
 	

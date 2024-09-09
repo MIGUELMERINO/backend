@@ -29,9 +29,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Tag(name = "Categoria", 
-	 description = "Servicio que maneja un catalogo de categorias.")
+	 description = "Servicio que maneja el catalogo de categorias")
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping(Constantes.API + "categoria")
 @CrossOrigin
 public class CategoriaController {
 	
@@ -53,7 +53,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping // lectura de datos (read)
 	public List<CategoriaDTO> listarCategoria() {
@@ -75,7 +75,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PostMapping // escritura de datos (create).
 	public CategoriaDTO nuevaCategoria(
@@ -101,7 +101,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PutMapping("/{idCategoria}")
 	public CategoriaDTO actualizaCategoria(
@@ -126,7 +126,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@DeleteMapping("/{idCategoria}")
 	public ResponseDTO eliminaCategoria(
@@ -149,7 +149,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping("/busqueda")
 	public List<CategoriaDTO> busqueda(

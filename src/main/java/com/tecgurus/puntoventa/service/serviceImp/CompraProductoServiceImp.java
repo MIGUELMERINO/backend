@@ -11,7 +11,7 @@ import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.entity.CompraProducto;
 import com.tecgurus.puntoventa.repository.CompraProductoRepository;
 import com.tecgurus.puntoventa.service.CompraProductoService;
-import com.tecgurus.puntoventa.utils.Utilidades;
+import com.tecgurus.puntoventa.mapper.CompraProductoMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class CompraProductoServiceImp implements CompraProductoService {
 	
 	private CompraProductoRepository compraPRepository;
-	private Utilidades utilidades;
+	private CompraProductoMapper compraProductoM;
 
 	/**
 	 * Lista de compras con su producto.
@@ -29,7 +29,7 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	 */
 	@Override
 	public List<CompraProductoDTO> listarComprasProductos() {
-		return compraPRepository.findAll().stream().map(utilidades::compraProductoDTO).collect(Collectors.toList());
+		return compraPRepository.findAll().stream().map(compraProductoM::compraProductoDTO).collect(Collectors.toList());
 	}
 
 	/**
@@ -39,8 +39,7 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	 */
 	@Override
 	public CompraProductoDTO agregaCompraProducto(final CompraProductoDTO compraProducto) {
-		CompraProducto compra = utilidades.compraProductoEntity(compraProducto);
-		return utilidades.compraProductoDTO(compraPRepository.save(compra));
+		return compraProductoM.compraProductoDTO(compraPRepository.save(compraProductoM.compraProductoEntity(compraProducto)));
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class CompraProductoServiceImp implements CompraProductoService {
 		compra.setCantidad(compraProducto.getCantidad());
 		compra.setCosto(compraProducto.getCosto());
 		
-		return utilidades.compraProductoDTO(compraPRepository.save(compra));
+		return compraProductoM.compraProductoDTO(compraPRepository.save(compra));
 	}
 
 	/***
@@ -68,7 +67,7 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	@Override
 	public ResponseDTO busquedaCompra(final Integer idCompra) {
 		List<CompraProductoDTO> producto = compraPRepository.busquedaCompra(idCompra)
-				.stream().map(utilidades::compraProductoDTO).collect(Collectors.toList());
+				.stream().map(compraProductoM::compraProductoDTO).collect(Collectors.toList());
 		ResponseDTO response = new ResponseDTO();
 		// Objects.nonNull sirve para validad que el objeto no sea nulo.
 		if (Objects.nonNull(producto)) {

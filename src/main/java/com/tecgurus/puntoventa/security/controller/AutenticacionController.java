@@ -14,14 +14,21 @@ import com.tecgurus.puntoventa.security.dto.RequestDTO;
 import com.tecgurus.puntoventa.security.dto.ResponseJWTDTO;
 import com.tecgurus.puntoventa.security.service.JWTService;
 import com.tecgurus.puntoventa.security.service.UserDatailServices;
+import com.tecgurus.puntoventa.config.Constantes;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import jakarta.validation.Valid;
 
-@Tag(name = "autenficacion", 
+@Tag(name = "Autentificador", 
 	 description = "autentificacion de usuarios registrados.")
 @RestController
-@RequestMapping("/api/authentication")
+@RequestMapping(Constantes.API + "authentication")
 @CrossOrigin
 public class AutenticacionController {
 	
@@ -33,7 +40,18 @@ public class AutenticacionController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
+    @Operation(summary = "Servicio autentificador para el usuario.")
+	@ApiResponses({
+		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consultas realizada correctamente!",
+				content = { @Content(mediaType = "application/json",
+				schema = @Schema(implementation = ResponseJWTDTO.class))}),
+		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
+	})
 	@PostMapping
 	public ResponseJWTDTO authentication(@RequestBody @Valid final RequestDTO request) {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

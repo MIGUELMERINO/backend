@@ -24,10 +24,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@Tag(name = "Compra", 
+@Tag(name ="Compra", 
      description = "Servicio que maneja la compra de un producto.")
 @RestController
-@RequestMapping("/api/compra")
+@RequestMapping(Constantes.API +  "compra")
 @CrossOrigin
 public class CompraController {
 	
@@ -48,7 +48,7 @@ public class CompraController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping
 	public List<CompraDTO> listaCompras() {
@@ -70,7 +70,7 @@ public class CompraController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PostMapping
 	public CompraDTO agregarCompra(
@@ -95,7 +95,7 @@ public class CompraController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PutMapping("/{idCompra}")
 	public CompraDTO actualizaCompra(
@@ -120,7 +120,7 @@ public class CompraController {
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.BAQ_REQUEST_V, content = @Content)
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	// regla si se relacion con otra entidad se debe de colocar el path de dicha entidad.
 	// /api/compra/{idUsuario}/usuario (mala practica).

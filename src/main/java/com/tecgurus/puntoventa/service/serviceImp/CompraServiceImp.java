@@ -8,7 +8,7 @@ import com.tecgurus.puntoventa.dto.CompraDTO;
 import com.tecgurus.puntoventa.entity.Compra;
 import com.tecgurus.puntoventa.repository.CompraRepository;
 import com.tecgurus.puntoventa.service.CompraService;
-import com.tecgurus.puntoventa.utils.Utilidades;
+import com.tecgurus.puntoventa.mapper.CompraMapper;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -17,7 +17,7 @@ public class CompraServiceImp implements CompraService{
 	@Autowired
 	private CompraRepository compraRepository;
 	@Autowired
-	private Utilidades utilidades;
+	private CompraMapper compraMapper;
 
 	/***
 	 * Lista de compras.
@@ -25,7 +25,7 @@ public class CompraServiceImp implements CompraService{
 	 */
 	@Override
 	public List<CompraDTO> listarCompras() {
-		return compraRepository.findAll().stream().map(utilidades::compraDTO).collect(Collectors.toList());
+		return compraRepository.findAll().stream().map(compraMapper::compraDTO).collect(Collectors.toList());
 	}
 
 	/***
@@ -35,8 +35,7 @@ public class CompraServiceImp implements CompraService{
 	 */
 	@Override
 	public CompraDTO agregaCompra(final CompraDTO compra) {
-		Compra compras = utilidades.compraEntity(compra);
-		return utilidades.compraDTO(compraRepository.save(compras));
+		return compraMapper.compraDTO(compraRepository.save(compraMapper.compraEntity(compra)));
 	}
 
 	/**
@@ -50,7 +49,7 @@ public class CompraServiceImp implements CompraService{
 		Compra compras = compraRepository.findById(idCompra)
 				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
 		compras.setTotal(compra.getTotal());	
-		return utilidades.compraDTO(compraRepository.save(compras));
+		return compraMapper.compraDTO(compraRepository.save(compras));
 	}
 
 	/***
@@ -60,7 +59,7 @@ public class CompraServiceImp implements CompraService{
 	 */
 	@Override
 	public List<CompraDTO> busquedaCompraId(final Integer idUsuario) {
-		return compraRepository.busquedaUsuarioId(idUsuario).stream().map(utilidades::compraDTO).collect(Collectors.toList());
+		return compraRepository.busquedaUsuarioId(idUsuario).stream().map(compraMapper::compraDTO).collect(Collectors.toList());
 	}
 
 }

@@ -32,7 +32,10 @@ public final class Constantes {
 	public final static String VERSION = "0.1";
 	public final static String DESCRIPTION_SWAGGER = "Punto de "
 			+ "venta para proyecto personal";
-	
+
+    // configuracion api
+    public final static String API = "/api/v1/"; 
+
 	// expresiones regular para validar atributos.
 	public final static String VALID_PASSWORD = 
 			"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";

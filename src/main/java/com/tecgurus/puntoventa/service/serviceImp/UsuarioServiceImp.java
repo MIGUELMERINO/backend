@@ -11,7 +11,7 @@ import com.tecgurus.puntoventa.dto.UsuarioDTO;
 import com.tecgurus.puntoventa.entity.Usuario;
 import com.tecgurus.puntoventa.repository.UsuarioRepository;
 import com.tecgurus.puntoventa.service.UsuarioService;
-import com.tecgurus.puntoventa.utils.Utilidades;
+import com.tecgurus.puntoventa.mapper.UsuarioMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -21,7 +21,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioR;
 	@Autowired
-	private Utilidades utilidad;
+	private UsuarioMapper usuarioMapper;
 
 	/***
 	 * Lista de todos los usuarios registrados.
@@ -29,7 +29,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	 */
 	@Override
 	public List<UsuarioDTO> obtenerUsuarios() {
-		return usuarioR.findAll().stream().map(utilidad::usuarioDTO).collect(Collectors.toList());
+		return usuarioR.findAll().stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public List<UsuarioDTO> obtenerUsuariosActivos() {
 		final int estatus = 1;
-		return usuarioR.findByActivo(estatus).stream().map(utilidad::usuarioDTO).collect(Collectors.toList());
+		return usuarioR.findByActivo(estatus).stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
 	}
 
 	/**
@@ -49,8 +49,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	 */
 	@Override
 	public UsuarioDTO agregaUsuario(final UsuarioDTO usuario) {
-		Usuario user = utilidad.usuarioEntity(usuario);
-		return utilidad.usuarioDTO(usuarioR.save(user));
+		return usuarioMapper.usuarioDTO(usuarioR.save(usuarioMapper.usuarioEntity(usuario)));
 	}
 
 	/**
@@ -65,7 +64,7 @@ public class UsuarioServiceImp implements UsuarioService {
 				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
 		if (user != null) {
             usuario.setClave(user.getIdUsuario());
-			usuarioR.save(utilidad.usuarioEntity(usuario));
+			usuarioR.save(usuarioMapper.usuarioEntity(usuario));
 		}
 		return usuario;
 	}
@@ -96,7 +95,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public UsuarioDTO infoUsuario(final String correo) {
 		Usuario usario = usuarioR.findByEmailPassword(correo);
-		return utilidad.usuarioDTO(usario);
+		return usuarioMapper.usuarioDTO(usario);
 	}
 
 }

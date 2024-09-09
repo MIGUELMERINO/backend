@@ -11,7 +11,8 @@ import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.entity.Producto;
 import com.tecgurus.puntoventa.repository.ProductoRepository;
 import com.tecgurus.puntoventa.service.ProductoService;
-import com.tecgurus.puntoventa.utils.Utilidades;
+import com.tecgurus.puntoventa.mapper.ProductoMapper;
+import com.tecgurus.puntoventa.mapper.CategoriaMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,8 @@ public class ProductoServiceImp implements ProductoService {
 
 	@Autowired
 	private ProductoRepository productoR;
-	private Utilidades utils;
+	private ProductoMapper productoMapper;
+    private CategoriaMapper categoriaMapper;
 	
 	/**
 	 * lista de productos registrados.
@@ -30,7 +32,7 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public List<ProductoDTO> listarProductos() {
-		return productoR.findAll().stream().map(utils::productoDTO).collect(Collectors.toList());
+		return productoR.findAll().stream().map(productoMapper::productoDTO).collect(Collectors.toList());
 	}
 
 
@@ -41,8 +43,7 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ProductoDTO agregaProducto(final ProductoDTO producto) {
-		Producto p = utils.productoEntity(producto);
-		return utils.productoDTO(productoR.save(p));
+		return productoMapper.productoDTO(productoR.save(productoMapper.productoEntity(producto)));
 	}
 
 	/**
@@ -60,7 +61,7 @@ public class ProductoServiceImp implements ProductoService {
 			p.setNombre(producto.getNombre());
 			p.setDescripcion(producto.getDescripcion());
 			p.setPrecio(producto.getPrecio());
-			p.setCategoria(utils.categoriaEntity(producto.getCategoria()));
+			p.setCategoria(categoriaMapper.categoriaEntity(producto.getCategoria()));
 			productoR.save(p);
 		}
 		return producto;
@@ -91,7 +92,7 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public List<ProductoDTO> busquedaProducto(String nombreProducto) {
-		return productoR.busquedaProducto(nombreProducto).stream().map(utils::productoDTO).collect(Collectors.toList());
+		return productoR.busquedaProducto(nombreProducto).stream().map(productoMapper::productoDTO).collect(Collectors.toList());
 	}
 
 }

@@ -11,7 +11,7 @@ import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.entity.Cliente;
 import com.tecgurus.puntoventa.repository.ClienteRepository;
 import com.tecgurus.puntoventa.service.ClienteService;
-import com.tecgurus.puntoventa.utils.Utilidades;
+import com.tecgurus.puntoventa.mapper.ClienteMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class ClienteServiceImp implements ClienteService {
 	
 	private ClienteRepository clienteRepository;
-	private Utilidades utilidad;
+	private ClienteMapper clienteMapper;
 
 
 	/**
@@ -31,7 +31,7 @@ public class ClienteServiceImp implements ClienteService {
 	@Override
 	public List<ClienteDTO> obtenerClientes() {
 		// :: asingacion de metodo en un map.           instancia::metodo
-		return clienteRepository.findAll().stream().map(utilidad::clienteDTO).collect(Collectors.toList());
+		return clienteRepository.findAll().stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
 	}
 
 	/**
@@ -41,8 +41,7 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public ClienteDTO agregaCliente(final ClienteDTO clienteDTO) {
-		Cliente cliente  = utilidad.clienteEntity(clienteDTO);
-		return utilidad.clienteDTO(clienteRepository.save(cliente));
+		return clienteMapper.clienteDTO(clienteRepository.save(clienteMapper.clienteEntity(clienteDTO)));
 	}
 
 	
@@ -64,9 +63,7 @@ public class ClienteServiceImp implements ClienteService {
 			clienteE.setApaterno(cliente.getApellidoP());
 			clienteE.setAmaterno(cliente.getApellidoM());
 			dto.setValor("Actualizacion realizada");
-			ClienteDTO clienteDTO = new ClienteDTO();
-			clienteDTO = utilidad.clienteDTO(clienteRepository.save(clienteE));
-			dto.setPlayLoad(clienteDTO);
+			dto.setPlayLoad(clienteMapper.clienteDTO(clienteRepository.save(clienteE)));
 		} else {
 			dto.setClave("500");
 			dto.setValor("el registro que deseas actualizar no se encuentra");
@@ -103,7 +100,7 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public List<ClienteDTO> buscaClienteNombre(final String nombre) {
-		return clienteRepository.findByNombre(nombre).stream().map(utilidad::clienteDTO).collect(Collectors.toList());
+		return clienteRepository.findByNombre(nombre).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
 	}
 
 }

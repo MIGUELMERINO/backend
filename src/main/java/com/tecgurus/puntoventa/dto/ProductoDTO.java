@@ -30,7 +30,7 @@ public class ProductoDTO implements Serializable{
 	private String sku;
 	@Schema(description = "imagen del producto", example = "example.jpg")
 	private String imagen = "";
-	@Schema(description = "datos de la categoria por producto")
+    @Schema(description = "datos de la categoria por producto")
 	private CategoriaDTO categoria;
 	
 
