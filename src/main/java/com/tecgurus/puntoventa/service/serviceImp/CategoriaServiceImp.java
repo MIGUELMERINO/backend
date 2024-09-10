@@ -31,7 +31,6 @@ public class CategoriaServiceImp implements CategoriaService{
 	 */
 	@Override
 	public List<CategoriaDTO> listaCategorias() {
-        // return categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
         return categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
 	}
 

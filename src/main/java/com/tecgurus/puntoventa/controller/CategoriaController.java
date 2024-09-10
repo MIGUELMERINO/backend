@@ -77,7 +77,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
-	@PostMapping // escritura de datos (create).
+    @PostMapping // escritura de datos (create).
 	public CategoriaDTO nuevaCategoria(
 			@Parameter(name = "categoria", 
 				       description = "datos necesarios para crear una categoria.")
