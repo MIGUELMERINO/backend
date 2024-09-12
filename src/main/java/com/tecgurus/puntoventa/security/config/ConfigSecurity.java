@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import com.tecgurus.puntoventa.config.Constantes;
+
 @Configuration
 @EnableMethodSecurity // hablitar la configuracion de spring security
 public class ConfigSecurity {
@@ -56,9 +58,7 @@ public class ConfigSecurity {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers("/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
 						.permitAll()
-						.requestMatchers("/api/authentication").permitAll()
-						.requestMatchers("/api/categoria").permitAll()
-						.requestMatchers("/api/categoria/*").permitAll()
+						.requestMatchers(Constantes.API + "authentication").permitAll()
 						.anyRequest().authenticated()) // los demas servicios o path debe de llevar el filter y la autorizacion
 				.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
