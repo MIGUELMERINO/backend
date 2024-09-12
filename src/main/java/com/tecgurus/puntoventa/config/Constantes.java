@@ -38,6 +38,6 @@ public final class Constantes {
 
 	// expresiones regular para validar atributos.
 	public final static String VALID_PASSWORD = 
-			"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+			"^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
 	
 }
