@@ -19,12 +19,20 @@ public class ProductoDTO implements Serializable{
 	@Schema(description = "indenticador del producto", example = "1")
 	private Integer clave;
 	@Schema(description = "Nombre del producto", example = "Jabon en polvo")
-	private String nombre;
+    @NotNull(message = Constantes.NOTNULL)
+    @NotBlank(message = Constantes.NOTBLANK)
+    private String nombre;
 	@Schema(description = "Descripcion del producto", example = "producto en polvo de 850g.")
-	private String descripcion;
+	@NotNull(message = Constantes.NOTNULL)
+    @NotBlank(message = Constantes.NOTBLANK)
+    private String descripcion;
 	@Schema(description = "precio del producto", example = "80.50")
+    @NotBlank(message = Constantes.NOTBLANK)
+    @NotNull(message = Constantes.NOTNULL)
 	private Double precio;
 	@Schema(description = "cantidad", example = "10")
+    @NotNull(message = Constantes.NOTNULL)
+    @NotBlank(message = Constantes.NOTBLANK)
 	private Integer stock;
 	@Schema(description = "", example = "")
 	private String sku;
