@@ -73,6 +73,9 @@ public class ClienteServiceImp implements ClienteService {
 		// findById selec * from cliente where idcliente = ?1
 		Cliente clienteE = clienteRepository.findById(idCliente)
 				.orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
+        clienteE.setAmaterno(cliente.getApellidoM());
+        clienteE.setApaterno(cliente.getApellidoP());
+        clienteE.setRfc(cliente.getRfc());
 		return responseService.response(Constantes.SUCCESS_UPDATE, 
         clienteMapper.clienteDTO(clienteRepository.save(clienteE)));
 	}
