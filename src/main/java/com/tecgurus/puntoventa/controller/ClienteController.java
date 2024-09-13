@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.service.ClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -141,7 +142,7 @@ public class ClienteController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@DeleteMapping("/{idCliente}")
-	public ResponseDTO eliminaCliente(
+	public ResponseDeleteDTO eliminaCliente(
 			@Parameter(name = "idCliente", description = "identificador del cliente.", example = "1")
 			@PathVariable final Integer idCliente) {
 		return clienteS.eliminarCliente(idCliente);

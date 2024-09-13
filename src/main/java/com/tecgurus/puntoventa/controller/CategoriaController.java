@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
-import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.service.CategoriaService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -152,7 +151,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@DeleteMapping("/{idCategoria}")
-	public ResponseDeleteDTO eliminaCategoria(
+	public ResponseDTO eliminaCategoria(
 			@Parameter(name = "idCategoria", description = "identificador de la categoria", example = "1")
 			@PathVariable("idCategoria") final Integer id) {
 		return categoriaS.eliminarCategoria(id);
