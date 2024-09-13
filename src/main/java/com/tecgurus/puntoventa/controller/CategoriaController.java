@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.service.CategoriaService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,11 +56,33 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
-	@GetMapping // lectura de datos (read)
+    @GetMapping // lectura de datos (read)
 	public List<CategoriaDTO> listarCategoria() {
 		return categoriaS.listaCategorias();
 	}
 	
+    /**
+     * Metodo que retorna datos mediante un identificador
+     * @param idCategoria idenfiticador de la categoria.
+     * @return Lista de un valor por su identificador o reterno vacio.
+     * **/
+	@Operation(summary = "Servicio que muestras una categoria.")
+	@ApiResponses({
+		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizado correctamente",
+				content = { @Content(mediaType = "application/json",
+				schema = @Schema(implementation = CategoriaDTO.class))}),
+		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
+	})
+    @GetMapping("/{idCategoria}")
+    public List<CategoriaDTO> listaCategoriaID(@PathVariable final Integer idCategoria) {
+        return categoriaS.listaCategoriaId(idCategoria);
+    }
+
+
 	/***
 	 * Metodo que agrega una nueva categoria.
 	 * @param categoria datos de la categoria.
@@ -129,7 +152,7 @@ public class CategoriaController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@DeleteMapping("/{idCategoria}")
-	public ResponseDTO eliminaCategoria(
+	public ResponseDeleteDTO eliminaCategoria(
 			@Parameter(name = "idCategoria", description = "identificador de la categoria", example = "1")
 			@PathVariable("idCategoria") final Integer id) {
 		return categoriaS.eliminarCategoria(id);

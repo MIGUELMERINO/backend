@@ -22,10 +22,17 @@ public final class Constantes {
 			+ "en el sistema, intentarlo mas tarde.";
 	
 	// mensaje para las validaciones con spring-validation
-	public final static String NOTNULL = "Este atributo no debe ser nulo!";
-	public final static String NOTBLANK = "Este atributo no debe ir en blanco "
-			+ "o con espacios en blanco";
+	public final static String NOTNULL = "Este atributo es requerido!";
+	public final static String NOTBLANK = "Este atributo no debe ir en blanco ";
 	public final static String DESCRIPTION = "puedes colocar sin descripcion";
+
+    // mensaje para el usuario o el desarrollador front end.
+    public final static String SUCCESS_CREATE = "Registro exitoso!";
+    public final static String SUCCESS_UPDATE = "Registro actualizado exitosamente!";
+    public final static String SUCCESS_READ = "Consulta exitosa!";
+    public final static String SUCCESS_DELETE = "Registro eliminado exitosamente!";
+    public final static String ERROR = "El resgistro a buscar"
+     + " no se encuentra disponible!";
 	
 	// informacion de swagger para el header (encabezado)
 	public final static String TITLE = "Api punto de venta.";

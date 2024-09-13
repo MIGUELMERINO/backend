@@ -5,13 +5,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.entity.Cliente;
 import com.tecgurus.puntoventa.repository.ClienteRepository;
 import com.tecgurus.puntoventa.service.ClienteService;
+import com.tecgurus.puntoventa.service.ResponseService;
 import com.tecgurus.puntoventa.mapper.ClienteMapper;
+import com.tecgurus.puntoventa.config.Constantes;
+
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -22,6 +27,8 @@ public class ClienteServiceImp implements ClienteService {
 	
 	private ClienteRepository clienteRepository;
 	private ClienteMapper clienteMapper;
+    @Autowired
+    private ResponseService responseService;
 
 
 	/**
@@ -33,6 +40,16 @@ public class ClienteServiceImp implements ClienteService {
 		// :: asingacion de metodo en un map.           instancia::metodo
 		return clienteRepository.findAll().stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
 	}
+
+    /**
+     * Buscar un cliente mediante el identificador.
+     * @param id identificador del cliente.
+     * @return cliente o un arreglo vacio.
+     * **/
+    @Override
+    public List<ClienteDTO> listaClienteId(final Integer id) {
+        return clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+    }
 
 	/**
 	 * Registro de un cliente nuevo.
@@ -55,21 +72,9 @@ public class ClienteServiceImp implements ClienteService {
 	public ResponseDTO actualizarCliente(final ClienteDTO cliente, final Integer idCliente) {
 		// findById selec * from cliente where idcliente = ?1
 		Cliente clienteE = clienteRepository.findById(idCliente)
-				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
-		ResponseDTO dto = new ResponseDTO();
-		if (clienteE != null && clienteE.getIdCliente() != null) {
-			dto.setClave("200");
-			clienteE.setNombre(cliente.getNombre());
-			clienteE.setApaterno(cliente.getApellidoP());
-			clienteE.setAmaterno(cliente.getApellidoM());
-			dto.setValor("Actualizacion realizada");
-			dto.setPlayLoad(clienteMapper.clienteDTO(clienteRepository.save(clienteE)));
-		} else {
-			dto.setClave("500");
-			dto.setValor("el registro que deseas actualizar no se encuentra");
-			dto.setPlayLoad(cliente);
-		}
-		return dto;
+				.orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
+		return responseService.response(Constantes.SUCCESS_UPDATE, 
+        clienteMapper.clienteDTO(clienteRepository.save(clienteE)));
 	}
 
 	/**
@@ -78,19 +83,11 @@ public class ClienteServiceImp implements ClienteService {
 	 * @return respuesta ok o error.
 	 */
 	@Override
-	public ResponseDTO eliminarCliente(final Integer idCliente) {
-		ResponseDTO dto = new ResponseDTO();
-		Cliente cliente = clienteRepository.findById(idCliente)
-				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
-		if (cliente != null && cliente.getIdCliente() != null) {
-			dto.setClave("200");
-			dto.setValor("Cliente eliminado correctamente!");
-			clienteRepository.deleteById(idCliente);
-		} else {
-			dto.setClave("500");
-			dto.setValor("el registro que deseas eliminar no se encuentra");
-		}
-		return dto;
+	public ResponseDeleteDTO eliminarCliente(final Integer idCliente) {
+		clienteRepository.findById(idCliente)
+				.orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
+		clienteRepository.deleteById(idCliente);
+        return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}
 
 	/***

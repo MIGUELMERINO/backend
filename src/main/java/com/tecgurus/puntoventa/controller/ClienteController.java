@@ -52,10 +52,27 @@ public class ClienteController {
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
-	@GetMapping
+    @GetMapping
 	public List<ClienteDTO> listarClientes() {
 		return clienteS.obtenerClientes();
 	}
+
+
+    @Operation(summary = "Obtener cliente registrado por identificador.")
+	@ApiResponses({
+		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
+				content = { @Content(mediaType = "application/json",
+				schema = @Schema(implementation = ClienteDTO.class))}),
+		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
+		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
+	})
+    @GetMapping("/{idCliente}")
+    List<ClienteDTO> listaClienteID(@PathVariable Integer idCliente) {
+        return clienteS.listaClienteId(idCliente);
+    }
 	
 	/**
 	 * Metodo que crear un cliente.

@@ -24,12 +24,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @Tag(name = "Autentificador", 
 	 description = "autentificacion de usuarios registrados.")
 @RestController
 @RequestMapping(Constantes.API + "authentication")
 @CrossOrigin
+@Slf4j 
 public class AutenticacionController {
 	
 	@Autowired
@@ -54,6 +56,7 @@ public class AutenticacionController {
 	})
 	@PostMapping
 	public ResponseJWTDTO authentication(@RequestBody @Valid final RequestDTO request) {
+        log.info(request.toString());
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 				request.getCorreo(), request.getPassword()));
 		final UserDetails userDetails = userDetailS.loadUserByUsername(request.getCorreo());

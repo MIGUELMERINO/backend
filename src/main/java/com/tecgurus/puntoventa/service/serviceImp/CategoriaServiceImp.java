@@ -34,6 +34,12 @@ public class CategoriaServiceImp implements CategoriaService{
         return categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
 	}
 
+
+    @Override
+    public List<CategoriaDTO> listaCategoriaId(final Integer id) {
+        return categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
+    }
+
 	/**
 	 * Metodo que va a registrar una categoria nueva.
      * @param categoria datos enviados por el usuario para crear una categoria nueva.

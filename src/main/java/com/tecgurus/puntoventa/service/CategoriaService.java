@@ -14,6 +14,14 @@ public interface CategoriaService {
 	 * @return lista de categorias.
 	 */
 	List<CategoriaDTO> listaCategorias();
+
+
+    /**
+     * Metodo para obtener la categoria mediante ID.
+     * @param id Identificador de la categoria.
+     * @return una categoria.
+     * **/
+    List<CategoriaDTO> listaCategoriaId(Integer id);
 	
 	/***
 	 * Metodo que crea una nueva categoria

@@ -7,7 +7,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import jakarta.persistence.EntityNotFoundException;
 
 
@@ -22,11 +21,8 @@ public class HandlerValidator {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> methodArgumentNotFoundException(final MethodArgumentNotValidException ex) {
-		Map<String, String> error = new HashMap<>();
-		error.put("clave", "error");
-		error.put("valor", ex.getMessage());
-		return error;
-	}
+        return errros(ex.getFieldError().getDefaultMessage());
+    }
 	
 	/**
 	 * Captura las excepciones de entity not found que tenga mi aplicativo.
@@ -35,11 +31,8 @@ public class HandlerValidator {
 	 */
 	@ExceptionHandler(EntityNotFoundException.class)
 	public Map<String, String> handlerEntityNotFoundException(final EntityNotFoundException ex) {
-		Map<String, String> error = new HashMap<>();
-		error.put("clave", "error");
-		error.put("valor", ex.getMessage());
-		return error;
-	}
+	    return errros(ex.getMessage());
+    }
 	
 	/***
 	 * Metodo de mensaje Http.
@@ -48,10 +41,20 @@ public class HandlerValidator {
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public Map<String, String> httpMenssage(final HttpMessageNotReadableException ex) {
-		Map<String, String> error = new HashMap<>();
-		error.put("clave", "error");
-		error.put("valor", ex.getMessage());
+	    return errros(ex.getMessage());
+    }
+
+    /**
+     * Metodo generar para capturar los errroes.
+     * @param message mensage a mostar al usuario.
+     * @return map con los datos del error.
+     * **/
+    public Map<String, String> errros(String message) {
+        Map<String, String> error = new HashMap<>();
+		error.put("clave", Constantes.UNEXPECTED_ERROR);
+		error.put("valor", message);
 		return error;
-	}
+
+    }
 
 }
