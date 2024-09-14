@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.google.gson.Gson;
 import com.tecgurus.puntoventa.config.ConstantTest;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
+import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.service.ClienteService;
 
 
@@ -59,7 +60,6 @@ public class ClienteControllerTest {
 	}
 	
 	// test del controlador
-	@SuppressWarnings("null")
 	@Test
 	public void agregaClienteTest() throws Exception {
 		mvc.perform(post(ConstantTest.API_CLIENTE)
@@ -73,7 +73,7 @@ public class ClienteControllerTest {
 	@Test
 	public void listarClientesTest() throws Exception {
 		// vamos a realizar un test a los servicios.
-		List<ClienteDTO> lista = new ArrayList<>();
+		ResponseDTO lista = new ResponseDTO();
 		Mockito.when(clienteService.obtenerClientes()).thenReturn(lista);
 		
 		mvc.perform(get(ConstantTest.API_CLIENTE)
@@ -82,7 +82,6 @@ public class ClienteControllerTest {
 		.andExpect(status().isOk());
 	}
 	
-	@SuppressWarnings("null")
 	@Test
 	public void actualizaClienteTest() throws Exception {
 		cliente.setClave(1);
