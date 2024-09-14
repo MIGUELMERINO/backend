@@ -1,9 +1,10 @@
 package com.tecgurus.puntoventa.service;
 
-import java.util.List;
 
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.UsuarioDTO;
+import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
+
 
 public interface UsuarioService {
 
@@ -11,20 +12,27 @@ public interface UsuarioService {
 	 * Lista de todos los usuarios.
 	 * @return lista de usuarios.
 	 */
-	List<UsuarioDTO> obtenerUsuarios();
+	ResponseDTO obtenerUsuarios();
 	
 	/**
 	 * Lista de usuarios activos.
 	 * @return lista de usuarios.
 	 */
-	List<UsuarioDTO> obtenerUsuariosActivos();
+	ResponseDTO obtenerUsuariosActivos();
 	
+    /**
+     * Metodo para obtener un usuario por su identificador.
+     * @param id identificador del usuario.
+     * @return un Usuario.
+     * **/
+    ResponseDTO usuario(Integer id);
+
 	/**
 	 * Crear una usuario nuevo.
 	 * @param usuario datos del usuario.
 	 * @return un usuario nuevo.
 	 */
-	UsuarioDTO agregaUsuario(UsuarioDTO usuario);
+	ResponseDTO agregaUsuario(UsuarioDTO usuario);
 	
 	/**
 	 * Actualiza un usuario existente.
@@ -32,21 +40,21 @@ public interface UsuarioService {
 	 * @param idUsuario identificador de usuario.
 	 * @return un usuario actualizado.
 	 */
-	UsuarioDTO actualizaUsuario(UsuarioDTO usuario, Integer idUsuario);
+	ResponseDTO actualizaUsuario(UsuarioDTO usuario, Integer idUsuario);
 	
 	/**
 	 * Elimina un usuario
 	 * @param idUsuario identificador de usuario.
 	 * @return respuesta correcta o error.
 	 */
-	ResponseDTO eliminaUsuario(Integer idUsuario);
+	ResponseDeleteDTO eliminaUsuario(Integer idUsuario);
 	
 	/***
 	 * Metodo despliega el detalla de un usuario por su correo.
 	 * @param correo email de usuario.
 	 * @return datos de usuario registrado y activo.
 	 */
-	UsuarioDTO infoUsuario(String correo);
+	ResponseDTO infoUsuario(String correo);
 	
 	
 }

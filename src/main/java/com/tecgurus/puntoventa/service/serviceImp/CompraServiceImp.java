@@ -5,11 +5,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tecgurus.puntoventa.dto.CompraDTO;
-import com.tecgurus.puntoventa.entity.Compra;
+import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.repository.CompraRepository;
 import com.tecgurus.puntoventa.service.CompraService;
+import com.tecgurus.puntoventa.service.ResponseService;
+import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.mapper.CompraMapper;
-import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class CompraServiceImp implements CompraService{
@@ -18,14 +20,17 @@ public class CompraServiceImp implements CompraService{
 	private CompraRepository compraRepository;
 	@Autowired
 	private CompraMapper compraMapper;
+    @Autowired
+    private ResponseService responseService;
 
 	/***
 	 * Lista de compras.
 	 * @return Lista de compras.
 	 */
 	@Override
-	public List<CompraDTO> listarCompras() {
-		return compraRepository.findAll().stream().map(compraMapper::compraDTO).collect(Collectors.toList());
+	public ResponseDTO listarCompras() {
+		List<CompraDTO> compras =  compraRepository.findAll().stream().map(compraMapper::compraDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, compras);
 	}
 
 	/***
@@ -34,22 +39,9 @@ public class CompraServiceImp implements CompraService{
 	 * @return compra registrada.
 	 */
 	@Override
-	public CompraDTO agregaCompra(final CompraDTO compra) {
-		return compraMapper.compraDTO(compraRepository.save(compraMapper.compraEntity(compra)));
-	}
-
-	/**
-	 * metodo de actualiza la compra.
-	 * @param compra datos de la compra.
-	 * @param idCompra identificador de la compra.
-	 * @return compra actualizada.
-	 */
-	@Override
-	public CompraDTO actualizaCompra(final CompraDTO compra, final Integer idCompra) {
-		Compra compras = compraRepository.findById(idCompra)
-				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
-		compras.setTotal(compra.getTotal());	
-		return compraMapper.compraDTO(compraRepository.save(compras));
+	public ResponseDTO agregaCompra(final CompraDTO compra) {
+		CompraDTO compraDTO =  compraMapper.compraDTO(compraRepository.save(compraMapper.compraEntity(compra)));
+        return responseService.response(Constantes.SUCCESS_CREATE, compraDTO);
 	}
 
 	/***
@@ -58,8 +50,9 @@ public class CompraServiceImp implements CompraService{
 	 * @return lista de compras por usuario.
 	 */
 	@Override
-	public List<CompraDTO> busquedaCompraId(final Integer idUsuario) {
-		return compraRepository.busquedaUsuarioId(idUsuario).stream().map(compraMapper::compraDTO).collect(Collectors.toList());
+	public ResponseDTO busquedaCompraId(final Integer idUsuario) {
+		List<CompraDTO> compra =  compraRepository.busquedaUsuarioId(idUsuario).stream().map(compraMapper::compraDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, compra);
 	}
 
 }

@@ -1,13 +1,11 @@
 package com.tecgurus.puntoventa.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +43,7 @@ public class CompraProductoController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "La consulta fue exitosa!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = CompraProductoDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
@@ -53,7 +51,7 @@ public class CompraProductoController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping
-	public List<CompraProductoDTO> listarComprasProductos() {
+	public ResponseDTO listarComprasProductos() {
 		return compraProductoS.listarComprasProductos();
 	}
 	
@@ -66,7 +64,7 @@ public class CompraProductoController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Registro completo.!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = CompraProductoDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
@@ -75,36 +73,33 @@ public class CompraProductoController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PostMapping
-	public CompraProductoDTO agregarCompraProducto(
+	public ResponseDTO agregarCompraProducto(
 			@Parameter(name = "compraProducto")
 			@Valid @RequestBody final CompraProductoDTO compraProducto) {
 		return compraProductoS.agregaCompraProducto(compraProducto);
 	}
 	
 	/***
-	 * 
-	 * @param compraProducto
-	 * @param idCompraProducto
-	 * @return
+	 * Metodo que realiza una busqueda mediante el identificador.
+	 * @param idCompraProducto identificador de la compra producto.
+	 * @return una compra y su producto.
 	 */
-	@Operation(summary = "Servicio que actualiza una compra y su producto.")
+	@Operation(summary = "Servicio que busca una compra y su producto.")
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "La actualizacion fue exitosa!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = CompraProductoDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
-	@PutMapping("/{idCompraProducto}")
-	public CompraProductoDTO actualizarCompraProducto(
-			@Parameter(name = "compraProducto")
-			@Valid @RequestBody final CompraProductoDTO compraProducto, 
-			@Parameter(name = "idCompraProducto", description = "identificador del compra y su producto", example = "1")
+	@GetMapping("/{idCompraProducto}")
+	public ResponseDTO actualizarCompraProducto(
+		    @Parameter(name = "idCompraProducto", description = "identificador del compra y su producto", example = "1")
 			@PathVariable Integer idCompraProducto) {
-		return compraProductoS.actualizarCompraProducto(idCompraProducto, compraProducto);
+		return compraProductoS.listarCompraProducto(idCompraProducto);
 	}
 
 	/***

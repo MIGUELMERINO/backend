@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.UsuarioDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.service.UsuarioService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +50,7 @@ public class UsuarioController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta exitosa!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = UsuarioDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
@@ -57,7 +58,7 @@ public class UsuarioController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping
-	public List<UsuarioDTO> listarUsuarios() {
+	public ResponseDTO listarUsuarios() {
 		return usuarioS.obtenerUsuarios();
 	}
 	
@@ -70,7 +71,7 @@ public class UsuarioController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta exitosa!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = UsuarioDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
@@ -78,7 +79,7 @@ public class UsuarioController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping("/activos")
-	public List<UsuarioDTO> listaUsuariosActivos() {
+	public ResponseDTO listaUsuariosActivos() {
 		return usuarioS.obtenerUsuariosActivos();
 	}
 	
@@ -91,7 +92,7 @@ public class UsuarioController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Registro exitoso!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = UsuarioDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
@@ -100,7 +101,7 @@ public class UsuarioController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PostMapping
-	public UsuarioDTO agregaUsuario(
+	public ResponseDTO agregaUsuario(
 			@Parameter(name = "usuario")
 			@Valid @RequestBody final UsuarioDTO usuario) {
 		return usuarioS.agregaUsuario(usuario);
@@ -116,7 +117,7 @@ public class UsuarioController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "actualizacion exitosa!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = UsuarioDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
@@ -125,7 +126,7 @@ public class UsuarioController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PutMapping("/{idUsuario}")
-	public UsuarioDTO actulizaUsuario(
+	public ResponseDTO actulizaUsuario(
 			@Parameter(name = "usuario")
 			@Valid @RequestBody final UsuarioDTO usuario, 
 			@Parameter(name = "idUsuario", description = "identificador del usuario", example = "1")
@@ -150,7 +151,7 @@ public class UsuarioController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@DeleteMapping("/{idUsuario}")
-	public ResponseDTO eliminaUsuario(
+	public ResponseDeleteDTO eliminaUsuario(
 			@Parameter(name = "idUsuario", description = "identificador del usuario", example = "1")
 			@PathVariable final Integer idUsuario) {
 		return usuarioS.eliminaUsuario(idUsuario);
@@ -174,7 +175,7 @@ public class UsuarioController {
 	})
 	// info?correo=example@example.com.
 	@GetMapping("/info")
-	public UsuarioDTO infoUser(
+	public ResponseDTO infoUser(
 			@Parameter(name = "correo", 
 					   description = "correo del usuario obtenido del token", example = "example@example.com")
 			@RequestParam("correo") final String correo) {

@@ -1,6 +1,5 @@
 package com.tecgurus.puntoventa.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,7 +45,7 @@ public class ClienteController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ClienteDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
@@ -54,16 +53,21 @@ public class ClienteController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
     @GetMapping
-	public List<ClienteDTO> listarClientes() {
+	public ResponseDTO listarClientes() {
 		return clienteS.obtenerClientes();
 	}
 
 
+    /**
+     * Servicio que realiza la busqueda de un cliente mediante su identificador.
+     * @param idCliente identificador del cliente.
+     * @return lista de un cliente mediante su ID.
+     * **/
     @Operation(summary = "Obtener cliente registrado por identificador.")
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ClienteDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
@@ -71,7 +75,7 @@ public class ClienteController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
     @GetMapping("/{idCliente}")
-    List<ClienteDTO> listaClienteID(@PathVariable Integer idCliente) {
+    public ResponseDTO listaClienteID(@PathVariable Integer idCliente) {
         return clienteS.listaClienteId(idCliente);
     }
 	
@@ -84,7 +88,7 @@ public class ClienteController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Registro de cliente exitoso!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ClienteDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
@@ -93,7 +97,7 @@ public class ClienteController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@PostMapping
-	public ClienteDTO agregarCliente(
+	public ResponseDTO agregarCliente(
 			@Parameter(name = "cliente")
 			@Valid @RequestBody final ClienteDTO cliente) {
 		return clienteS.agregaCliente(cliente);
@@ -109,7 +113,7 @@ public class ClienteController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Se actualizo la informacion correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ClienteDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
@@ -158,7 +162,7 @@ public class ClienteController {
 	@ApiResponses({
 		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ClienteDTO.class))}),
+				schema = @Schema(implementation = ResponseDTO.class))}),
 		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
 		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
@@ -167,7 +171,7 @@ public class ClienteController {
 	})
 	// {} lo que se encuentre dentro de una variable tipo cadena debe de ser completo. (cadena completa).
 	@GetMapping("/busqueda/{cliente}")
-	public List<ClienteDTO> buscarClienteNombre(
+	public ResponseDTO buscarClienteNombre(
 			@Parameter(name = "cliente", description = "Nombre completo del cliente", example = "Miguel, Juan Pedro")
 			@PathVariable final String cliente) {
 		return clienteS.buscaClienteNombre(cliente);

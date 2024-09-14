@@ -36,9 +36,10 @@ public class ClienteServiceImp implements ClienteService {
 	 * @return lista de clientes
 	 */
 	@Override
-	public List<ClienteDTO> obtenerClientes() {
+	public ResponseDTO obtenerClientes() {
 		// :: asingacion de metodo en un map.           instancia::metodo
-		return clienteRepository.findAll().stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+		List<ClienteDTO> clientes =  clienteRepository.findAll().stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, clientes);
 	}
 
     /**
@@ -47,8 +48,9 @@ public class ClienteServiceImp implements ClienteService {
      * @return cliente o un arreglo vacio.
      * **/
     @Override
-    public List<ClienteDTO> listaClienteId(final Integer id) {
-        return clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+    public ResponseDTO listaClienteId(final Integer id) {
+        List<ClienteDTO> cliente =  clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, cliente);
     }
 
 	/**
@@ -57,11 +59,11 @@ public class ClienteServiceImp implements ClienteService {
 	 * @return retorna un cliente nuevo.
 	 */
 	@Override
-	public ClienteDTO agregaCliente(final ClienteDTO clienteDTO) {
-		return clienteMapper.clienteDTO(clienteRepository.save(clienteMapper.clienteEntity(clienteDTO)));
+	public ResponseDTO agregaCliente(final ClienteDTO clienteDTO) {
+		ClienteDTO cliente =  clienteMapper.clienteDTO(clienteRepository.save(clienteMapper.clienteEntity(clienteDTO)));
+        return responseService.response(Constantes.SUCCESS_CREATE, cliente);
 	}
 
-	
 	/**
 	 * actualiza un cliente existente.
 	 * @param cliente datos del cliente.
@@ -99,8 +101,9 @@ public class ClienteServiceImp implements ClienteService {
 	 * @return lista de los clientes con el mismo nombre.
 	 */
 	@Override
-	public List<ClienteDTO> buscaClienteNombre(final String nombre) {
-		return clienteRepository.findByNombre(nombre).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+	public ResponseDTO buscaClienteNombre(final String nombre) {
+		List<ClienteDTO> cliente =  clienteRepository.findByNombre(nombre).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, cliente);
 	}
 
 }

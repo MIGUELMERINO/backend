@@ -5,12 +5,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.entity.Producto;
 import com.tecgurus.puntoventa.repository.ProductoRepository;
 import com.tecgurus.puntoventa.service.ProductoService;
+import com.tecgurus.puntoventa.service.ResponseService;
 import com.tecgurus.puntoventa.mapper.ProductoMapper;
 import com.tecgurus.puntoventa.mapper.CategoriaMapper;
 
@@ -25,16 +27,23 @@ public class ProductoServiceImp implements ProductoService {
 	private ProductoRepository productoR;
 	private ProductoMapper productoMapper;
     private CategoriaMapper categoriaMapper;
+    private ResponseService responseService;
 	
 	/**
 	 * lista de productos registrados.
 	 * @return lista de producto registrados.
 	 */
 	@Override
-	public List<ProductoDTO> listarProductos() {
-		return productoR.findAll().stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+	public ResponseDTO listarProductos() {
+        List<ProductoDTO> productos =  productoR.findAll().stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, productos);
 	}
 
+    @Override
+    public ResponseDTO listaProducto(final Integer id) {
+        List<ProductoDTO> producto = productoR.findById(id).stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, producto);
+    }
 
 	/**
 	 * Crear un nuevo producto
@@ -42,8 +51,9 @@ public class ProductoServiceImp implements ProductoService {
 	 * @return retorna un nuevo producto.
 	 */
 	@Override
-	public ProductoDTO agregaProducto(final ProductoDTO producto) {
-		return productoMapper.productoDTO(productoR.save(productoMapper.productoEntity(producto)));
+	public ResponseDTO agregaProducto(final ProductoDTO producto) {
+		ProductoDTO productoDTO =  productoMapper.productoDTO(productoR.save(productoMapper.productoEntity(producto)));
+        return responseService.response(Constantes.SUCCESS_CREATE, productoDTO);
 	}
 
 	/**
@@ -54,17 +64,14 @@ public class ProductoServiceImp implements ProductoService {
 	 * 
 	 */
 	@Override
-	public ProductoDTO actualizaProducto(final ProductoDTO producto, final Integer idProducto) {
+	public ResponseDTO actualizaProducto(final ProductoDTO producto, final Integer idProducto) {
 		Producto p = productoR.findById(idProducto)
 				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
-		if (p != null) {
 			p.setNombre(producto.getNombre());
 			p.setDescripcion(producto.getDescripcion());
 			p.setPrecio(producto.getPrecio());
 			p.setCategoria(categoriaMapper.categoriaEntity(producto.getCategoria()));
-			productoR.save(p);
-		}
-		return producto;
+		return responseService.response(Constantes.SUCCESS_UPDATE, productoR.save(p));
 	}
 
 	/***
@@ -73,16 +80,11 @@ public class ProductoServiceImp implements ProductoService {
 	 * @return eliminacion correcta.
 	 */
 	@Override
-	public ResponseDTO eliminaProducto(final Integer idProducto) {
-		Producto producto = productoR.findById(idProducto)
+	public ResponseDeleteDTO eliminaProducto(final Integer idProducto) {
+		productoR.findById(idProducto)
 				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
-		ResponseDTO dto = new ResponseDTO();
-		if (producto != null) {
-			dto.setClave("200");
-			dto.setValor("Registro eliminado");
-			productoR.findByElimnaProducto(idProducto);
-		}
-		return dto;
+		productoR.findByElimnaProducto(idProducto);
+		return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}
 
 	/***
@@ -91,8 +93,9 @@ public class ProductoServiceImp implements ProductoService {
 	 * @return lista de producto
 	 */
 	@Override
-	public List<ProductoDTO> busquedaProducto(String nombreProducto) {
-		return productoR.busquedaProducto(nombreProducto).stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+	public ResponseDTO busquedaProducto(String nombreProducto) {
+		List<ProductoDTO> producto =  productoR.busquedaProducto(nombreProducto).stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, producto);
 	}
 
 }

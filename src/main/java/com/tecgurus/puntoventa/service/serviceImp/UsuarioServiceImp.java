@@ -5,13 +5,17 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.tecgurus.puntoventa.dto.ResponseDTO;
-import com.tecgurus.puntoventa.dto.UsuarioDTO;
-import com.tecgurus.puntoventa.entity.Usuario;
+import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.repository.UsuarioRepository;
 import com.tecgurus.puntoventa.service.UsuarioService;
+import com.tecgurus.puntoventa.service.ResponseService;
+import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
+import com.tecgurus.puntoventa.dto.UsuarioDTO;
+import com.tecgurus.puntoventa.entity.Usuario;
 import com.tecgurus.puntoventa.mapper.UsuarioMapper;
+import com.tecgurus.puntoventa.mapper.PasswordEncodeMapper;
+
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -22,24 +26,41 @@ public class UsuarioServiceImp implements UsuarioService {
 	private UsuarioRepository usuarioR;
 	@Autowired
 	private UsuarioMapper usuarioMapper;
+    @Autowired
+    private ResponseService responseService;
+    @Autowired
+    private PasswordEncodeMapper passworMapper;
 
 	/***
 	 * Lista de todos los usuarios registrados.
 	 * @return lista de usuarios.
 	 */
 	@Override
-	public List<UsuarioDTO> obtenerUsuarios() {
-		return usuarioR.findAll().stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+	public ResponseDTO obtenerUsuarios() {
+		List<UsuarioDTO> usuarios =  usuarioR.findAll().stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, usuarios);
 	}
+
+    /**
+     * Metodo que obtiene el usuario mediante su identificador.
+     * @param id identificador del usuario.
+     * @return lista de usuario.
+     * **/
+    @Override
+    public ResponseDTO usuario(final Integer id) {
+       List<UsuarioDTO> usuario = usuarioR.findById(id).stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, usuario);
+    }
 
 	/**
 	 * Lista de usuarios con el estatus en 1 (activo).
 	 * @return lista de usuarios.
 	 */
 	@Override
-	public List<UsuarioDTO> obtenerUsuariosActivos() {
+	public ResponseDTO obtenerUsuariosActivos() {
 		final int estatus = 1;
-		return usuarioR.findByActivo(estatus).stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+		List<UsuarioDTO> usuarios = usuarioR.findByActivo(estatus).stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+        return responseService.response(Constantes.SUCCESS_READ, usuarios);
 	}
 
 	/**
@@ -48,8 +69,9 @@ public class UsuarioServiceImp implements UsuarioService {
 	 * @return retorna un usuario nuevo.
 	 */
 	@Override
-	public UsuarioDTO agregaUsuario(final UsuarioDTO usuario) {
-		return usuarioMapper.usuarioDTO(usuarioR.save(usuarioMapper.usuarioEntity(usuario)));
+	public ResponseDTO agregaUsuario(final UsuarioDTO usuario) {
+		UsuarioDTO usuarioDTO = usuarioMapper.usuarioDTO(usuarioR.save(usuarioMapper.usuarioEntity(usuario)));
+        return responseService.response(Constantes.SUCCESS_CREATE, usuarioDTO);
 	}
 
 	/**
@@ -59,14 +81,16 @@ public class UsuarioServiceImp implements UsuarioService {
 	 * @return retorna datos del usuario actualizado.
 	 */
 	@Override
-	public UsuarioDTO actualizaUsuario(final UsuarioDTO usuario, final Integer idUsuario) {
+	public ResponseDTO actualizaUsuario(final UsuarioDTO usuario, final Integer idUsuario) {
 		Usuario user = usuarioR.findById(idUsuario)
-				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
-		if (user != null) {
-            usuario.setClave(user.getIdUsuario());
-			usuarioR.save(usuarioMapper.usuarioEntity(usuario));
-		}
-		return usuario;
+				.orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
+	    user.setEmail(usuario.getCorreo());
+        user.setActivo(usuarioMapper.usuarioEntity(usuario).getActivo());
+        if (usuario.getPassword() != null) {
+            user.setPassword(passworMapper.passwordEncoder(usuario.getPassword()));
+        }
+		return responseService.response(Constantes.SUCCESS_UPDATE,
+        usuarioR.save(user));
 	}
 
 	/**
@@ -76,16 +100,11 @@ public class UsuarioServiceImp implements UsuarioService {
 	 * 
 	 */
 	@Override
-	public ResponseDTO eliminaUsuario(final Integer idUsuario) {
+	public ResponseDeleteDTO eliminaUsuario(final Integer idUsuario) {
 		Usuario user = usuarioR.findById(idUsuario)
-				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
-		ResponseDTO dto = new ResponseDTO();
-		if (user != null) {
-			dto.setClave("200");
-			dto.setValor("Registro eliminado con exito!");
-			usuarioR.delete(user);
-		}
-		return dto;
+				.orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
+    	usuarioR.delete(user);
+        return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}
 
 	/***
@@ -93,9 +112,10 @@ public class UsuarioServiceImp implements UsuarioService {
 	 * @return datos de usuario.
 	 */
 	@Override
-	public UsuarioDTO infoUsuario(final String correo) {
+	public ResponseDTO infoUsuario(final String correo) {
 		Usuario usario = usuarioR.findByEmailPassword(correo);
-		return usuarioMapper.usuarioDTO(usario);
+		return responseService.response(Constantes.SUCCESS_READ, 
+            usuarioMapper.usuarioDTO(usario));
 	}
 
 }

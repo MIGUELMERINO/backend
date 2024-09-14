@@ -1,6 +1,5 @@
 package com.tecgurus.puntoventa.service;
 
-import java.util.List;
 
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
@@ -12,21 +11,21 @@ public interface ClienteService {
 	 * Listar todos los clientes registrados.
 	 * @return lista de clientes.
 	 */
-	List<ClienteDTO> obtenerClientes();
+	ResponseDTO obtenerClientes();
 
     /**
      * Metodo para obtener el cliente mediante su Id.
      * @param id identificador del cliente.
      * @return cliente.
      * **/
-    List<ClienteDTO> listaClienteId(Integer id);
+    ResponseDTO listaClienteId(Integer id);
 
 	/**
 	 * Registro de un cliente nuevo.
 	 * @param cliente datos del cliente.
 	 * @return cliente nuevo.
 	 */
-	ClienteDTO agregaCliente(ClienteDTO cliente);
+	ResponseDTO agregaCliente(ClienteDTO cliente);
 	
 	/***
 	 * Actualiza un cliente existente.
@@ -50,7 +49,7 @@ public interface ClienteService {
 	 * @param nombre del cliente a buscar.
 	 * @return Lista de clientes.
 	 */
-	List<ClienteDTO> buscaClienteNombre(String nombre);
+	ResponseDTO buscaClienteNombre(String nombre);
 	
 	
 }
