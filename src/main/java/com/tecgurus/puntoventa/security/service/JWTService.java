@@ -17,7 +17,6 @@ public class JWTService {
 	private final Algorithm hmac512;
 	private final JWTVerifier verifier;
 	
-	// @Value("${jwt.secret}")
 	private String secret = "$2a$12$x5YdY3x12RJ41yWot9Lt4.LmDjmrAvOWgE3A7Hs5fvKkph2JAb166";
 	
 	

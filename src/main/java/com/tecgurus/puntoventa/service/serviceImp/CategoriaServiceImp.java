@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CategoriaServiceImp implements CategoriaService{
 
-	
+    // injeccion mediante constructor, ocupando lombok.	
 	private CategoriaRepository categoriaR;
 	private CategoriaMapper categoriaMapper;
     private ResponseService responseService;
