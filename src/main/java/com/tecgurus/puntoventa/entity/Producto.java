@@ -11,11 +11,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.ToString;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 
 @Entity
 @Table(name = "producto")
 @ToString
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Producto {
 	
 	@Id

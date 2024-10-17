@@ -9,6 +9,6 @@ public class ConstantTest {
 	public static final String API_PRODUCTO = "/api/producto";
 	public static final String API_USUARIO = "/api/usuario";
 	
-	public static final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJleGFtcGxlQGV4YW1wbGUuY29tIiwiaXNzIjoicHVudG92ZW50YSIsImlhdCI6MTcxODc2OTQxNSwiZXhwIjoxODk4NzY5NDE1fQ.F83KtDz4VwYfnHMD6tlF33B69Ob3SIK9bCTqu-lviJQvL6w6Hw_xRDAxdy2VXO7_XJ9KNJpcerQgGLw7MhdZzQ";
+	public static final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJleGFtcGxlQGV4YW1wbGUuY29tIiwiaXNzIjoicHVudG92ZW50YSIsImlhdCI6MTcyOTE5MTA2NiwiZXhwIjoyMDUxMjAzODY2fQ.WvN-auXsK7gwcg6IBWuAs3aXTc5xVTjfnF42KoFhBLocBSeSLo9aaLugcv5XQb58V2P1sql6bcckeC5Zm_5BwA";
 
 }

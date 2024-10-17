@@ -2,8 +2,12 @@ package com.tecgurus.puntoventa.mapper;
 
 import com.tecgurus.puntoventa.entity.Categoria;
 import com.tecgurus.puntoventa.dto.CategoriaDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.Mapping;
+import org.mapstruct.InheritInverseConfiguration;
 
-
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CategoriaMapper {
     
     /**
@@ -11,6 +15,9 @@ public interface CategoriaMapper {
      * @param categoria datos de la entidad 
      * @return objeto de la clase DTO.
      * **/
+    @Mapping(source = "idCategoria", target = "clave")
+    @Mapping(source = "nombre", target = "nombre")
+    @Mapping(source = "descripcion", target = "descripcion")
     CategoriaDTO categoriaDTO(Categoria categoria);
 
 
@@ -19,6 +26,7 @@ public interface CategoriaMapper {
      * @param categoriaDTO dato del dto.
      * @return objeto de tipo entidad.
      * **/
+    @InheritInverseConfiguration
     Categoria categoriaEntity(CategoriaDTO categoriaDTO);
 }
 
