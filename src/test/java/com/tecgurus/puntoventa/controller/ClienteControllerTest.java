@@ -6,9 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -64,6 +61,7 @@ public class ClienteControllerTest {
 	public void agregaClienteTest() throws Exception {
 		mvc.perform(post(ConstantTest.API_CLIENTE)
 				.content(gson.toJson(cliente))
+                .header("Authorization", ConstantTest.TOKEN)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andDo(print())
 		.andExpect(status().isOk());
@@ -77,7 +75,8 @@ public class ClienteControllerTest {
 		Mockito.when(clienteService.obtenerClientes()).thenReturn(lista);
 		
 		mvc.perform(get(ConstantTest.API_CLIENTE)
-				.accept(MediaType.APPLICATION_JSON_VALUE))
+				.accept(MediaType.APPLICATION_JSON_VALUE)
+        .header("Authorization", ConstantTest.TOKEN))
 		.andDo(print())
 		.andExpect(status().isOk());
 	}
@@ -87,6 +86,7 @@ public class ClienteControllerTest {
 		cliente.setClave(1);
 		mvc.perform(put(ConstantTest.API_CLIENTE + "/1")
 				.content(gson.toJson(cliente))
+                .header("Authorization", ConstantTest.TOKEN)
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 		.andDo(print())
 		.andExpect(status().isOk());
