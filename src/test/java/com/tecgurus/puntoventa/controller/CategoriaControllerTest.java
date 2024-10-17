@@ -53,20 +53,22 @@ public class CategoriaControllerTest {
 	@Test
 	public void listarCategoriaTest() throws Exception {
 		mvc.perform(
-				get(ConstantTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ""))
+				get(ConstantTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	public void nuevaCategoriaTest() throws Exception {
-		mvc.perform(post(ConstantTest.API_CATEGORIA).content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))
+		mvc.perform(post(ConstantTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN)
+            .content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	public void actualizaCategoriaTest() throws Exception {
 		categoria.setClave(1);
-		mvc.perform(put(ConstantTest.API_CATEGORIA + "/1").content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))
+		mvc.perform(put(ConstantTest.API_CATEGORIA + "/1").accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN)
+            .content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
