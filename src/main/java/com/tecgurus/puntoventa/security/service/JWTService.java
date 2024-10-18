@@ -18,8 +18,6 @@ public class JWTService {
 	private final Algorithm hmac512;
 	private final JWTVerifier verifier;
 
-	//private String secret;
-	
 	
 	public JWTService(@Value("${spring.application.secret.key}") String secret) {
 		this.hmac512 = Algorithm.HMAC512(secret);
