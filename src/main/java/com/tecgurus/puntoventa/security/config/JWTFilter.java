@@ -29,7 +29,10 @@ public class JWTFilter extends OncePerRequestFilter {
 	private JWTService jwtService;
 	
 	/**
-	 * 
+	 * Primera capa para validar nuestro token creado y generado por spring security
+     * @param request solicitud http obtendremos los encabezados donde debe venir el token.
+     * @param response respuesta que envia al cliente.
+     * @param filterChain filtado que realiza esta capa para validar token.
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

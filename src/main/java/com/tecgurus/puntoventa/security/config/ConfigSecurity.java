@@ -46,10 +46,10 @@ public class ConfigSecurity {
 	}
 	
 	/***
-	 * 
-	 * @param http
-	 * @return
-	 * @throws Exception
+	 * Metodo que realiza el filtrado y permisos de los usuarios registrados. 
+	 * @param http configuracion de http security.
+	 * @return una session y permisos del back end.
+	 * @throws Exception envia una excepcion por algun error.
 	 */
 	@Bean
 	public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {

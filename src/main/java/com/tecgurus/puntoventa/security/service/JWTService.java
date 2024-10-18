@@ -18,16 +18,19 @@ public class JWTService {
 	private final Algorithm hmac512;
 	private final JWTVerifier verifier;
 
-	
+    /**
+     * Constructor de la clase.
+     * @param secret obtendremos una cadena para validar.
+     * **/	
 	public JWTService(@Value("${spring.application.secret.key}") String secret) {
 		this.hmac512 = Algorithm.HMAC512(secret);
 		this.verifier = JWT.require(hmac512).build();
 	}
 	
 	/***
-	 * 
-	 * @param userDetails
-	 * @return
+	 * Metodo de generacion de un token.
+	 * @param userDetails datos obtenidos.
+	 * @return una cadena que ocuparemos para validar si tiene permisos o no.
 	 */
 	public String gereraToken(final UserDetails userDetails) {
 		final Instant now = Instant.now(); // fecha y hora tal 3123912
@@ -40,9 +43,9 @@ public class JWTService {
 	}
 	
 	/***
-	 * 
-	 * @param token
-	 * @return
+	 * Metodo valida token.
+	 * @param token cadena creada por el metodo anterior cifrada.
+	 * @return retorna una cadena valida.
 	 */
 	public String validaToken(String token) {
 		return verifier.verify(token).getSubject();
