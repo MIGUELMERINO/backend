@@ -47,8 +47,8 @@ public class ProductoControllerTest {
     public void init() {
         categoriaDTO = new CategoriaDTO();
         categoriaDTO.setClave(1);
-	categoriaDTO.setNombre("Prueba");
-	categoriaDTO.setDescripcion("prueba");
+	    categoriaDTO.setNombre("Prueba");
+     	categoriaDTO.setDescripcion("prueba");
 
         
         productoDTO = new ProductoDTO();
