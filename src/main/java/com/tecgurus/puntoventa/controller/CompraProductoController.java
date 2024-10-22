@@ -96,7 +96,7 @@ public class CompraProductoController {
 		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	})
 	@GetMapping("/{idCompraProducto}")
-	public ResponseDTO actualizarCompraProducto(
+	public ResponseDTO compraProductoId(
 		    @Parameter(name = "idCompraProducto", description = "identificador del compra y su producto", example = "1")
 			@PathVariable Integer idCompraProducto) {
 		return compraProductoS.listarCompraProducto(idCompraProducto);
