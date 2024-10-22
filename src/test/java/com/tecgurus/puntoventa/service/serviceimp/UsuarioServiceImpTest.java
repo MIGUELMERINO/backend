@@ -9,7 +9,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.tecgurus.puntoventa.dto.UsuarioDTO;
 import com.tecgurus.puntoventa.repository.UsuarioRepository;
 import com.tecgurus.puntoventa.service.UsuarioService;
-import com.tecgurus.puntoventa.utils.Utilidades;
 
 
 public class UsuarioServiceImpTest {
@@ -17,8 +16,6 @@ public class UsuarioServiceImpTest {
 	
 	@MockBean
 	private UsuarioRepository usuarioRepository;
-	@MockBean
-	private Utilidades utilidad;
 	@Mock
 	private UsuarioService usuarioService;
 	

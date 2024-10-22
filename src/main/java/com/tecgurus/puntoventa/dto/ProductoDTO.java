@@ -27,12 +27,10 @@ public class ProductoDTO implements Serializable{
     @NotBlank(message = Constantes.NOTBLANK)
     private String descripcion;
 	@Schema(description = "precio del producto", example = "80.50")
-    @NotBlank(message = Constantes.NOTBLANK)
     @NotNull(message = Constantes.NOTNULL)
 	private Double precio;
 	@Schema(description = "cantidad", example = "10")
     @NotNull(message = Constantes.NOTNULL)
-    @NotBlank(message = Constantes.NOTBLANK)
 	private Integer stock;
 	@Schema(description = "", example = "")
 	private String sku;

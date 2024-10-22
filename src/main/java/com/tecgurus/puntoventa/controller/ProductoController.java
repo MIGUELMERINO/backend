@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
-import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.service.ProductoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -132,29 +131,6 @@ public class ProductoController {
 		return productoS.actualizaProducto(producto, idProducto);
 	}
 	
-	
-	/***
-	 * Eliminacion de producto.
-	 * @param idProducto identificador del producto
-	 * @return elimina producto.
-	 */
-	@Operation(summary = "Servicio que elimina completamente un producto.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Eliminacion exitosa!",
-				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDeleteDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
-	@DeleteMapping("/{idProducto}")
-	public ResponseDeleteDTO eliminaProducto(
-			@Parameter(name = "idProducto", description = "identificador de un producto", example = "1")
-			@PathVariable final Integer idProducto) {
-		return productoS.eliminaProducto(idProducto);
-	}
 	
 	/***
 	 * Metodo que busca un producto por caracter o su nombre completo.
