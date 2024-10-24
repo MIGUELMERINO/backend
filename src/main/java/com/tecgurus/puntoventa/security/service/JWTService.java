@@ -10,7 +10,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 
 @Service
-
 public class JWTService {
 	
 	private static final Duration JWT_TOKEN_IAT = Duration.ofMinutes(60);

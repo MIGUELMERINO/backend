@@ -17,7 +17,7 @@ import java.sql.Date;
 
 
 
-public class CompraServiceImpTest {
+class CompraServiceImpTest {
    
     @MockBean
     private CompraRepository compraRepository;
@@ -59,18 +59,21 @@ public class CompraServiceImpTest {
 
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listarCompras() {
+    void listaCompraTest() {
         compraService.listarCompras();
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void agregaCompra() {
+    void agregoCompraTest() {
         compraService.agregaCompra(compraDTO);
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void busquedaCompraId() {
+    void busquecoCompraIdTest() {
         compraService.busquedaCompraId(usuarioDTO.getClave());
     }
 }

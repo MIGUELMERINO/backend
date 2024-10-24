@@ -25,7 +25,7 @@ import com.tecgurus.puntoventa.service.CategoriaService;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class CategoriaControllerTest {
+class CategoriaControllerTest {
 
 	// injectar la dependencia de mokito
 	@Autowired
@@ -50,22 +50,25 @@ public class CategoriaControllerTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void listarCategoriaTest() throws Exception {
+	void listarCategoriaTest() throws Exception {
 		mvc.perform(
 				get(ConstantTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void nuevaCategoriaTest() throws Exception {
+	void nuevaCategoriaTest() throws Exception {
 		mvc.perform(post(ConstantTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN)
             .content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void actualizaCategoriaTest() throws Exception {
+	void actualizaCategoriaTest() throws Exception {
 		categoria.setClave(1);
 		mvc.perform(put(ConstantTest.API_CATEGORIA + "/1").accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN)
             .content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))

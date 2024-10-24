@@ -1,8 +1,10 @@
 package com.tecgurus.puntoventa.config;
 
-public class ConstantTest {
+public final class ConstantTest {
 	
-	public final static String API = "/api/v1/";
+    private ConstantTest() {}
+
+	public static final String API = "/api/v1/";
 	public static final String API_CATEGORIA =  API + "categoria";
 	public static final String API_CLIENTE = API + "cliente";
 	public static final String API_COMPRA = API + "compra";

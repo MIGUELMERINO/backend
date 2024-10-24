@@ -1,26 +1,27 @@
-package com.tecgurus.puntoventa.service.serviceImp;
+package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.CompraDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.mapper.CompraMapper;
 import com.tecgurus.puntoventa.repository.CompraRepository;
 import com.tecgurus.puntoventa.service.CompraService;
 import com.tecgurus.puntoventa.service.ResponseService;
-import com.tecgurus.puntoventa.config.Constantes;
-import com.tecgurus.puntoventa.mapper.CompraMapper;
+
+import lombok.AllArgsConstructor;
+
 
 
 @Service
+@AllArgsConstructor
 public class CompraServiceImp implements CompraService{
 	
-	@Autowired
 	private CompraRepository compraRepository;
-	@Autowired
 	private CompraMapper compraMapper;
-    @Autowired
     private ResponseService responseService;
 
 	/***
@@ -29,7 +30,7 @@ public class CompraServiceImp implements CompraService{
 	 */
 	@Override
 	public ResponseDTO listarCompras() {
-		List<CompraDTO> compras =  compraRepository.findAll().stream().map(compraMapper::compraDTO).collect(Collectors.toList());
+		List<CompraDTO> compras =  compraRepository.findAll().stream().map(compraMapper::compraDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, compras);
 	}
 
@@ -51,7 +52,7 @@ public class CompraServiceImp implements CompraService{
 	 */
 	@Override
 	public ResponseDTO busquedaCompraId(final Integer idUsuario) {
-		List<CompraDTO> compra =  compraRepository.busquedaUsuarioId(idUsuario).stream().map(compraMapper::compraDTO).collect(Collectors.toList());
+		List<CompraDTO> compra =  compraRepository.busquedaUsuarioId(idUsuario).stream().map(compraMapper::compraDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, compra);
 	}
 

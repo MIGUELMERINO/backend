@@ -11,7 +11,7 @@ import com.tecgurus.puntoventa.repository.UsuarioRepository;
 import com.tecgurus.puntoventa.service.UsuarioService;
 
 
-public class UsuarioServiceImpTest {
+class UsuarioServiceImpTest {
 	
 	
 	@MockBean
@@ -38,34 +38,40 @@ public class UsuarioServiceImpTest {
 		dto.setRol("ADMIN");
 		MockitoAnnotations.openMocks(this);
 	}
-	
+
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void agregaUsuarioTest() {
+	void agregaUsuarioTest() {
 		usuarioService.agregaUsuario(dto);
 	}
 	
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void actualizaUsuario() {
+	void actualizaUsuarioTest() {
 		usuarioService.actualizaUsuario(dto, dto.getClave());
 	}
 
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void obtenerUsuariosTest() {
+	void obtenerUsuariosTest() {
 		usuarioService.obtenerUsuarios();
 	}
 	
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void obtenerUsuariosActivos() {
+	void obtenerUsuariosActivosTest() {
 		usuarioService.obtenerUsuariosActivos();
 	}
 	
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void eliminaUsuarioTest() {
+	void eliminaUsuarioTest() {
 		usuarioService.eliminaUsuario(dto.getClave());
 	}
 	
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void infoUsuarioTest() {
+	void infoUsuarioTest() {
 		usuarioService.infoUsuario(dto.getCorreo());
 	}
 	

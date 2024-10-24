@@ -3,7 +3,6 @@ package com.tecgurus.puntoventa.security.service;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,10 +13,12 @@ import com.tecgurus.puntoventa.entity.Usuario;
 import com.tecgurus.puntoventa.repository.UsuarioRepository;
 import com.tecgurus.puntoventa.security.model.UserDetailsJWT;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class UserDatailServices implements UserDetailsService {
 
-	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	/**

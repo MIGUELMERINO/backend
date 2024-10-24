@@ -1,4 +1,4 @@
-package com.tecgurus.puntoventa.mapper.mapperImp;
+package com.tecgurus.puntoventa.mapper.mapperimp;
 
 import com.tecgurus.puntoventa.mapper.UsuarioMapper;
 import com.tecgurus.puntoventa.mapper.PasswordEncodeMapper;
@@ -16,6 +16,9 @@ public class UsuarioMapperImp implements UsuarioMapper {
 
     private PasswordEncodeMapper passwordEncoder;
 
+
+    private static final String ACTIVO = "activo";
+    private static final String INACTIVO = "inactivo";
      /**
 	 * Metodo que convierte una entidad en DTO.
 	 * @param usuario datos de usuario.
@@ -30,8 +33,7 @@ public class UsuarioMapperImp implements UsuarioMapper {
 		dto.setNombre(usuario.getNombre());
 		dto.setApellidoP(usuario.getApaterno());
 		dto.setApellidoM(usuario.getAmaterno());
-		dto.setEstatus(usuario.getActivo() == 1 ? "activo"
-						: usuario.getActivo() == 2 ? "cancelado" : "inactivo"); //  operador ternario.
+		dto.setEstatus(estatusUsuario(usuario.getActivo()));
 		dto.setRol(usuario.getPerfil());
 		
 		return dto;
@@ -45,6 +47,7 @@ public class UsuarioMapperImp implements UsuarioMapper {
 	 */
     @Override
     public Usuario usuarioEntity(UsuarioDTO usuarioDTO) {
+        
     	Usuario usuario = new Usuario();
 		usuario.setIdUsuario(usuarioDTO.getClave());
 		usuario.setEmail(usuarioDTO.getCorreo());
@@ -52,13 +55,29 @@ public class UsuarioMapperImp implements UsuarioMapper {
 		usuario.setNombre(usuarioDTO.getNombre());
 		usuario.setApaterno(usuarioDTO.getApellidoP());
 		usuario.setAmaterno(usuarioDTO.getApellidoM());
-		usuario.setActivo(usuarioDTO.getEstatus().compareToIgnoreCase("activo") == 0 ? 1 
-						: usuarioDTO.getEstatus().compareToIgnoreCase("cancelado") == 0 ? 2 : 0
-				);
+		usuario.setActivo(statusUsuario(usuarioDTO.getEstatus()));
 		usuario.setPerfil(usuarioDTO.getRol());
 		
 		return usuario;
 
+    }
+
+    /**
+     * Metodo para validar el estatus.
+     * @param estatus valor del estatus del usuario.
+     * @return un estatus activo o inactivo.
+     * **/
+    public String estatusUsuario(final Integer estatus) {
+        return estatus == 1 ? ACTIVO : INACTIVO;
+    }
+
+    /**
+     * Metodo para validar el estaus envia desde el request.
+     * @param estatus el estatus activo, cancelado o inactivo.
+     * @return un valor 1 (activo), 2 (cancelado), 0 (inactivo).
+     * **/
+    public Integer statusUsuario(final String estatus) {
+        return estatus.compareToIgnoreCase(ACTIVO) == 0 ? 1 : 0;
     }
 
 }

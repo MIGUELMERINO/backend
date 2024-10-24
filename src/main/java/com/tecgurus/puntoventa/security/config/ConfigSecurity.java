@@ -1,6 +1,7 @@
 package com.tecgurus.puntoventa.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,15 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import com.tecgurus.puntoventa.config.Constantes;
+
+import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableMethodSecurity // hablitar la configuracion de spring security
+@AllArgsConstructor
 public class ConfigSecurity {
 
-	@Autowired
 	private JWTFilter jwtFilter;
 	
 	/***
@@ -60,7 +61,7 @@ public class ConfigSecurity {
 						.permitAll()
 						.requestMatchers(Constantes.API + "authentication").permitAll()
 						.anyRequest().authenticated()) // los demas servicios o path debe de llevar el filter y la autorizacion
-				.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
 	}

@@ -1,34 +1,28 @@
-package com.tecgurus.puntoventa.service.serviceImp;
+package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tecgurus.puntoventa.config.Constantes;
-import com.tecgurus.puntoventa.repository.UsuarioRepository;
-import com.tecgurus.puntoventa.service.UsuarioService;
-import com.tecgurus.puntoventa.service.ResponseService;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.dto.UsuarioDTO;
 import com.tecgurus.puntoventa.entity.Usuario;
-import com.tecgurus.puntoventa.mapper.UsuarioMapper;
 import com.tecgurus.puntoventa.mapper.PasswordEncodeMapper;
-
+import com.tecgurus.puntoventa.mapper.UsuarioMapper;
+import com.tecgurus.puntoventa.repository.UsuarioRepository;
+import com.tecgurus.puntoventa.service.ResponseService;
+import com.tecgurus.puntoventa.service.UsuarioService;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class UsuarioServiceImp implements UsuarioService {
 	
-	@Autowired
 	private UsuarioRepository usuarioR;
-	@Autowired
 	private UsuarioMapper usuarioMapper;
-    @Autowired
     private ResponseService responseService;
-    @Autowired
     private PasswordEncodeMapper passworMapper;
 
 	/***
@@ -37,7 +31,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	 */
 	@Override
 	public ResponseDTO obtenerUsuarios() {
-		List<UsuarioDTO> usuarios =  usuarioR.findAll().stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+		List<UsuarioDTO> usuarios =  usuarioR.findAll().stream().map(usuarioMapper::usuarioDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, usuarios);
 	}
 
@@ -48,7 +42,7 @@ public class UsuarioServiceImp implements UsuarioService {
      * **/
     @Override
     public ResponseDTO usuario(final Integer id) {
-       List<UsuarioDTO> usuario = usuarioR.findById(id).stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+       List<UsuarioDTO> usuario = usuarioR.findById(id).stream().map(usuarioMapper::usuarioDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, usuario);
     }
 
@@ -59,7 +53,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public ResponseDTO obtenerUsuariosActivos() {
 		final int estatus = 1;
-		List<UsuarioDTO> usuarios = usuarioR.findByActivo(estatus).stream().map(usuarioMapper::usuarioDTO).collect(Collectors.toList());
+		List<UsuarioDTO> usuarios = usuarioR.findByActivo(estatus).stream().map(usuarioMapper::usuarioDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, usuarios);
 	}
 

@@ -1,7 +1,6 @@
-package com.tecgurus.puntoventa.service.serviceImp;
+package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.CompraProductoDTO;
@@ -26,14 +25,14 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	 */
 	@Override
 	public ResponseDTO listarComprasProductos() {
-		List<CompraProductoDTO> compras =  compraPRepository.findAll().stream().map(compraProductoM::compraProductoDTO).collect(Collectors.toList());
+		List<CompraProductoDTO> compras =  compraPRepository.findAll().stream().map(compraProductoM::compraProductoDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, compras);
 	}
 
 
     @Override
     public ResponseDTO listarCompraProducto(final Integer id) {
-        List<CompraProductoDTO> compra = compraPRepository.findById(id).stream().map(compraProductoM::compraProductoDTO).collect(Collectors.toList());
+        List<CompraProductoDTO> compra = compraPRepository.findById(id).stream().map(compraProductoM::compraProductoDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, compra);
     }
 
@@ -56,7 +55,7 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	@Override
 	public ResponseDTO busquedaCompra(final Integer idCompra) {
 		List<CompraProductoDTO> producto = compraPRepository.busquedaCompra(idCompra)
-				.stream().map(compraProductoM::compraProductoDTO).collect(Collectors.toList());		
+				.stream().map(compraProductoM::compraProductoDTO).toList();		
 		return responseService.response(Constantes.SUCCESS_READ, producto);
 	}
 

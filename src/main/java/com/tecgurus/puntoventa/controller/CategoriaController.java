@@ -1,7 +1,6 @@
 package com.tecgurus.puntoventa.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,22 +20,22 @@ import com.tecgurus.puntoventa.service.CategoriaService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @Tag(name = "Categoria", 
 	 description = "Servicio que maneja el catalogo de categorias")
 @RestController
 @RequestMapping(Constantes.API + "categoria")
 @CrossOrigin
+@AllArgsConstructor
 public class CategoriaController {
 	
 	
-	@Autowired
 	private CategoriaService categoriaS;
 	
 	/***
@@ -45,16 +44,14 @@ public class CategoriaController {
 	 * @return lista.
 	 */
 	@Operation(summary = "Servicio que muestras una lista de categorias.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizado correctamente",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizado correctamente",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
     @GetMapping // lectura de datos (read)
 	public ResponseDTO listarCategoria() {
 		return categoriaS.listaCategorias();
@@ -66,16 +63,14 @@ public class CategoriaController {
      * @return Lista de un valor por su identificador o reterno vacio.
      * **/
 	@Operation(summary = "Servicio que muestras una categoria.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizado correctamente",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizado correctamente",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
     @GetMapping("/{idCategoria}")
     public ResponseDTO listaCategoriaID(@PathVariable final Integer idCategoria) {
         return categoriaS.listaCategoriaId(idCategoria);
@@ -88,17 +83,15 @@ public class CategoriaController {
 	 * @return una categoria registrada.
 	 */
 	@Operation(summary = "Servicio crea una nueva categoria.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Categoria registrada correctamente",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Categoria registrada correctamente",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
     @PostMapping // escritura de datos (create).
 	public ResponseDTO nuevaCategoria(
 			@Parameter(name = "categoria", 
@@ -114,17 +107,15 @@ public class CategoriaController {
 	 * @return retorna una categoria actualizada.
 	 */
 	@Operation(summary = "Servicio que actualiza una categoria.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Se actualizo la categoria correctamente",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Se actualizo la categoria correctamente",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.OK, description = "Categoria actualizada exitosamente!", content = @Content),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.OK, description = "Categoria actualizada exitosamente!", content = @Content)
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@PutMapping("/{idCategoria}")
 	public ResponseDTO actualizaCategoria(
 			@Parameter(name = "categoria", description = "datos para actualizar una categoria")
@@ -140,16 +131,14 @@ public class CategoriaController {
 	 * @return respuesta.
 	 */
 	@Operation(summary = "Servicio que elimina complemetamente una categoria.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Se elimina correctamente la categoria.",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Se elimina correctamente la categoria.",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation =  ResponseDeleteDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation =  ResponseDeleteDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@DeleteMapping("/{idCategoria}")
 	public ResponseDeleteDTO eliminaCategoria(
 			@Parameter(name = "idCategoria", description = "identificador de la categoria", example = "1")
@@ -163,16 +152,14 @@ public class CategoriaController {
 	 * @return Lista de categorias encontradas por el nombre.
 	 */
 	@Operation(summary = "Servico que realiza una busqueda de una categoria por nombre.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta de la busqueda realizada correctamente",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta de la busqueda realizada correctamente",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping("/busqueda")
 	public ResponseDTO busqueda(
 			@Parameter(name = "nombre", description = "Nombre de la categoria", example = "Refresco")
@@ -180,6 +167,4 @@ public class CategoriaController {
 		return categoriaS.busquedaCategoria(nombre);
 	}
 	
-	
-
 }

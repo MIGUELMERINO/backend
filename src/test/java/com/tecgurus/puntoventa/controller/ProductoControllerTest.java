@@ -28,7 +28,7 @@ import com.tecgurus.puntoventa.dto.ProductoDTO;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class ProductoControllerTest {
+class ProductoControllerTest {
     
     @Autowired
     private MockMvc mvc;
@@ -65,9 +65,10 @@ public class ProductoControllerTest {
         MockitoAnnotations.openMocks(this);
 
     }
-
+	
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listaProductos() throws Exception {
+    void listaProductos() throws Exception {
         mvc.perform(get(ConstantTest.API_PRODUCTO)
            .accept(MediaType.APPLICATION_JSON_VALUE)
             .header("Authorization", ConstantTest.TOKEN)
@@ -76,8 +77,9 @@ public class ProductoControllerTest {
             .andExpect(status().isOk());
     }
 
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void listaProducto() throws Exception {
+    void listaProducto() throws Exception {
         final int id = 1;
         mvc.perform(get(ConstantTest.API_PRODUCTO + "/" + id)
            .accept(MediaType.APPLICATION_JSON_VALUE)
@@ -86,8 +88,9 @@ public class ProductoControllerTest {
             .andExpect(status().isOk());
     }
 
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void agregaProducto() throws Exception {
+    void agregaProducto() throws Exception {
        mvc.perform(post(ConstantTest.API_PRODUCTO)
           .content(gson.toJson(productoDTO))
             .header("Authorization", ConstantTest.TOKEN)
@@ -96,8 +99,9 @@ public class ProductoControllerTest {
             .andExpect(status().isOk());
     }
 
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void actualizarproducto() throws Exception {
+    void actualizarproducto() throws Exception {
         final int id = 1;
         mvc.perform(put(ConstantTest.API_PRODUCTO + "/" + id)
            .content(gson.toJson(productoDTO))
@@ -107,9 +111,10 @@ public class ProductoControllerTest {
          .andExpect(status().isOk());
     }
 
-    
+
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void busqueda() throws Exception {
+    void busqueda() throws Exception {
         final String producto = "producto test";
         mvc.perform(get(ConstantTest.API_PRODUCTO + "/busqueda?nombre=" + producto)
            .accept(MediaType.APPLICATION_JSON_VALUE)

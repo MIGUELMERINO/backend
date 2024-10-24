@@ -18,7 +18,7 @@ import com.tecgurus.puntoventa.dto.CategoriaDTO;
 
 import java.sql.Date;
 
-public class CompraProductoServiceImpTest {
+class CompraProductoServiceImpTest {
    
 
     @MockBean
@@ -89,23 +89,27 @@ public class CompraProductoServiceImpTest {
     }
 
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listarComprasProductos() {
+    void listaCompraProductoTest() {
         compraProductoService.listarComprasProductos();
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listarCompraProducto() {
+    void listoCompraProductoTest() {
         compraProductoService.listarCompraProducto(compraProductoDTO.getClave());
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void agregaCompraProducto() {
+    void agregoCompraProductoTest() {
         compraProductoService.agregaCompraProducto(compraProductoDTO);
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void busquedaCompra() {
+    void busquecoCompraTest() {
         compraProductoService.busquedaCompra(compraDTO.getClave());
     }
     

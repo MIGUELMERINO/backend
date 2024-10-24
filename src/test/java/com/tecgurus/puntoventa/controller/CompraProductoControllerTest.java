@@ -34,7 +34,7 @@ import java.sql.Date;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class CompraProductoControllerTest {
+class CompraProductoControllerTest {
     
     @Autowired
     private MockMvc mvc;
@@ -106,8 +106,9 @@ public class CompraProductoControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void listarComprasProducto() throws Exception {
+    void listarComprasProducto() throws Exception {
         mvc.perform(get(ConstantTest.API_COMPRA_PRODUCTO)
         .accept(MediaType.APPLICATION_JSON_VALUE)
             .header("Authorization", ConstantTest.TOKEN))
@@ -115,8 +116,9 @@ public class CompraProductoControllerTest {
         .andExpect(status().isOk());
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void agregaCompraProducto() throws Exception {
+    void agregaCompraProducto() throws Exception {
         mvc.perform(post(ConstantTest.API_COMPRA_PRODUCTO)
             .content(gson.toJson(compraProductoDTO))
             .header("Authorization", ConstantTest.TOKEN)
@@ -125,8 +127,9 @@ public class CompraProductoControllerTest {
             .andExpect(status().isOk());
     }
 
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void compraProductoId() throws Exception {
+    void compraProductoId() throws Exception {
         final int id = 1;
         mvc.perform(get(ConstantTest.API_COMPRA_PRODUCTO + "/" + id)
             .accept(MediaType.APPLICATION_JSON_VALUE)
@@ -135,8 +138,9 @@ public class CompraProductoControllerTest {
             .andExpect(status().isOk());
     }
 
+	@SuppressWarnings("squid:S2699")
     @Test
-    public void busquedaCompra() throws Exception {    
+    void busquedaCompra() throws Exception {    
         final int id = 1;
         mvc.perform(get(ConstantTest.API_COMPRA_PRODUCTO + "/compra/" + id)
            .accept(MediaType.APPLICATION_JSON_VALUE)
