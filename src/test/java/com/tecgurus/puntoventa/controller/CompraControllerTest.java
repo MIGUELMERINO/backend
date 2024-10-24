@@ -31,7 +31,7 @@ import com.tecgurus.puntoventa.dto.ClienteDTO;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class CompraControllerTest {
+class CompraControllerTest {
     
     @Autowired
     private MockMvc mvc;
@@ -76,8 +76,9 @@ public class CompraControllerTest {
         MockitoAnnotations.openMocks(this);
    }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listaCompras() throws Exception {
+    void listaCompras() throws Exception {
         mvc.perform(get(ConstantTest.API_COMPRA)
         .accept(MediaType.APPLICATION_JSON_VALUE)
         .header("Authorization", ConstantTest.TOKEN))
@@ -85,8 +86,9 @@ public class CompraControllerTest {
         .andExpect(status().isOk());
     }
 
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void agregarCompra() throws Exception {
+    void agregarCompra() throws Exception {
        mvc.perform(post(ConstantTest.API_COMPRA)
         .content(gson.toJson(compraDTO))
             .header("Authorization", ConstantTest.TOKEN)
@@ -96,8 +98,9 @@ public class CompraControllerTest {
         .andExpect(status().isOk()); 
     }
 
+   	@SuppressWarnings("squid:S2699")
     @Test
-    public void busquedaCompra() throws Exception {
+    void busquedaCompra() throws Exception {
         final int id = 1;
         mvc.perform(get(ConstantTest.API_COMPRA+"/usuario/"+id)
             .accept(MediaType.APPLICATION_JSON_VALUE)

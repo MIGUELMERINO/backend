@@ -13,7 +13,7 @@ import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
 
 
-public class ProductoServiceImpTest {
+class ProductoServiceImpTest {
     
     @MockBean
     private ProductoRepository productoRepository;
@@ -44,28 +44,34 @@ public class ProductoServiceImpTest {
        MockitoAnnotations.openMocks(this);
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listarProductos() {
+    void listarProductosTest() {
         productoService.listarProductos();
     }
     
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listaProducto() {
+    void listaProductoTest() {
         productoService.listaProducto(productoDTO.getClave());
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void agregaProducto() {
+    void agregaProductoTest() {
         productoService.agregaProducto(productoDTO);
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void actualizaProducto() {
+    void actualizaProductoTest() {
         productoService.actualizaProducto(productoDTO, productoDTO.getClave());
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void busquedaProducto() {
+    void busquedaProductoTest() {
         productoService.busquedaProducto(productoDTO.getNombre());
     }
+
 }

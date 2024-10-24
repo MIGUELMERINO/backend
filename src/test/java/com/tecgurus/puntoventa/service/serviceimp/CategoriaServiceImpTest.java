@@ -6,14 +6,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.tecgurus.puntoventa.dto.CategoriaDTO;
 // seccion de importacion de recursos del proyecto
 import com.tecgurus.puntoventa.repository.CategoriaRepository;
 import com.tecgurus.puntoventa.service.CategoriaService;
-import com.tecgurus.puntoventa.dto.CategoriaDTO;
 
 
 
-public class CategoriaServiceImpTest {
+class CategoriaServiceImpTest {
    
     @MockBean
     private CategoriaRepository categoriaRepository;
@@ -32,29 +32,33 @@ public class CategoriaServiceImpTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listaCategorias() {
+    void listarCategoriasTest() {
         categoriaService.listaCategorias();
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void listaCategoriaId() {
+    void listoCategoriaIdTest() {
         categoriaService.listaCategoriaId(categoria.getClave());
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void agregaCategoria() {
+    void agregoCategoriaTest() {
         categoriaService.agregaCategoria(categoria);
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void actualizarCategoria() {
+    void actualizoCategoriaTest() {
         categoriaService.actualizarCategoria(categoria, categoria.getClave());
     }
 
+    @SuppressWarnings("squid:S2699")
     @Test
-    public void busquedaCategoria() {
+    void busquecoCategoriaTest() {
         categoriaService.busquedaCategoria(categoria.getNombre());
     }
 

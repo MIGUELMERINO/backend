@@ -1,7 +1,6 @@
 package com.tecgurus.puntoventa.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,21 +19,21 @@ import com.tecgurus.puntoventa.service.ClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @Tag(name = "Cliente", 
 	 description = "Servicio que maneja a los clientes")
 @RestController
 @RequestMapping(Constantes.API + "cliente")
 @CrossOrigin
+@AllArgsConstructor 
 public class ClienteController {
 	
-	@Autowired
 	private ClienteService clienteS; // cltService, service, clienteService.
 	
 	/***
@@ -42,16 +41,14 @@ public class ClienteController {
 	 * @return lista de clientes.
 	 */
 	@Operation(summary = "Lista de los clientes registrados.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
     @GetMapping
 	public ResponseDTO listarClientes() {
 		return clienteS.obtenerClientes();
@@ -64,16 +61,14 @@ public class ClienteController {
      * @return lista de un cliente mediante su ID.
      * **/
     @Operation(summary = "Obtener cliente registrado por identificador.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
     @GetMapping("/{idCliente}")
     public ResponseDTO listaClienteID(@PathVariable Integer idCliente) {
         return clienteS.listaClienteId(idCliente);
@@ -85,17 +80,16 @@ public class ClienteController {
 	 * @return un cliente nuevo.
 	 */
 	@Operation(summary = "Servicio que registra un nuevo cliente.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Registro de cliente exitoso!",
+	
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Registro de cliente exitoso!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.OK, description = Constantes.OK_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@PostMapping
 	public ResponseDTO agregarCliente(
 			@Parameter(name = "cliente")
@@ -110,16 +104,14 @@ public class ClienteController {
 	 * @return retorna un cliente actualizado.
 	 */
 	@Operation(summary = "Servicio que actualiza un cliente.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Se actualizo la informacion correctamente!",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Se actualizo la informacion correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@PutMapping("/{idCliente}")
 	public ResponseDTO actualizaCliente(
 			@Parameter(name = "cliente")
@@ -135,16 +127,14 @@ public class ClienteController {
 	 * @return respuesta ok o error.
 	 */
 	@Operation(summary = "Servicio que eliminar un cliente definitivamente.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@DeleteMapping("/{idCliente}")
 	public ResponseDeleteDTO eliminaCliente(
 			@Parameter(name = "idCliente", description = "identificador del cliente.", example = "1")
@@ -154,21 +144,20 @@ public class ClienteController {
 	}
 	
 	/***
-	 * 
-	 * @param cliente
-	 * @return
+	 * Metodo que busca al cliente mediante su nombre;
+	 * @param cliente nombre del cliente.
+	 * @return liste clientes o cliente
 	 */
 	@Operation(summary = "Busqueda de cliente por nombre completo.")
-	@ApiResponses({
-		@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
+	
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consulta realizada correctamente!",
 				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseDTO.class))}),
-		@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content),
-		@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	})
+				schema = @Schema(implementation = ResponseDTO.class))})
+	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	// {} lo que se encuentre dentro de una variable tipo cadena debe de ser completo. (cadena completa).
 	@GetMapping("/busqueda/{cliente}")
 	public ResponseDTO buscarClienteNombre(

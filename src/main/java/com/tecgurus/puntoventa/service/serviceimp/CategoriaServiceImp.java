@@ -1,20 +1,17 @@
-package com.tecgurus.puntoventa.service.serviceImp;
+package com.tecgurus.puntoventa.service.serviceimp;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
-
-import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.config.Constantes;
+import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.entity.Categoria;
+import com.tecgurus.puntoventa.mapper.CategoriaMapper;
 import com.tecgurus.puntoventa.repository.CategoriaRepository;
 import com.tecgurus.puntoventa.service.CategoriaService;
 import com.tecgurus.puntoventa.service.ResponseService;
-import com.tecgurus.puntoventa.mapper.CategoriaMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -36,14 +33,14 @@ public class CategoriaServiceImp implements CategoriaService{
 	 */
 	@Override
 	public ResponseDTO listaCategorias() {
-        List<CategoriaDTO> categoria =  categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
+        List<CategoriaDTO> categoria =  categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ,categoria);
 	}
 
 
     @Override
     public ResponseDTO listaCategoriaId(final Integer id) {
-        List<CategoriaDTO> categoria  = categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
+        List<CategoriaDTO> categoria  = categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, categoria);
     }
 
@@ -81,9 +78,8 @@ public class CategoriaServiceImp implements CategoriaService{
 	 */
 	@Override
 	public ResponseDeleteDTO eliminarCategoria(final Integer idCategoria) {
-		categoriaR.findById(idCategoria).orElseThrow( () -> new EntityNotFoundException(Constantes.ERROR));
+		categoriaR.findById(idCategoria);
 		categoriaR.deleteById(idCategoria);
-		// delete from categoria where idcategoria = 1;
 		return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}
 
@@ -95,7 +91,7 @@ public class CategoriaServiceImp implements CategoriaService{
 	@Override
 	public ResponseDTO busquedaCategoria(final String nombre) {
 		// stream forma de recoleccion de datos, map (mapeo de datos), genera una coleccion de datos y se el asignan a una lista.
-		 List<CategoriaDTO> categoria =  categoriaR.findByNombre(nombre).stream().map(categoriaMapper::categoriaDTO).collect(Collectors.toList());
+		 List<CategoriaDTO> categoria =  categoriaR.findByNombre(nombre).stream().map(categoriaMapper::categoriaDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, categoria);
 	}
 

@@ -16,9 +16,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import com.google.gson.Gson;
 import com.tecgurus.puntoventa.config.ConstantTest;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
@@ -28,7 +27,8 @@ import com.tecgurus.puntoventa.service.ClienteService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class ClienteControllerTest {
+@ActiveProfiles("test")
+class ClienteControllerTest {
 	
 	@Autowired
 	private MockMvc mvc;
@@ -44,7 +44,6 @@ public class ClienteControllerTest {
 	
 	private ClienteDTO cliente;
 	
-	@SuppressWarnings("deprecation")
 	@BeforeEach
 	public void setup() {
 		cliente = new ClienteDTO();
@@ -52,13 +51,13 @@ public class ClienteControllerTest {
 		cliente.setApellidoP("Perez");
 		cliente.setApellidoM("Lion");
 		cliente.setRfc("MMdjskd99sda01");
-		MockitoAnnotations.initMocks(this);
-		this.mvc = MockMvcBuilders.standaloneSetup(clienteController).build();
+		MockitoAnnotations.openMocks(this);
 	}
 	
-	// test del controlador
+	@SuppressWarnings("squid:S2699")
+    // test del controlador
 	@Test
-	public void agregaClienteTest() throws Exception {
+	void agregaClienteTest() throws Exception {
 		mvc.perform(post(ConstantTest.API_CLIENTE)
 				.content(gson.toJson(cliente))
                 .header("Authorization", ConstantTest.TOKEN)
@@ -67,9 +66,9 @@ public class ClienteControllerTest {
 		.andExpect(status().isOk());
 	}
 	
-	
+	@SuppressWarnings("squid:S2699")
 	@Test
-	public void listarClientesTest() throws Exception {
+	void listarClientesTest() throws Exception {
 		// vamos a realizar un test a los servicios.
 		ResponseDTO lista = new ResponseDTO();
 		Mockito.when(clienteService.obtenerClientes()).thenReturn(lista);
@@ -81,8 +80,9 @@ public class ClienteControllerTest {
 		.andExpect(status().isOk());
 	}
 	
+    @SuppressWarnings("squid:S2699")
 	@Test
-	public void actualizaClienteTest() throws Exception {
+	void actualizaClienteTest() throws Exception {
 		cliente.setClave(1);
 		mvc.perform(put(ConstantTest.API_CLIENTE + "/1")
 				.content(gson.toJson(cliente))

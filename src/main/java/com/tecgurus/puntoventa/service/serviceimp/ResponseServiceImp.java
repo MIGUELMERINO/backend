@@ -1,4 +1,4 @@
-package com.tecgurus.puntoventa.service.serviceImp;
+package com.tecgurus.puntoventa.service.serviceimp;
 
 import com.tecgurus.puntoventa.service.ResponseService;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;

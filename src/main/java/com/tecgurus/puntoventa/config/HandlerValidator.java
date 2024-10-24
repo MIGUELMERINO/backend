@@ -7,7 +7,9 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import jakarta.persistence.EntityNotFoundException;
+import lombok.NonNull;
 
 
 // escuchar un evento dentro del servicio o aplicativo.
@@ -18,10 +20,14 @@ public class HandlerValidator {
 	 * Metodo para visualizar mejor los error del spring-boot-valid
 	 * @param ex exception complemente del la clase.
 	 * @return una mejor visualizacion del error o errores.
-	 */
+	 */ 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> methodArgumentNotFoundException(final MethodArgumentNotValidException ex) {
-        return errros(ex.getFieldError().getDefaultMessage());
+	public Map<String, String> methodArgumentNotFoundException(@NonNull final MethodArgumentNotValidException ex) {
+       if (ex.getFieldError().getDefaultMessage().isEmpty()) {
+            return new HashMap<>();
+       } else {
+            return errros(ex.getFieldError().getDefaultMessage());
+        }
     }
 	
 	/**

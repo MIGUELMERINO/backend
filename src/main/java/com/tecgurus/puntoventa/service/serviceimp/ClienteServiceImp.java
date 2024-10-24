@@ -1,11 +1,9 @@
-package com.tecgurus.puntoventa.service.serviceImp;
+package com.tecgurus.puntoventa.service.serviceimp;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
@@ -27,7 +25,6 @@ public class ClienteServiceImp implements ClienteService {
 	
 	private ClienteRepository clienteRepository;
 	private ClienteMapper clienteMapper;
-    @Autowired
     private ResponseService responseService;
 
 
@@ -38,7 +35,7 @@ public class ClienteServiceImp implements ClienteService {
 	@Override
 	public ResponseDTO obtenerClientes() {
 		// :: asingacion de metodo en un map.           instancia::metodo
-		List<ClienteDTO> clientes =  clienteRepository.findAll().stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+		List<ClienteDTO> clientes =  clienteRepository.findAll().stream().map(clienteMapper::clienteDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, clientes);
 	}
 
@@ -49,7 +46,7 @@ public class ClienteServiceImp implements ClienteService {
      * **/
     @Override
     public ResponseDTO listaClienteId(final Integer id) {
-        List<ClienteDTO> cliente =  clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+        List<ClienteDTO> cliente =  clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, cliente);
     }
 
@@ -89,8 +86,7 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public ResponseDeleteDTO eliminarCliente(final Integer idCliente) {
-		clienteRepository.findById(idCliente)
-				.orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
+		clienteRepository.findById(idCliente);
 		clienteRepository.deleteById(idCliente);
         return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}
@@ -102,7 +98,8 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public ResponseDTO buscaClienteNombre(final String nombre) {
-		List<ClienteDTO> cliente =  clienteRepository.findByNombre(nombre).stream().map(clienteMapper::clienteDTO).collect(Collectors.toList());
+		List<ClienteDTO> cliente =  clienteRepository.findByNombre(nombre)
+        .stream().map(clienteMapper::clienteDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, cliente);
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.google.gson.Gson;
@@ -23,7 +24,8 @@ import com.tecgurus.puntoventa.service.UsuarioService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class UsuarioControllerTest {
+@ActiveProfiles("test")
+class UsuarioControllerTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -54,28 +56,32 @@ public class UsuarioControllerTest {
 
 	}
 
+	@SuppressWarnings("squid:S2699")
 	@Test
-	public void listarUsuariosTest() throws Exception {
+	void listarUsuariosTest() throws Exception {
 		this.mvc.perform(
 				get(ConstantTest.API_USUARIO).accept(MediaType.APPLICATION_JSON).header("Authorization", this.token))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
+   	@SuppressWarnings("squid:S2699")
 	@Test
-	public void listaUsuariosActivosTest() throws Exception {
+	void listaUsuariosActivosTest() throws Exception {
 		this.mvc.perform(get(ConstantTest.API_USUARIO + "/activos").accept(MediaType.APPLICATION_JSON)
 				.header("Authorization", this.token)).andDo(print()).andExpect(status().isOk());
 	}
 
+   	@SuppressWarnings("squid:S2699")
 	@Test
-	public void agregaUsuarioTest() throws Exception {
+	void agregaUsuarioTest() throws Exception {
 		this.mvc.perform(post(ConstantTest.API_USUARIO).contentType(MediaType.APPLICATION_JSON)
 				.content(gson.toJson(this.dto)).header("Authorization", this.token)).andDo(print())
 				.andExpect(status().isOk());
 	}
 
+   	@SuppressWarnings("squid:S2699")
 	@Test
-	public void actualizaUsuarioTest() throws Exception {
+	void actualizaUsuarioTest() throws Exception {
 		this.mvc.perform(put(ConstantTest.API_USUARIO + "/1").contentType(MediaType.APPLICATION_JSON)
 				.content(gson.toJson(this.dto)).header("Authorization", this.token)).andDo(print())
 				.andExpect(status().isOk());

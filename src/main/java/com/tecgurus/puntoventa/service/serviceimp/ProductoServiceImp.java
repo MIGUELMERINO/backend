@@ -1,9 +1,6 @@
-package com.tecgurus.puntoventa.service.serviceImp;
+package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
@@ -23,7 +20,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProductoServiceImp implements ProductoService {
 
-	@Autowired
 	private ProductoRepository productoR;
 	private ProductoMapper productoMapper;
     private CategoriaMapper categoriaMapper;
@@ -35,13 +31,13 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDTO listarProductos() {
-        List<ProductoDTO> productos =  productoR.findAll().stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+        List<ProductoDTO> productos =  productoR.findAll().stream().map(productoMapper::productoDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, productos);
 	}
 
     @Override
     public ResponseDTO listaProducto(final Integer id) {
-        List<ProductoDTO> producto = productoR.findById(id).stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+        List<ProductoDTO> producto = productoR.findById(id).stream().map(productoMapper::productoDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, producto);
     }
 
@@ -81,8 +77,7 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDeleteDTO eliminaProducto(final Integer idProducto) {
-		productoR.findById(idProducto)
-				.orElseThrow(() -> new EntityNotFoundException("Registro no encontrado"));
+		productoR.findById(idProducto);
 		productoR.findByElimnaProducto(idProducto);
 		return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}
@@ -94,7 +89,8 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDTO busquedaProducto(String nombreProducto) {
-		List<ProductoDTO> producto =  productoR.busquedaProducto(nombreProducto).stream().map(productoMapper::productoDTO).collect(Collectors.toList());
+		List<ProductoDTO> producto =  productoR.busquedaProducto(nombreProducto)
+        .stream().map(productoMapper::productoDTO).toList();
         return responseService.response(Constantes.SUCCESS_READ, producto);
 	}
 
