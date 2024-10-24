@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 import com.google.gson.Gson;
 import java.sql.Date;
 
-import com.tecgurus.puntoventa.config.ConstantTest;
+import com.tecgurus.puntoventa.config.ConstantesTest;
 
 // importamos los valores las clases y servicios para realizar test.
 import com.tecgurus.puntoventa.service.CompraService;
@@ -79,9 +79,9 @@ class CompraControllerTest {
     @SuppressWarnings("squid:S2699")
     @Test
     void listaCompras() throws Exception {
-        mvc.perform(get(ConstantTest.API_COMPRA)
+        mvc.perform(get(ConstantesTest.API_COMPRA)
         .accept(MediaType.APPLICATION_JSON_VALUE)
-        .header("Authorization", ConstantTest.TOKEN))
+        .header("Authorization", ConstantesTest.TOKEN))
         .andDo(print())
         .andExpect(status().isOk());
     }
@@ -89,9 +89,9 @@ class CompraControllerTest {
    	@SuppressWarnings("squid:S2699")
     @Test
     void agregarCompra() throws Exception {
-       mvc.perform(post(ConstantTest.API_COMPRA)
+       mvc.perform(post(ConstantesTest.API_COMPRA)
         .content(gson.toJson(compraDTO))
-            .header("Authorization", ConstantTest.TOKEN)
+            .header("Authorization", ConstantesTest.TOKEN)
             .contentType(MediaType.APPLICATION_JSON)
         )
         .andDo(print())
@@ -102,9 +102,9 @@ class CompraControllerTest {
     @Test
     void busquedaCompra() throws Exception {
         final int id = 1;
-        mvc.perform(get(ConstantTest.API_COMPRA+"/usuario/"+id)
+        mvc.perform(get(ConstantesTest.API_COMPRA+"/usuario/"+id)
             .accept(MediaType.APPLICATION_JSON_VALUE)
-            .header("Authorization", ConstantTest.TOKEN)
+            .header("Authorization", ConstantesTest.TOKEN)
         )
         .andDo(print())
         .andExpect(status().isOk());        

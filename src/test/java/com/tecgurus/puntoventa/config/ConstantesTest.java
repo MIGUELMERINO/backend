@@ -1,8 +1,9 @@
 package com.tecgurus.puntoventa.config;
 
-public final class ConstantTest {
+@java.lang.SuppressWarnings("squid:S2187")
+public final class ConstantesTest {
 	
-    private ConstantTest() {}
+    private ConstantesTest() {}
 
 	public static final String API = "/api/v1/";
 	public static final String API_CATEGORIA =  API + "categoria";

@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import com.google.gson.Gson;
 
-import com.tecgurus.puntoventa.config.ConstantTest;
+import com.tecgurus.puntoventa.config.ConstantesTest;
 import com.tecgurus.puntoventa.service.ProductoService;
 import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
@@ -69,9 +69,9 @@ class ProductoControllerTest {
     @SuppressWarnings("squid:S2699")
     @Test
     void listaProductos() throws Exception {
-        mvc.perform(get(ConstantTest.API_PRODUCTO)
+        mvc.perform(get(ConstantesTest.API_PRODUCTO)
            .accept(MediaType.APPLICATION_JSON_VALUE)
-            .header("Authorization", ConstantTest.TOKEN)
+            .header("Authorization", ConstantesTest.TOKEN)
         )
             .andDo(print())
             .andExpect(status().isOk());
@@ -81,9 +81,9 @@ class ProductoControllerTest {
     @Test
     void listaProducto() throws Exception {
         final int id = 1;
-        mvc.perform(get(ConstantTest.API_PRODUCTO + "/" + id)
+        mvc.perform(get(ConstantesTest.API_PRODUCTO + "/" + id)
            .accept(MediaType.APPLICATION_JSON_VALUE)
-            .header("Authorization", ConstantTest.TOKEN)
+            .header("Authorization", ConstantesTest.TOKEN)
         ).andDo(print())
             .andExpect(status().isOk());
     }
@@ -91,9 +91,9 @@ class ProductoControllerTest {
    	@SuppressWarnings("squid:S2699")
     @Test
     void agregaProducto() throws Exception {
-       mvc.perform(post(ConstantTest.API_PRODUCTO)
+       mvc.perform(post(ConstantesTest.API_PRODUCTO)
           .content(gson.toJson(productoDTO))
-            .header("Authorization", ConstantTest.TOKEN)
+            .header("Authorization", ConstantesTest.TOKEN)
             .contentType(MediaType.APPLICATION_JSON)
         ).andDo(print())
             .andExpect(status().isOk());
@@ -103,9 +103,9 @@ class ProductoControllerTest {
     @Test
     void actualizarproducto() throws Exception {
         final int id = 1;
-        mvc.perform(put(ConstantTest.API_PRODUCTO + "/" + id)
+        mvc.perform(put(ConstantesTest.API_PRODUCTO + "/" + id)
            .content(gson.toJson(productoDTO))
-           .header("Authorization", ConstantTest.TOKEN)
+           .header("Authorization", ConstantesTest.TOKEN)
            .contentType(MediaType.APPLICATION_JSON)
         ).andDo(print())
          .andExpect(status().isOk());
@@ -116,9 +116,9 @@ class ProductoControllerTest {
     @Test
     void busqueda() throws Exception {
         final String producto = "producto test";
-        mvc.perform(get(ConstantTest.API_PRODUCTO + "/busqueda?nombre=" + producto)
+        mvc.perform(get(ConstantesTest.API_PRODUCTO + "/busqueda?nombre=" + producto)
            .accept(MediaType.APPLICATION_JSON_VALUE)
-           .header("Authorization", ConstantTest.TOKEN)
+           .header("Authorization", ConstantesTest.TOKEN)
         ).andDo(print())
         .andExpect(status().isOk());
     }

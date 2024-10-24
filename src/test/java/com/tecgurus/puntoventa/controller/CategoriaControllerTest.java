@@ -16,7 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import com.google.gson.Gson;
-import com.tecgurus.puntoventa.config.ConstantTest;
+import com.tecgurus.puntoventa.config.ConstantesTest;
 import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.service.CategoriaService;
 
@@ -54,14 +54,14 @@ class CategoriaControllerTest {
 	@Test
 	void listarCategoriaTest() throws Exception {
 		mvc.perform(
-				get(ConstantTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN))
+				get(ConstantesTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantesTest.TOKEN))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
     @SuppressWarnings("squid:S2699")
 	@Test
 	void nuevaCategoriaTest() throws Exception {
-		mvc.perform(post(ConstantTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN)
+		mvc.perform(post(ConstantesTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantesTest.TOKEN)
             .content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk());
 	}
@@ -70,7 +70,7 @@ class CategoriaControllerTest {
 	@Test
 	void actualizaCategoriaTest() throws Exception {
 		categoria.setClave(1);
-		mvc.perform(put(ConstantTest.API_CATEGORIA + "/1").accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantTest.TOKEN)
+		mvc.perform(put(ConstantesTest.API_CATEGORIA + "/1").accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", ConstantesTest.TOKEN)
             .content(gson.toJson(categoria)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk());
 	}

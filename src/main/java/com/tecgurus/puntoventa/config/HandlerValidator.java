@@ -20,13 +20,14 @@ public class HandlerValidator {
 	 * Metodo para visualizar mejor los error del spring-boot-valid
 	 * @param ex exception complemente del la clase.
 	 * @return una mejor visualizacion del error o errores.
-	 */ 
+	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> methodArgumentNotFoundException(@NonNull final MethodArgumentNotValidException ex) {
-       if (ex.getFieldError().getDefaultMessage().isEmpty()) {
+        try {
+            String mensage = ex.getFieldError().getDefaultMessage();
+            return errros(validaNull(mensage));
+        } catch(NullPointerException e) {
             return new HashMap<>();
-       } else {
-            return errros(ex.getFieldError().getDefaultMessage());
         }
     }
 	
@@ -62,5 +63,21 @@ public class HandlerValidator {
 		return error;
 
     }
+
+
+    /**
+     * Metodo para validar el valor en null.
+     * @param message envio del valor.
+     * @return mensaje para aviso al usuario.
+     * **/
+    public String validaNull(final String message) {
+        String mensaje = "Error Interno del servicio";
+        if (message != null && !message.isEmpty()) {
+            mensaje = message;
+            return mensaje;
+        }
+        return mensaje;
+    }
+
 
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.tecgurus.puntoventa.entity.Usuario;
 import com.tecgurus.puntoventa.repository.UsuarioRepository;
-import com.tecgurus.puntoventa.security.model.UserDetailsJWT;
+import com.tecgurus.puntoventa.security.model.UserDJWT;
 
 import lombok.AllArgsConstructor;
 
@@ -31,7 +31,7 @@ public class UserDatailServices implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepository.findByEmailPassword(email);
 		List<SimpleGrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority(usuario.getPerfil()));
-		return new UserDetailsJWT(usuario.getIdUsuario(), email, usuario.getPassword(), roles);
+		return new UserDJWT(usuario.getIdUsuario(), email, usuario.getPassword(), roles);
 	}
 
 }
