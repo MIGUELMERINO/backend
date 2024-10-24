@@ -19,7 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import com.google.gson.Gson;
-import com.tecgurus.puntoventa.config.ConstantTest;
+import com.tecgurus.puntoventa.config.ConstantesTest;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.service.ClienteService;
@@ -58,9 +58,9 @@ class ClienteControllerTest {
     // test del controlador
 	@Test
 	void agregaClienteTest() throws Exception {
-		mvc.perform(post(ConstantTest.API_CLIENTE)
+		mvc.perform(post(ConstantesTest.API_CLIENTE)
 				.content(gson.toJson(cliente))
-                .header("Authorization", ConstantTest.TOKEN)
+                .header("Authorization", ConstantesTest.TOKEN)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andDo(print())
 		.andExpect(status().isOk());
@@ -73,9 +73,9 @@ class ClienteControllerTest {
 		ResponseDTO lista = new ResponseDTO();
 		Mockito.when(clienteService.obtenerClientes()).thenReturn(lista);
 		
-		mvc.perform(get(ConstantTest.API_CLIENTE)
+		mvc.perform(get(ConstantesTest.API_CLIENTE)
 				.accept(MediaType.APPLICATION_JSON_VALUE)
-        .header("Authorization", ConstantTest.TOKEN))
+        .header("Authorization", ConstantesTest.TOKEN))
 		.andDo(print())
 		.andExpect(status().isOk());
 	}
@@ -84,9 +84,9 @@ class ClienteControllerTest {
 	@Test
 	void actualizaClienteTest() throws Exception {
 		cliente.setClave(1);
-		mvc.perform(put(ConstantTest.API_CLIENTE + "/1")
+		mvc.perform(put(ConstantesTest.API_CLIENTE + "/1")
 				.content(gson.toJson(cliente))
-                .header("Authorization", ConstantTest.TOKEN)
+                .header("Authorization", ConstantesTest.TOKEN)
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 		.andDo(print())
 		.andExpect(status().isOk());

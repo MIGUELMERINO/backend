@@ -19,7 +19,7 @@ import org.mockito.MockitoAnnotations;
 import com.google.gson.Gson;
 
 
-import com.tecgurus.puntoventa.config.ConstantTest;
+import com.tecgurus.puntoventa.config.ConstantesTest;
 import com.tecgurus.puntoventa.service.CompraProductoService;
 import com.tecgurus.puntoventa.dto.CompraProductoDTO;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
@@ -109,9 +109,9 @@ class CompraProductoControllerTest {
    	@SuppressWarnings("squid:S2699")
     @Test
     void listarComprasProducto() throws Exception {
-        mvc.perform(get(ConstantTest.API_COMPRA_PRODUCTO)
+        mvc.perform(get(ConstantesTest.API_COMPRA_PRODUCTO)
         .accept(MediaType.APPLICATION_JSON_VALUE)
-            .header("Authorization", ConstantTest.TOKEN))
+            .header("Authorization", ConstantesTest.TOKEN))
         .andDo(print())
         .andExpect(status().isOk());
     }
@@ -119,9 +119,9 @@ class CompraProductoControllerTest {
     @SuppressWarnings("squid:S2699")
     @Test
     void agregaCompraProducto() throws Exception {
-        mvc.perform(post(ConstantTest.API_COMPRA_PRODUCTO)
+        mvc.perform(post(ConstantesTest.API_COMPRA_PRODUCTO)
             .content(gson.toJson(compraProductoDTO))
-            .header("Authorization", ConstantTest.TOKEN)
+            .header("Authorization", ConstantesTest.TOKEN)
             .contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk());
@@ -131,9 +131,9 @@ class CompraProductoControllerTest {
     @Test
     void compraProductoId() throws Exception {
         final int id = 1;
-        mvc.perform(get(ConstantTest.API_COMPRA_PRODUCTO + "/" + id)
+        mvc.perform(get(ConstantesTest.API_COMPRA_PRODUCTO + "/" + id)
             .accept(MediaType.APPLICATION_JSON_VALUE)
-            .header("Authorization", ConstantTest.TOKEN))
+            .header("Authorization", ConstantesTest.TOKEN))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -142,9 +142,9 @@ class CompraProductoControllerTest {
     @Test
     void busquedaCompra() throws Exception {    
         final int id = 1;
-        mvc.perform(get(ConstantTest.API_COMPRA_PRODUCTO + "/compra/" + id)
+        mvc.perform(get(ConstantesTest.API_COMPRA_PRODUCTO + "/compra/" + id)
            .accept(MediaType.APPLICATION_JSON_VALUE)
-            .header("Authorization", ConstantTest.TOKEN))
+            .header("Authorization", ConstantesTest.TOKEN))
             .andDo(print())
             .andExpect(status().isOk());
     }
