@@ -12,14 +12,15 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class CategoriaDTO implements Serializable{
+public class CategoriaDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	// no contiene anotacion que sea de una entidad
 	// no esta la capa entidad serializable (esto es opcional).
 	@Schema(description = "identificador de la categoria", example = "1")
-	private Integer clave; // no esta colocando una variable descriptiva como id o idCategoria el usuario de front end no sabra su significado.
+	private Integer clave; // no esta colocando una variable descriptiva como id o idCategoria el usuario
+							// de front end no sabra su significado.
 	@NotNull(message = Constantes.NOTNULL)
 	@NotBlank(message = Constantes.NOTBLANK)
 	@Schema(description = "nombre de la categoria", example = "Refresco")
@@ -27,5 +28,5 @@ public class CategoriaDTO implements Serializable{
 	@NotBlank(message = Constantes.DESCRIPTION)
 	@Schema(description = "descripcion de la categoria", example = "refresco de x marca de 600 ml desechable.")
 	private String descripcion;
-	
+
 }

@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 
 public class Compra {
-	
+
 	@Id
 	@Column(name = "idcompra")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Compra {
 	private Double total;
 	private Date fecha;
 	@ManyToOne
-	@JoinColumn(name ="idusuario")
+	@JoinColumn(name = "idusuario")
 	private Usuario usuario;
 	@ManyToOne
 	@JoinColumn(name = "idcliente")

@@ -23,39 +23,34 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
-@Tag(name = "Autentificador", 
-	 description = "autentificacion de usuarios registrados.")
+@Tag(name = "Autentificador", description = "autentificacion de usuarios registrados.")
 @RestController
 @RequestMapping(Constantes.API + "authentication")
 @CrossOrigin
 @AllArgsConstructor
 public class AutenticacionController {
-	
+
 	private UserDatailServices userDetailS;
 	private JWTService serviceJTW;
 	private AuthenticationManager authenticationManager;
 
-    @Operation(summary = "Servicio autentificador para el usuario.")
-	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consultas realizada correctamente!",
-				content = { @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ResponseJWTDTO.class))})
+	@Operation(summary = "Servicio autentificador para el usuario.")
+	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consultas realizada correctamente!", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseJWTDTO.class)) })
 	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
-	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description  = Constantes.UNAUTHORIZED_V, content = @Content)
+	@ApiResponse(responseCode = Constantes.UNAUTHORIZED, description = Constantes.UNAUTHORIZED_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@PostMapping
 	public ResponseJWTDTO authentication(@RequestBody @Valid final RequestDTO request) {
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				request.getCorreo(), request.getPassword()));
+		authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getPassword()));
 		final UserDetails userDetails = userDetailS.loadUserByUsername(request.getCorreo());
 		final String token = serviceJTW.gereraToken(userDetails);
 		ResponseJWTDTO dto = new ResponseJWTDTO();
 		dto.setToken(token);
 		return dto;
 	}
-	
-	
-	
 
 }

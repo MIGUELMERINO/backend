@@ -23,8 +23,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 
 public class CompraProducto {
-            // compra_producto, si no se configura la anotacion @Table.
-	
+	// compra_producto, si no se configura la anotacion @Table.
+
 	@Id
 	@Column(name = "idcompraproducto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,5 @@ public class CompraProducto {
 	private Producto producto;
 	private Integer cantidad;
 	private Double costo;
-	
-	
-	
+
 }

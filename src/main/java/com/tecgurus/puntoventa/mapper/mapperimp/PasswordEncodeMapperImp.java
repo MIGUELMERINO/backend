@@ -7,16 +7,14 @@ import com.tecgurus.puntoventa.mapper.PasswordEncodeMapper;
 
 import lombok.AllArgsConstructor;
 
-@Service 
+@Service
 @AllArgsConstructor
 public class PasswordEncodeMapperImp implements PasswordEncodeMapper {
-    
-    private PasswordEncoder passEncoder;
 
-    @Override
-    public String passwordEncoder(final String password) {
-        return passEncoder.encode(password);
-    }
+	private PasswordEncoder passEncoder;
+
+	@Override
+	public String passwordEncoder(final String password) {
+		return passEncoder.encode(password);
+	}
 }
-
-

@@ -15,7 +15,7 @@ import lombok.Setter;
 public class CompraProductoDTO implements Serializable {
 
 	private static final long serialVersionUID = 7514983181684196198L;
-	
+
 	@Schema(description = "Identificador de compra producto", example = "1")
 	private Integer clave;
 	@Schema(description = "datos de la compra")

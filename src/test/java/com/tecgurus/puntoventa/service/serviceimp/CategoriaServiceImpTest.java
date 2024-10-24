@@ -11,55 +11,53 @@ import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.repository.CategoriaRepository;
 import com.tecgurus.puntoventa.service.CategoriaService;
 
-
-
 class CategoriaServiceImpTest {
-   
-    @MockBean
-    private CategoriaRepository categoriaRepository;
 
-    @Mock
-    private CategoriaService categoriaService;
+	@MockBean
+	private CategoriaRepository categoriaRepository;
 
-    private CategoriaDTO categoria;	
+	@Mock
+	private CategoriaService categoriaService;
 
-    @BeforeEach
+	private CategoriaDTO categoria;
+
+	@BeforeEach
 	public void setup() {
 		categoria = new CategoriaDTO();
-        categoria.setClave(1);
+		categoria.setClave(1);
 		categoria.setNombre("Prueba");
 		categoria.setDescripcion("prueba");
 		MockitoAnnotations.openMocks(this);
 	}
 
-    @SuppressWarnings("squid:S2699")
-    @Test
-    void listarCategoriasTest() {
-        categoriaService.listaCategorias();
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void listarCategoriasTest() {
+		categoriaService.listaCategorias();
+	}
 
-    @SuppressWarnings("squid:S2699")
-    @Test
-    void listoCategoriaIdTest() {
-        categoriaService.listaCategoriaId(categoria.getClave());
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void listoCategoriaIdTest() {
+		categoriaService.listaCategoriaId(categoria.getClave());
+	}
 
-    @SuppressWarnings("squid:S2699")
-    @Test
-    void agregoCategoriaTest() {
-        categoriaService.agregaCategoria(categoria);
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void agregoCategoriaTest() {
+		categoriaService.agregaCategoria(categoria);
+	}
 
-    @SuppressWarnings("squid:S2699")
-    @Test
-    void actualizoCategoriaTest() {
-        categoriaService.actualizarCategoria(categoria, categoria.getClave());
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void actualizoCategoriaTest() {
+		categoriaService.actualizarCategoria(categoria, categoria.getClave());
+	}
 
-    @SuppressWarnings("squid:S2699")
-    @Test
-    void busquecoCategoriaTest() {
-        categoriaService.busquedaCategoria(categoria.getNombre());
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void busquecoCategoriaTest() {
+		categoriaService.busquedaCategoria(categoria.getNombre());
+	}
 
 }

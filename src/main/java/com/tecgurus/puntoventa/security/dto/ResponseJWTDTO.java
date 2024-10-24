@@ -10,7 +10,7 @@ import lombok.Setter;
 public class ResponseJWTDTO implements Serializable {
 
 	private static final long serialVersionUID = -4049781598435609298L;
-    @Schema(description = "token", example = "eyJhbGciOiJIUzUxMiIsInR5cCI6I....")	
+	@Schema(description = "token", example = "eyJhbGciOiJIUzUxMiIsInR5cCI6I....")
 	private String token;
 
 }

@@ -20,9 +20,10 @@ import lombok.AllArgsConstructor;
 public class UserDatailServices implements UserDetailsService {
 
 	private UsuarioRepository usuarioRepository;
-	
+
 	/**
 	 * Metodo que sobreescribe el loadUserByUsername (carga de usuario)
+	 * 
 	 * @param email correo electronico del usuario a logearse
 	 * @throws UsernameNotFoundException excepcion si no encuentra un usuario
 	 * @return un usuario valido.

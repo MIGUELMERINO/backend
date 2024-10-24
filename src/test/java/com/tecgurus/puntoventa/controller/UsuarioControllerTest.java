@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -35,6 +36,9 @@ class UsuarioControllerTest {
 	@Autowired
 	private Gson gson;
 
+	@Value("${spring.application.secret.key.test}")
+	private String TOKEN;
+
 	@MockBean
 	private UsuarioService usuarioService;
 
@@ -51,7 +55,7 @@ class UsuarioControllerTest {
 		dto.setApellidoM("Lopez");
 		dto.setEstatus("activo");
 		dto.setRol("ADMIN");
-		this.token = ConstantesTest.TOKEN;
+		this.token = TOKEN;
 		MockitoAnnotations.openMocks(this);
 
 	}
@@ -64,14 +68,14 @@ class UsuarioControllerTest {
 				.andDo(print()).andExpect(status().isOk());
 	}
 
-   	@SuppressWarnings("squid:S2699")
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void listaUsuariosActivosTest() throws Exception {
 		this.mvc.perform(get(ConstantesTest.API_USUARIO + "/activos").accept(MediaType.APPLICATION_JSON)
 				.header("Authorization", this.token)).andDo(print()).andExpect(status().isOk());
 	}
 
-   	@SuppressWarnings("squid:S2699")
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void agregaUsuarioTest() throws Exception {
 		this.mvc.perform(post(ConstantesTest.API_USUARIO).contentType(MediaType.APPLICATION_JSON)
@@ -79,14 +83,12 @@ class UsuarioControllerTest {
 				.andExpect(status().isOk());
 	}
 
-   	@SuppressWarnings("squid:S2699")
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void actualizaUsuarioTest() throws Exception {
 		this.mvc.perform(put(ConstantesTest.API_USUARIO + "/1").contentType(MediaType.APPLICATION_JSON)
 				.content(gson.toJson(this.dto)).header("Authorization", this.token)).andDo(print())
 				.andExpect(status().isOk());
 	}
-
-
 
 }

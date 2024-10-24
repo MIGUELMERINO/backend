@@ -33,7 +33,5 @@ public class Cliente {
 	private String amaterno;
 	@Column(length = 30)
 	private String rfc;
-	
-	
-	
+
 }

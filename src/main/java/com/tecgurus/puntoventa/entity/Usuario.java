@@ -9,14 +9,12 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity
 @Table(name = "usuario")
 @Setter
 @Getter
 public class Usuario {
-	
-	
+
 	@Id
 	@Column(name = "idusuario")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +32,5 @@ public class Usuario {
 	private Integer activo; // 0 inactivo, 1 activo, 2 cancelado estatos logicos de los datos.
 	@Column(length = 50)
 	private String perfil;
-    
+
 }
