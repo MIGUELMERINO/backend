@@ -38,7 +38,7 @@ class ClienteControllerTest {
 	private ClienteController clienteController;
 
 	@Value("${spring.application.secret.key.test}")
-	private String TOKEN;
+	private String token;
 
 	@MockBean
 	private ClienteService clienteService;
@@ -62,7 +62,7 @@ class ClienteControllerTest {
 	// test del controlador
 	@Test
 	void agregaClienteTest() throws Exception {
-		mvc.perform(post(ConstantesTest.API_CLIENTE).content(gson.toJson(cliente)).header("Authorization", TOKEN)
+		mvc.perform(post(ConstantesTest.API_CLIENTE).content(gson.toJson(cliente)).header("Authorization", token)
 				.contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -74,7 +74,7 @@ class ClienteControllerTest {
 		Mockito.when(clienteService.obtenerClientes()).thenReturn(lista);
 
 		mvc.perform(
-				get(ConstantesTest.API_CLIENTE).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", TOKEN))
+				get(ConstantesTest.API_CLIENTE).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", token))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
@@ -82,7 +82,7 @@ class ClienteControllerTest {
 	@Test
 	void actualizaClienteTest() throws Exception {
 		cliente.setClave(1);
-		mvc.perform(put(ConstantesTest.API_CLIENTE + "/1").content(gson.toJson(cliente)).header("Authorization", TOKEN)
+		mvc.perform(put(ConstantesTest.API_CLIENTE + "/1").content(gson.toJson(cliente)).header("Authorization", token)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 

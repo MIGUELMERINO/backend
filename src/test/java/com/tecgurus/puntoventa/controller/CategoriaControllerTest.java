@@ -33,7 +33,7 @@ class CategoriaControllerTest {
 	private MockMvc mvc;
 
 	@Value("${spring.application.secret.key.test}")
-	private String TOKEN;
+	private String token;
 
 	// crear una instancia para que mokito crear la instancia.
 	@Mock
@@ -59,14 +59,14 @@ class CategoriaControllerTest {
 	@Test
 	void listarCategoriaTest() throws Exception {
 		mvc.perform(get(ConstantesTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization",
-				TOKEN)).andDo(print()).andExpect(status().isOk());
+				token)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void nuevaCategoriaTest() throws Exception {
 		mvc.perform(post(ConstantesTest.API_CATEGORIA).accept(MediaType.APPLICATION_JSON_VALUE)
-				.header("Authorization", TOKEN).content(gson.toJson(categoria))
+				.header("Authorization", token).content(gson.toJson(categoria))
 				.contentType(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -75,7 +75,7 @@ class CategoriaControllerTest {
 	void actualizaCategoriaTest() throws Exception {
 		categoria.setClave(1);
 		mvc.perform(put(ConstantesTest.API_CATEGORIA + "/1").accept(MediaType.APPLICATION_JSON_VALUE)
-				.header("Authorization", TOKEN).content(gson.toJson(categoria))
+				.header("Authorization", token).content(gson.toJson(categoria))
 				.contentType(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 

@@ -39,7 +39,7 @@ class ProductoControllerTest {
 	private Gson gson;
 
 	@Value("${spring.application.secret.key.test}")
-	private String TOKEN;
+	private String token;
 
 	private CategoriaDTO categoriaDTO;
 	private ProductoDTO productoDTO;
@@ -69,7 +69,7 @@ class ProductoControllerTest {
 	@Test
 	void listaProductos() throws Exception {
 		mvc.perform(get(ConstantesTest.API_PRODUCTO).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization",
-				TOKEN)).andDo(print()).andExpect(status().isOk());
+				token)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@SuppressWarnings("squid:S2699")
@@ -77,13 +77,13 @@ class ProductoControllerTest {
 	void listaProducto() throws Exception {
 		final int id = 1;
 		mvc.perform(get(ConstantesTest.API_PRODUCTO + "/" + id).accept(MediaType.APPLICATION_JSON_VALUE)
-				.header("Authorization", TOKEN)).andDo(print()).andExpect(status().isOk());
+				.header("Authorization", token)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void agregaProducto() throws Exception {
-		mvc.perform(post(ConstantesTest.API_PRODUCTO).content(gson.toJson(productoDTO)).header("Authorization", TOKEN)
+		mvc.perform(post(ConstantesTest.API_PRODUCTO).content(gson.toJson(productoDTO)).header("Authorization", token)
 				.contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -92,7 +92,7 @@ class ProductoControllerTest {
 	void actualizarproducto() throws Exception {
 		final int id = 1;
 		mvc.perform(put(ConstantesTest.API_PRODUCTO + "/" + id).content(gson.toJson(productoDTO))
-				.header("Authorization", TOKEN).contentType(MediaType.APPLICATION_JSON)).andDo(print())
+				.header("Authorization", token).contentType(MediaType.APPLICATION_JSON)).andDo(print())
 				.andExpect(status().isOk());
 	}
 
@@ -101,7 +101,7 @@ class ProductoControllerTest {
 	void busqueda() throws Exception {
 		final String producto = "producto test";
 		mvc.perform(get(ConstantesTest.API_PRODUCTO + "/busqueda?nombre=" + producto)
-				.accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", TOKEN)).andDo(print())
+				.accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", token)).andDo(print())
 				.andExpect(status().isOk());
 	}
 

@@ -41,7 +41,7 @@ class CompraProductoControllerTest {
 	private CompraProductoService compraProductoService;
 
 	@Value("${spring.application.secret.key.test}")
-	private String TOKEN;
+	private String token;
 
 	@Autowired
 	private Gson gson;
@@ -108,14 +108,14 @@ class CompraProductoControllerTest {
 	@Test
 	void listarComprasProducto() throws Exception {
 		mvc.perform(get(ConstantesTest.API_COMPRA_PRODUCTO).accept(MediaType.APPLICATION_JSON_VALUE)
-				.header("Authorization", TOKEN)).andDo(print()).andExpect(status().isOk());
+				.header("Authorization", token)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void agregaCompraProducto() throws Exception {
 		mvc.perform(post(ConstantesTest.API_COMPRA_PRODUCTO).content(gson.toJson(compraProductoDTO))
-				.header("Authorization", TOKEN).contentType(MediaType.APPLICATION_JSON)).andDo(print())
+				.header("Authorization", token).contentType(MediaType.APPLICATION_JSON)).andDo(print())
 				.andExpect(status().isOk());
 	}
 
@@ -124,7 +124,7 @@ class CompraProductoControllerTest {
 	void compraProductoId() throws Exception {
 		final int id = 1;
 		mvc.perform(get(ConstantesTest.API_COMPRA_PRODUCTO + "/" + id).accept(MediaType.APPLICATION_JSON_VALUE)
-				.header("Authorization", TOKEN)).andDo(print()).andExpect(status().isOk());
+				.header("Authorization", token)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@SuppressWarnings("squid:S2699")
@@ -132,7 +132,7 @@ class CompraProductoControllerTest {
 	void busquedaCompra() throws Exception {
 		final int id = 1;
 		mvc.perform(get(ConstantesTest.API_COMPRA_PRODUCTO + "/compra/" + id).accept(MediaType.APPLICATION_JSON_VALUE)
-				.header("Authorization", TOKEN)).andDo(print()).andExpect(status().isOk());
+				.header("Authorization", token)).andDo(print()).andExpect(status().isOk());
 	}
 
 }
