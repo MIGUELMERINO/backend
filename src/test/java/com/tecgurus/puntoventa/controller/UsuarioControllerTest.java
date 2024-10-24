@@ -31,13 +31,11 @@ class UsuarioControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
-	private String token;
-
 	@Autowired
 	private Gson gson;
 
 	@Value("${spring.application.secret.key.test}")
-	private String TOKEN;
+	private String token;
 
 	@MockBean
 	private UsuarioService usuarioService;
@@ -55,7 +53,6 @@ class UsuarioControllerTest {
 		dto.setApellidoM("Lopez");
 		dto.setEstatus("activo");
 		dto.setRol("ADMIN");
-		this.token = TOKEN;
 		MockitoAnnotations.openMocks(this);
 
 	}
@@ -64,7 +61,7 @@ class UsuarioControllerTest {
 	@Test
 	void listarUsuariosTest() throws Exception {
 		this.mvc.perform(
-				get(ConstantesTest.API_USUARIO).accept(MediaType.APPLICATION_JSON).header("Authorization", this.token))
+				get(ConstantesTest.API_USUARIO).accept(MediaType.APPLICATION_JSON).header("Authorization", token))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
@@ -72,14 +69,14 @@ class UsuarioControllerTest {
 	@Test
 	void listaUsuariosActivosTest() throws Exception {
 		this.mvc.perform(get(ConstantesTest.API_USUARIO + "/activos").accept(MediaType.APPLICATION_JSON)
-				.header("Authorization", this.token)).andDo(print()).andExpect(status().isOk());
+				.header("Authorization", token)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void agregaUsuarioTest() throws Exception {
 		this.mvc.perform(post(ConstantesTest.API_USUARIO).contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(this.dto)).header("Authorization", this.token)).andDo(print())
+				.content(gson.toJson(this.dto)).header("Authorization", token)).andDo(print())
 				.andExpect(status().isOk());
 	}
 
@@ -87,7 +84,7 @@ class UsuarioControllerTest {
 	@Test
 	void actualizaUsuarioTest() throws Exception {
 		this.mvc.perform(put(ConstantesTest.API_USUARIO + "/1").contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(this.dto)).header("Authorization", this.token)).andDo(print())
+				.content(gson.toJson(this.dto)).header("Authorization", token)).andDo(print())
 				.andExpect(status().isOk());
 	}
 
