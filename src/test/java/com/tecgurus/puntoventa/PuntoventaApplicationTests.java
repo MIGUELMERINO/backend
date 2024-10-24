@@ -9,11 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class PuntoventaApplicationTests {
 
-    
-    @SuppressWarnings("squid:S2699")
-    @Test
+	@SuppressWarnings("squid:S2699")
+	@Test
 	void contextLoads() {
-        log.info("test principal");
+		log.info("test principal");
 	}
 
 }

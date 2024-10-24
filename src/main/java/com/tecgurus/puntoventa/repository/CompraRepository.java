@@ -8,9 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.tecgurus.puntoventa.entity.Compra;
 
+public interface CompraRepository extends JpaRepository<Compra, Integer> {
 
-public interface CompraRepository extends JpaRepository<Compra, Integer>{
-	
 	@Query(value = "SELECT * FROM compra where idusuario = :idUsuario ", nativeQuery = true)
 	List<Compra> busquedaUsuarioId(@Param("idUsuario") Integer idUsuario);
 

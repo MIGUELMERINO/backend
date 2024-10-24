@@ -18,9 +18,9 @@ import lombok.AllArgsConstructor;
 @Getter
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor 
+@AllArgsConstructor
 public class Categoria {
-	
+
 	@Id
 	@Column(name = "idcategoria")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

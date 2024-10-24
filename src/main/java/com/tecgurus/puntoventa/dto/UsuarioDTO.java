@@ -14,10 +14,10 @@ import lombok.Setter;
 @Setter
 @Getter
 
-public class UsuarioDTO implements Serializable{
+public class UsuarioDTO implements Serializable {
 
 	private static final long serialVersionUID = -7071768162701192925L;
-	
+
 	@Schema(description = "indentificador del usuario", example = "1")
 	private Integer clave;
 	@NotNull(message = Constantes.NOTNULL)
@@ -27,8 +27,7 @@ public class UsuarioDTO implements Serializable{
 	@Schema(description = "password", example = "TecGur1$")
 	@NotNull(message = Constantes.NOTNULL)
 	@NotBlank(message = Constantes.NOTBLANK)
-	@Pattern(regexp = Constantes.VALID_PASSWORD, 
-	 message = "No cumple con los requerimiento minimos de un password seguro")
+	@Pattern(regexp = Constantes.VALID_PASSWORD, message = "No cumple con los requerimiento minimos de un password seguro")
 	private String password = "";
 	@Schema(description = "Nombre del usuario", example = "Miguel")
 	@NotNull(message = Constantes.NOTNULL)

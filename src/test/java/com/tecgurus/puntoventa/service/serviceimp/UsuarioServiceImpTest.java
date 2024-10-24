@@ -1,6 +1,5 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -10,21 +9,19 @@ import com.tecgurus.puntoventa.dto.UsuarioDTO;
 import com.tecgurus.puntoventa.repository.UsuarioRepository;
 import com.tecgurus.puntoventa.service.UsuarioService;
 
-
 class UsuarioServiceImpTest {
-	
-	
+
 	@MockBean
 	private UsuarioRepository usuarioRepository;
 	@Mock
 	private UsuarioService usuarioService;
-	
+
 	/**
-	 * creamos el objeto de la clase DTO global y que se ocupara el mismo
-	 * dato en crear, actualizar
+	 * creamos el objeto de la clase DTO global y que se ocupara el mismo dato en
+	 * crear, actualizar
 	 */
 	private UsuarioDTO dto;
-	
+
 	@BeforeEach
 	public void init() {
 		dto = new UsuarioDTO();
@@ -39,40 +36,40 @@ class UsuarioServiceImpTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-    @SuppressWarnings("squid:S2699")
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void agregaUsuarioTest() {
 		usuarioService.agregaUsuario(dto);
 	}
-	
-    @SuppressWarnings("squid:S2699")
+
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void actualizaUsuarioTest() {
 		usuarioService.actualizaUsuario(dto, dto.getClave());
 	}
 
-    @SuppressWarnings("squid:S2699")
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void obtenerUsuariosTest() {
 		usuarioService.obtenerUsuarios();
 	}
-	
-    @SuppressWarnings("squid:S2699")
+
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void obtenerUsuariosActivosTest() {
 		usuarioService.obtenerUsuariosActivos();
 	}
-	
-    @SuppressWarnings("squid:S2699")
+
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void eliminaUsuarioTest() {
 		usuarioService.eliminaUsuario(dto.getClave());
 	}
-	
-    @SuppressWarnings("squid:S2699")
+
+	@SuppressWarnings("squid:S2699")
 	@Test
 	void infoUsuarioTest() {
 		usuarioService.infoUsuario(dto.getCorreo());
 	}
-	
+
 }

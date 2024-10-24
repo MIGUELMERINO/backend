@@ -7,11 +7,10 @@ import lombok.Getter;
 @Setter
 @Getter
 public class ResponseDeleteDTO {
-    
-    @Schema(description = "estatus", example = "200")
-    private String clave;
-    @Schema(description = "mensaje")
-    private String valor; 
+
+	@Schema(description = "estatus", example = "200")
+	private String clave;
+	@Schema(description = "mensaje")
+	private String valor;
 
 }
-

@@ -14,18 +14,17 @@ import lombok.Setter;
 @Setter
 @Getter
 public class RequestDTO implements Serializable {
-	
+
 	private static final long serialVersionUID = -7406929881521596287L;
-	
-    @NotBlank(message = Constantes.NOTNULL)
-    @NotNull(message = Constantes.NOTBLANK)
+
+	@NotBlank(message = Constantes.NOTNULL)
+	@NotNull(message = Constantes.NOTBLANK)
 	@Schema(description = "correo electronico (email)", example = "example@example.com")
 	private String correo;
-    @Schema(description = "password", example = "177Mjdjdn$")
+	@Schema(description = "password", example = "177Mjdjdn$")
 	@NotNull(message = Constantes.NOTNULL)
-    @NotBlank(message = Constantes.NOTBLANK)
-    @Pattern(regexp = Constantes.VALID_PASSWORD, 
-			 message = "No cumple con los requerimiento minimos de un password seguro")
+	@NotBlank(message = Constantes.NOTBLANK)
+	@Pattern(regexp = Constantes.VALID_PASSWORD, message = "No cumple con los requerimiento minimos de un password seguro")
 	private String password;
 
 }

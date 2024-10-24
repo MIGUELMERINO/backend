@@ -12,10 +12,10 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ClienteDTO implements Serializable{
+public class ClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = -5238057384581932341L;
-	
+
 	@Schema(description = "indentificador del cliente", example = "1")
 	private Integer clave;
 	@NotNull(message = Constantes.NOTNULL)

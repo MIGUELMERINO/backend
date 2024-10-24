@@ -15,7 +15,6 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-
 @Entity
 @Table(name = "producto")
 @ToString
@@ -24,7 +23,7 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Producto {
-	
+
 	@Id
 	@Column(name = "idproducto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,13 +39,11 @@ public class Producto {
 	// Many -> Muchos To -> enlace One -> uno
 	// EAGER -> carga los datos relacione si o si
 	// LAZY -> se carga si se llama o se invoca.
-	@ManyToOne(fetch = FetchType.LAZY) 
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idcategoria")
 	private Categoria categoria;
 	/**
 	 * select * from producto p join categoria c on p.idcategoria = c.idcategoria;
 	 */
-	
-	
 
 }

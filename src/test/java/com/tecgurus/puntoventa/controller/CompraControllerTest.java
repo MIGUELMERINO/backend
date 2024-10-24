@@ -5,51 +5,52 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.http.MediaType;
+import java.sql.Date;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+
 import com.google.gson.Gson;
-import java.sql.Date;
-
 import com.tecgurus.puntoventa.config.ConstantesTest;
-
-// importamos los valores las clases y servicios para realizar test.
-import com.tecgurus.puntoventa.service.CompraService;
+import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.CompraDTO;
 import com.tecgurus.puntoventa.dto.UsuarioDTO;
-import com.tecgurus.puntoventa.dto.ClienteDTO;
-
-
+// importamos los valores las clases y servicios para realizar test.
+import com.tecgurus.puntoventa.service.CompraService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class CompraControllerTest {
-    
-    @Autowired
-    private MockMvc mvc;
 
-    @Mock
-    private CompraService compraService;
+	@Autowired
+	private MockMvc mvc;
 
+	@Mock
+	private CompraService compraService;
 
-    @Autowired
-    private Gson gson;
+	@Value("${spring.application.secret.key.test}")
+	private String TOKEN;
 
-    private CompraDTO compraDTO;
-    private UsuarioDTO usuarioDTO;
-    private ClienteDTO clienteDTO;
+	@Autowired
+	private Gson gson;
 
-    @BeforeEach
-    public void init() {
-        usuarioDTO = new UsuarioDTO();
+	private CompraDTO compraDTO;
+	private UsuarioDTO usuarioDTO;
+	private ClienteDTO clienteDTO;
+
+	@BeforeEach
+	public void init() {
+		usuarioDTO = new UsuarioDTO();
 		usuarioDTO.setClave(1);
 		usuarioDTO.setCorreo("micorreo@gmail.com");
 		usuarioDTO.setPassword("tecGurus2024$");
@@ -59,59 +60,43 @@ class CompraControllerTest {
 		usuarioDTO.setEstatus("activo");
 		usuarioDTO.setRol("ADMIN");
 
-        clienteDTO = new ClienteDTO();
-        clienteDTO.setClave(1);
-        clienteDTO.setNombre("Jose");
+		clienteDTO = new ClienteDTO();
+		clienteDTO.setClave(1);
+		clienteDTO.setNombre("Jose");
 		clienteDTO.setApellidoP("Perez");
 		clienteDTO.setApellidoM("Lion");
 		clienteDTO.setRfc("MMdjskd99sda01");
 
-        
-        compraDTO = new CompraDTO();
-        compraDTO.setClave(1);
-        compraDTO.setFecha(new Date(1));
-        compraDTO.setTotal(23.00);
-        compraDTO.setCliente(clienteDTO);
-        compraDTO.setUsuario(usuarioDTO);
-        MockitoAnnotations.openMocks(this);
-   }
+		compraDTO = new CompraDTO();
+		compraDTO.setClave(1);
+		compraDTO.setFecha(new Date(1));
+		compraDTO.setTotal(23.00);
+		compraDTO.setCliente(clienteDTO);
+		compraDTO.setUsuario(usuarioDTO);
+		MockitoAnnotations.openMocks(this);
+	}
 
-    @SuppressWarnings("squid:S2699")
-    @Test
-    void listaCompras() throws Exception {
-        mvc.perform(get(ConstantesTest.API_COMPRA)
-        .accept(MediaType.APPLICATION_JSON_VALUE)
-        .header("Authorization", ConstantesTest.TOKEN))
-        .andDo(print())
-        .andExpect(status().isOk());
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void listaCompras() throws Exception {
+		mvc.perform(
+				get(ConstantesTest.API_COMPRA).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", TOKEN))
+				.andDo(print()).andExpect(status().isOk());
+	}
 
-   	@SuppressWarnings("squid:S2699")
-    @Test
-    void agregarCompra() throws Exception {
-       mvc.perform(post(ConstantesTest.API_COMPRA)
-        .content(gson.toJson(compraDTO))
-            .header("Authorization", ConstantesTest.TOKEN)
-            .contentType(MediaType.APPLICATION_JSON)
-        )
-        .andDo(print())
-        .andExpect(status().isOk()); 
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void agregarCompra() throws Exception {
+		mvc.perform(post(ConstantesTest.API_COMPRA).content(gson.toJson(compraDTO)).header("Authorization", TOKEN)
+				.contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
+	}
 
-   	@SuppressWarnings("squid:S2699")
-    @Test
-    void busquedaCompra() throws Exception {
-        final int id = 1;
-        mvc.perform(get(ConstantesTest.API_COMPRA+"/usuario/"+id)
-            .accept(MediaType.APPLICATION_JSON_VALUE)
-            .header("Authorization", ConstantesTest.TOKEN)
-        )
-        .andDo(print())
-        .andExpect(status().isOk());        
-    }
+	@SuppressWarnings("squid:S2699")
+	@Test
+	void busquedaCompra() throws Exception {
+		final int id = 1;
+		mvc.perform(get(ConstantesTest.API_COMPRA + "/usuario/" + id).accept(MediaType.APPLICATION_JSON_VALUE)
+				.header("Authorization", TOKEN)).andDo(print()).andExpect(status().isOk());
+	}
 
-}  
-
-
-
-
+}
