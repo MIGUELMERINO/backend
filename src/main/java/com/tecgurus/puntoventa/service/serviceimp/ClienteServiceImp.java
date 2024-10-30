@@ -2,17 +2,20 @@ package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.entity.Cliente;
+import com.tecgurus.puntoventa.mapper.ClienteMapper;
 import com.tecgurus.puntoventa.repository.ClienteRepository;
 import com.tecgurus.puntoventa.service.ClienteService;
+import com.tecgurus.puntoventa.service.PageResponseService;
 import com.tecgurus.puntoventa.service.ResponseService;
-import com.tecgurus.puntoventa.mapper.ClienteMapper;
-import com.tecgurus.puntoventa.config.Constantes;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -24,17 +27,21 @@ public class ClienteServiceImp implements ClienteService {
 	private ClienteRepository clienteRepository;
 	private ClienteMapper clienteMapper;
 	private ResponseService responseService;
+	private PageResponseService pageResponseService;
 
 	/**
 	 * Lista de clientes.
 	 * 
+	 * @param pageNo   numnero de pagina.
+	 * @param pageSize numero de elementos a mostrar.
 	 * @return lista de clientes
 	 */
 	@Override
-	public ResponseDTO obtenerClientes() {
+	public ResponseDTO obtenerClientes(final Integer pageNo, final Integer pageSize) {
 		// :: asingacion de metodo en un map. instancia::metodo
-		List<ClienteDTO> clientes = clienteRepository.findAll().stream().map(clienteMapper::clienteDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, clientes);
+		Page<Cliente> client = clienteRepository.findAll(PageRequest.of(pageNo, pageSize));
+		List<ClienteDTO> clientes = client.getContent().stream().map(clienteMapper::clienteDTO).toList();
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(client, clientes));
 	}
 
 	/**

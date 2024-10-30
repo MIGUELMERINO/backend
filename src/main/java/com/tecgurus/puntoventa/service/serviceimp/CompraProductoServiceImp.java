@@ -1,14 +1,21 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.CompraProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
+import com.tecgurus.puntoventa.entity.CompraProducto;
+import com.tecgurus.puntoventa.mapper.CompraProductoMapper;
 import com.tecgurus.puntoventa.repository.CompraProductoRepository;
 import com.tecgurus.puntoventa.service.CompraProductoService;
+import com.tecgurus.puntoventa.service.PageResponseService;
 import com.tecgurus.puntoventa.service.ResponseService;
-import com.tecgurus.puntoventa.mapper.CompraProductoMapper;
+
 import lombok.AllArgsConstructor;
 
 @Service
@@ -18,17 +25,20 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	private CompraProductoRepository compraPRepository;
 	private CompraProductoMapper compraProductoM;
 	private ResponseService responseService;
+	private PageResponseService pageResponseService;
 
 	/**
 	 * Lista de compras con su producto.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de compras con sus producto.
 	 */
 	@Override
-	public ResponseDTO listarComprasProductos() {
-		List<CompraProductoDTO> compras = compraPRepository.findAll().stream().map(compraProductoM::compraProductoDTO)
-				.toList();
-		return responseService.response(Constantes.SUCCESS_READ, compras);
+	public ResponseDTO listarComprasProductos(final Integer pageNo, final Integer pageSize) {
+		Page<CompraProducto> comp = compraPRepository.findAll(PageRequest.of(pageNo, pageSize));
+		List<CompraProductoDTO> compras = comp.getContent().stream().map(compraProductoM::compraProductoDTO).toList();
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(comp, compras));
 	}
 
 	@Override

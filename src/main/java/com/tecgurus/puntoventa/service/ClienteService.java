@@ -9,9 +9,11 @@ public interface ClienteService {
 	/***
 	 * Listar todos los clientes registrados.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de clientes.
 	 */
-	ResponseDTO obtenerClientes();
+	ResponseDTO obtenerClientes(Integer pageNo, Integer pageSize);
 
 	/**
 	 * Metodo para obtener el cliente mediante su Id.

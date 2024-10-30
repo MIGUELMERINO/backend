@@ -8,9 +8,11 @@ public interface CompraProductoService {
 	/***
 	 * Lista de todas las compras registradas.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostarar.
 	 * @return lista de compras.
 	 */
-	ResponseDTO listarComprasProductos();
+	ResponseDTO listarComprasProductos(Integer pageNo, Integer pageSize);
 
 	/**
 	 * Metodo para mostar la compra y el producto por su identificador.

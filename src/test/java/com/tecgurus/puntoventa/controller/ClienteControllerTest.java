@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.google.gson.Gson;
 import com.tecgurus.puntoventa.config.ConstantesTest;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
-import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.service.ClienteService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -69,10 +67,6 @@ class ClienteControllerTest {
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void listarClientesTest() throws Exception {
-		// vamos a realizar un test a los servicios.
-		ResponseDTO lista = new ResponseDTO();
-		Mockito.when(clienteService.obtenerClientes()).thenReturn(lista);
-
 		mvc.perform(
 				get(ConstantesTest.API_CLIENTE).accept(MediaType.APPLICATION_JSON_VALUE).header("Authorization", token))
 				.andDo(print()).andExpect(status().isOk());

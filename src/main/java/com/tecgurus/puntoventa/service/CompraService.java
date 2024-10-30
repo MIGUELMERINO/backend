@@ -8,9 +8,11 @@ public interface CompraService {
 	/***
 	 * Lista de todas las compras.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de todas las compras existentes.
 	 */
-	ResponseDTO listarCompras();
+	ResponseDTO listarCompras(Integer pageNo, Integer pageSize);
 
 	/**
 	 * Metodo que agrega una compra nueva.

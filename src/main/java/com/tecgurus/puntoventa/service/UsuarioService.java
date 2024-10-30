@@ -1,17 +1,19 @@
 package com.tecgurus.puntoventa.service;
 
 import com.tecgurus.puntoventa.dto.ResponseDTO;
-import com.tecgurus.puntoventa.dto.UsuarioDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
+import com.tecgurus.puntoventa.dto.UsuarioDTO;
 
 public interface UsuarioService {
 
 	/**
 	 * Lista de todos los usuarios.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de usuarios.
 	 */
-	ResponseDTO obtenerUsuarios();
+	ResponseDTO obtenerUsuarios(Integer pageNo, Integer pageSize);
 
 	/**
 	 * Lista de usuarios activos.
