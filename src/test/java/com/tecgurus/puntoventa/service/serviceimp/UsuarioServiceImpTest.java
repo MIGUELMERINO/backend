@@ -51,7 +51,8 @@ class UsuarioServiceImpTest {
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void obtenerUsuariosTest() {
-		usuarioService.obtenerUsuarios();
+		final Integer page = 0, pageSize = 10;
+		usuarioService.obtenerUsuarios(page, pageSize);
 	}
 
 	@SuppressWarnings("squid:S2699")

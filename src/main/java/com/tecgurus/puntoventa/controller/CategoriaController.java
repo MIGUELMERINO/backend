@@ -38,6 +38,8 @@ public class CategoriaController {
 	/***
 	 * Metodo que me retorna una lista de categorias. Metodo HTPP tipo get
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize numero total del elementos a mostrar.
 	 * @return lista.
 	 */
 	@Operation(summary = "Servicio que muestras una lista de categorias.")
@@ -49,8 +51,10 @@ public class CategoriaController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping // lectura de datos (read)
-	public ResponseDTO listarCategoria() {
-		return categoriaS.listaCategorias();
+	public ResponseDTO listarCategoria(
+			@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+		return categoriaS.listaCategorias(pageNo, pageSize);
 	}
 
 	/**

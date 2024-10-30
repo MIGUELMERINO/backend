@@ -39,6 +39,8 @@ public class UsuarioController {
 	/**
 	 * Lista de todos los usuarios registrados.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de usuarios.
 	 */
 	@Operation(summary = "Servicio que lista a los usuarios.")
@@ -50,8 +52,10 @@ public class UsuarioController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping
-	public ResponseDTO listarUsuarios() {
-		return usuarioS.obtenerUsuarios();
+	public ResponseDTO listarUsuarios(
+			@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+		return usuarioS.obtenerUsuarios(pageNo, pageSize);
 	}
 
 	/**

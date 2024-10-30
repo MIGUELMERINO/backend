@@ -1,7 +1,11 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
@@ -10,6 +14,7 @@ import com.tecgurus.puntoventa.entity.Categoria;
 import com.tecgurus.puntoventa.mapper.CategoriaMapper;
 import com.tecgurus.puntoventa.repository.CategoriaRepository;
 import com.tecgurus.puntoventa.service.CategoriaService;
+import com.tecgurus.puntoventa.service.PageResponseService;
 import com.tecgurus.puntoventa.service.ResponseService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -24,17 +29,21 @@ public class CategoriaServiceImp implements CategoriaService {
 	private CategoriaRepository categoriaR;
 	private CategoriaMapper categoriaMapper;
 	private ResponseService responseService;
+	private PageResponseService pageResponseService;
 
 	/**
 	 * Metodo que me genera una lista con las categorias existentes. Metodo que
 	 * realiza un select * from de la tabla categoria
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de categorias.
 	 */
 	@Override
-	public ResponseDTO listaCategorias() {
-		List<CategoriaDTO> categoria = categoriaR.findAll().stream().map(categoriaMapper::categoriaDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, categoria);
+	public ResponseDTO listaCategorias(final Integer pageNo, final Integer pageSize) {
+		Page<Categoria> cat = categoriaR.findAll(PageRequest.of(pageNo, pageSize));
+		List<CategoriaDTO> categoria = cat.getContent().stream().map(categoriaMapper::categoriaDTO).toList();
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(cat, categoria));
 	}
 
 	@Override

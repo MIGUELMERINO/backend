@@ -1,17 +1,22 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.entity.Producto;
+import com.tecgurus.puntoventa.mapper.CategoriaMapper;
+import com.tecgurus.puntoventa.mapper.ProductoMapper;
 import com.tecgurus.puntoventa.repository.ProductoRepository;
+import com.tecgurus.puntoventa.service.PageResponseService;
 import com.tecgurus.puntoventa.service.ProductoService;
 import com.tecgurus.puntoventa.service.ResponseService;
-import com.tecgurus.puntoventa.mapper.ProductoMapper;
-import com.tecgurus.puntoventa.mapper.CategoriaMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -24,16 +29,21 @@ public class ProductoServiceImp implements ProductoService {
 	private ProductoMapper productoMapper;
 	private CategoriaMapper categoriaMapper;
 	private ResponseService responseService;
+	private PageResponseService pageResponseService;
 
 	/**
 	 * lista de productos registrados.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de producto registrados.
 	 */
 	@Override
-	public ResponseDTO listarProductos() {
-		List<ProductoDTO> productos = productoR.findAll().stream().map(productoMapper::productoDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, productos);
+	public ResponseDTO listarProductos(final Integer pageNo, final Integer pageSize) {
+		Page<Producto> producto = productoR.findAll(PageRequest.of(pageNo, pageSize));
+		List<ProductoDTO> productos = producto.getContent().stream().map(productoMapper::productoDTO).toList();
+		return responseService.response(Constantes.SUCCESS_READ,
+				pageResponseService.paginacionDTO(producto, productos));
 	}
 
 	@Override

@@ -46,7 +46,8 @@ class ProductoServiceImpTest {
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void listarProductosTest() {
-		productoService.listarProductos();
+		final Integer page = 0, pageSize = 10;
+		productoService.listarProductos(page, pageSize);
 	}
 
 	@SuppressWarnings("squid:S2699")

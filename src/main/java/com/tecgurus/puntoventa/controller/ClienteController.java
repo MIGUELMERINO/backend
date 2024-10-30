@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
@@ -37,6 +38,8 @@ public class ClienteController {
 	/***
 	 * Listar los clientes registrados.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize numero de elementos totales a mostrar.
 	 * @return lista de clientes.
 	 */
 	@Operation(summary = "Lista de los clientes registrados.")
@@ -48,8 +51,10 @@ public class ClienteController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping
-	public ResponseDTO listarClientes() {
-		return clienteS.obtenerClientes();
+	public ResponseDTO listarClientes(
+			@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+		return clienteS.obtenerClientes(pageNo, pageSize);
 	}
 
 	/**

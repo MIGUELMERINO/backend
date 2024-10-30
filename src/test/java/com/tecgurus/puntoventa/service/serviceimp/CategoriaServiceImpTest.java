@@ -33,7 +33,8 @@ class CategoriaServiceImpTest {
 	@SuppressWarnings("squid:S2699")
 	@Test
 	void listarCategoriasTest() {
-		categoriaService.listaCategorias();
+		final Integer pageNo = 0, pageSize = 10;
+		categoriaService.listaCategorias(pageNo, pageSize);
 	}
 
 	@SuppressWarnings("squid:S2699")

@@ -1,7 +1,11 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
@@ -10,6 +14,7 @@ import com.tecgurus.puntoventa.entity.Usuario;
 import com.tecgurus.puntoventa.mapper.PasswordEncodeMapper;
 import com.tecgurus.puntoventa.mapper.UsuarioMapper;
 import com.tecgurus.puntoventa.repository.UsuarioRepository;
+import com.tecgurus.puntoventa.service.PageResponseService;
 import com.tecgurus.puntoventa.service.ResponseService;
 import com.tecgurus.puntoventa.service.UsuarioService;
 
@@ -24,16 +29,20 @@ public class UsuarioServiceImp implements UsuarioService {
 	private UsuarioMapper usuarioMapper;
 	private ResponseService responseService;
 	private PasswordEncodeMapper passworMapper;
+	private PageResponseService pageResponseService;
 
 	/***
 	 * Lista de todos los usuarios registrados.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de usuarios.
 	 */
 	@Override
-	public ResponseDTO obtenerUsuarios() {
-		List<UsuarioDTO> usuarios = usuarioR.findAll().stream().map(usuarioMapper::usuarioDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, usuarios);
+	public ResponseDTO obtenerUsuarios(final Integer pageNo, final Integer pageSize) {
+		Page<Usuario> usuario = usuarioR.findAll(PageRequest.of(pageNo, pageSize));
+		List<UsuarioDTO> usuarios = usuario.getContent().stream().map(usuarioMapper::usuarioDTO).toList();
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(usuario, usuarios));
 	}
 
 	/**
@@ -50,7 +59,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
 	/**
 	 * Lista de usuarios con el estatus en 1 (activo).
-	 * 
+	 *
 	 * @return lista de usuarios.
 	 */
 	@Override

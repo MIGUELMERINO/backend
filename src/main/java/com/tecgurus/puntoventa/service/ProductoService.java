@@ -9,9 +9,11 @@ public interface ProductoService {
 	/**
 	 * Metodo que en lista todos los productos registados.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lis ta de productos.
 	 **/
-	ResponseDTO listarProductos();
+	ResponseDTO listarProductos(Integer pageNo, Integer pageSize);
 
 	/**
 	 * Metodo para obtener el producto por su identificador.

@@ -9,9 +9,11 @@ public interface CategoriaService {
 	/**
 	 * Metodo que enlista las categorias registradas.
 	 * 
+	 * @param pageNo   numero de pagina,
+	 * @param pageSize total de elementos a mostrar.
 	 * @return lista de categorias.
 	 */
-	ResponseDTO listaCategorias();
+	ResponseDTO listaCategorias(Integer pageNo, Integer pageSize);
 
 	/**
 	 * Metodo para obtener la categoria mediante ID.

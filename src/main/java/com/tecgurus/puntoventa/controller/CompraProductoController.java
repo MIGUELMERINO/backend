@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
@@ -34,6 +35,8 @@ public class CompraProductoController {
 	/***
 	 * Lista de compra con su producto.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de elementos a mostrar.
 	 * @return Lista con las compras y su producto.
 	 */
 	@Operation(summary = "Lista de la compra con su producto.")
@@ -45,8 +48,10 @@ public class CompraProductoController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping
-	public ResponseDTO listarComprasProductos() {
-		return compraProductoS.listarComprasProductos();
+	public ResponseDTO listarComprasProductos(
+			@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+		return compraProductoS.listarComprasProductos(pageNo, pageSize);
 	}
 
 	/**

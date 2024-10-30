@@ -36,6 +36,8 @@ public class ProductoController {
 	/***
 	 * Lista de productos.
 	 * 
+	 * @param pageNo   numero de pagina.
+	 * @param pageSize total de paginas a mostrar.
 	 * @return lista de productos.
 	 */
 	@Operation(summary = "Servicio que genera una lista de productos.")
@@ -47,8 +49,10 @@ public class ProductoController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping
-	public ResponseDTO listaProductos() {
-		return productoS.listarProductos();
+	public ResponseDTO listaProductos(
+			@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+		return productoS.listarProductos(pageNo, pageSize);
 	}
 
 	/**
