@@ -1,6 +1,5 @@
-# configuracion mediante archivo yaml importando de un documento .env y puerto
+# configuracion mediante archivo yaml importando de un documento .env
 spring:
-  port: ${PORT}
   config:
     import: optional:file:.env[.properties]
   # Datos de la conexion a base de datos mediante enviroment.
@@ -20,3 +19,5 @@ spring:
       key: ${SECRET_KEY}
       test: ${SECRET_TEST_KEY}
 
+server:
+  port: ${PORT}
