@@ -34,7 +34,7 @@ class UsuarioControllerTest {
 	@Autowired
 	private Gson gson;
 
-	@Value("${spring.application.secret.key.test}")
+	@Value("${spring.application.secret.test}")
 	private String token;
 
 	@MockBean

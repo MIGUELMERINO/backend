@@ -38,7 +38,7 @@ class ProductoControllerTest {
 	@Autowired
 	private Gson gson;
 
-	@Value("${spring.application.secret.key.test}")
+	@Value("${spring.application.secret.test}")
 	private String token;
 
 	private CategoriaDTO categoriaDTO;

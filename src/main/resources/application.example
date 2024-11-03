@@ -15,6 +15,6 @@ spring.jpa.hibernate.ddl-auto = none
 
 # una variable que se puede obtener a una clase pero se configura dentro de un archico properties o yaml o yarm
 spring.application.secret.key = ${SECRET_KEY}
-spring.application.secret.key.test = ${SECRET_TEST_KEY}
+spring.application.secret.test = ${SECRET_TEST_KEY}
 
 
