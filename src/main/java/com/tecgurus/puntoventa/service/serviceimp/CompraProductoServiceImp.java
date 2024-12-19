@@ -40,7 +40,12 @@ public class CompraProductoServiceImp implements CompraProductoService {
 		List<CompraProductoDTO> compras = comp.getContent().stream().map(compraProductoM::compraProductoDTO).toList();
 		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(comp, compras));
 	}
-
+    
+    /**
+     * Obtener una lista de Compra Producto mediante su identificador.
+     * @param id identificador de la compra producto.
+     * @return lista de una Compra Producto.
+     * **/
 	@Override
 	public ResponseDTO listarCompraProducto(final Integer id) {
 		List<CompraProductoDTO> compra = compraPRepository.findById(id).stream().map(compraProductoM::compraProductoDTO)

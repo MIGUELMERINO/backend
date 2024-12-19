@@ -46,6 +46,11 @@ public class CategoriaServiceImp implements CategoriaService {
 		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(cat, categoria));
 	}
 
+    /**
+     * Listar categorias mediante su identificador.
+     * @param id identificador de la categoria.
+     * @return una lista de categoria por Identificador.
+     * **/
 	@Override
 	public ResponseDTO listaCategoriaId(final Integer id) {
 		List<CategoriaDTO> categoria = categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).toList();

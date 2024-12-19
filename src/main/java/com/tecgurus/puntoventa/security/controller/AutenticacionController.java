@@ -16,6 +16,7 @@ import com.tecgurus.puntoventa.security.service.JWTService;
 import com.tecgurus.puntoventa.security.service.UserDatailServices;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -43,7 +44,9 @@ public class AutenticacionController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@PostMapping
-	public ResponseJWTDTO authentication(@RequestBody @Valid final RequestDTO request) {
+	public ResponseJWTDTO authentication(
+        @Parameter(name = "request", description = "datos para poder autentificarce")
+        @RequestBody @Valid final RequestDTO request) {
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getPassword()));
 		final UserDetails userDetails = userDetailS.loadUserByUsername(request.getCorreo());

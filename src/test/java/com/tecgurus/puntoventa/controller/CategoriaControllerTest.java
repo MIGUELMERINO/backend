@@ -32,7 +32,7 @@ class CategoriaControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
-	@Value("${spring.application.secret.key.test}")
+	@Value("${spring.application.secret.test}")
 	private String token;
 
 	// crear una instancia para que mokito crear la instancia.

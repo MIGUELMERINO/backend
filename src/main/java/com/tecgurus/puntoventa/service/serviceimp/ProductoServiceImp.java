@@ -46,7 +46,12 @@ public class ProductoServiceImp implements ProductoService {
 				pageResponseService.paginacionDTO(producto, productos));
 	}
 
-	@Override
+	/**
+     * Lista de un Producto mediante su identificador.
+     * @param id identificador del producto.
+     * @return lista de Producto.
+     * **/
+    @Override
 	public ResponseDTO listaProducto(final Integer id) {
 		List<ProductoDTO> producto = productoR.findById(id).stream().map(productoMapper::productoDTO).toList();
 		return responseService.response(Constantes.SUCCESS_READ, producto);

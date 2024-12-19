@@ -38,7 +38,7 @@ public final class Constantes {
 	// informacion de swagger para el header (encabezado)
 	public static final String TITLE = "Api punto de venta.";
 	public static final String VERSION = "0.1";
-	public static final String DESCRIPTION_SWAGGER = "Punto de " + "venta para proyecto personal";
+	public static final String DESCRIPTION_SWAGGER = "Proyecto tecnologico para curso de spring boot.";
 
 	// configuracion api
 	public static final String API = "/api/v1/";

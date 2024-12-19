@@ -77,7 +77,6 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public ResponseDTO actualizarCliente(final ClienteDTO cliente, final Integer idCliente) {
-		// findById selec * from cliente where idcliente = ?1
 		Cliente clienteE = clienteRepository.findById(idCliente)
 				.orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
 		clienteE.setAmaterno(cliente.getApellidoM());

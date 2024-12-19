@@ -70,7 +70,9 @@ public class ProductoController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping("/{idProducto}")
-	public ResponseDTO listaProducto(@PathVariable final Integer idProducto) {
+	public ResponseDTO listaProducto(
+        @Parameter(name = "idProducto", required = true, description = "identificador de producto")
+        @PathVariable final Integer idProducto) {
 		return productoS.listaProducto(idProducto);
 	}
 
