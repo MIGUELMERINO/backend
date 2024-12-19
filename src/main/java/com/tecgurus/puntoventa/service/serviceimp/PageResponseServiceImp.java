@@ -15,6 +15,7 @@ public class PageResponseServiceImp implements PageResponseService {
 	 * Metodo que se implementa para crear el cuerpo de la paginacion.
 	 * 
 	 * @param page listado que resulta del paginado.
+     * @param lista lista paginada ya con el cambio de DTO.
 	 * @return estructura del DTO page response.
 	 **/
 	@Override

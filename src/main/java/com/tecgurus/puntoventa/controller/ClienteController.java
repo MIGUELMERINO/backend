@@ -72,7 +72,9 @@ public class ClienteController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping("/{idCliente}")
-	public ResponseDTO listaClienteID(@PathVariable Integer idCliente) {
+	public ResponseDTO listaClienteID(
+        @Parameter(name = "idCliente", description = "identificador del cliente", required = true)
+        @PathVariable Integer idCliente) {
 		return clienteS.listaClienteId(idCliente);
 	}
 

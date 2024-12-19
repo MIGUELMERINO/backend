@@ -18,6 +18,7 @@ spring:
     secret:
       key: ${SECRET_KEY}
       test: ${SECRET_TEST_KEY}
-
+# Configuracion del puerto que podemos, 
+# colocar dependiente del microservicio si se ocupara.
 server:
   port: ${PORT}

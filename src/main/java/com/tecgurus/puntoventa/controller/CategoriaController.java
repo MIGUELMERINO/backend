@@ -72,7 +72,9 @@ public class CategoriaController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	@GetMapping("/{idCategoria}")
-	public ResponseDTO listaCategoriaID(@PathVariable final Integer idCategoria) {
+	public ResponseDTO listaCategoriaID(
+        @Parameter(name = "idCategoria", description = "identificador de la categoria", required = true)
+        @PathVariable final Integer idCategoria) {
 		return categoriaS.listaCategoriaId(idCategoria);
 	}
 
