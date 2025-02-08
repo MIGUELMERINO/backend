@@ -35,7 +35,12 @@ public class AutenticacionController {
 	private JWTService serviceJTW;
 	private AuthenticationManager authenticationManager;
 
-	@Operation(summary = "Servicio autentificador para el usuario.")
+	/**
+     * Metodo para crear una autentificacion de un usuario mediante su correo y password.
+     * @param request objeto que envia y contiene un correo y password.
+     * @return retorna objeto donde esta el token.
+     * **/
+    @Operation(summary = "Servicio autentificador para el usuario.")
 	@ApiResponse(responseCode = Constantes.SUCCESS, description = "Consultas realizada correctamente!", content = {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseJWTDTO.class)) })
 	@ApiResponse(responseCode = Constantes.BAQ_REQUEST, description = Constantes.BAQ_REQUEST_V, content = @Content)
@@ -50,10 +55,10 @@ public class AutenticacionController {
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getPassword()));
 		final UserDetails userDetails = userDetailS.loadUserByUsername(request.getCorreo());
-		final String token = serviceJTW.gereraToken(userDetails);
+	    final String token = serviceJTW.gereraToken(userDetails);
 		ResponseJWTDTO dto = new ResponseJWTDTO();
-		dto.setToken(token);
-		return dto;
+	    dto.setToken(token);
+	    return dto;
 	}
 
 }
