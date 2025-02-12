@@ -53,8 +53,9 @@ public class CategoriaServiceImp implements CategoriaService {
      * **/
 	@Override
 	public ResponseDTO listaCategoriaId(final Integer id) {
-		List<CategoriaDTO> categoria = categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, categoria);
+		return responseService.response(Constantes.SUCCESS_READ,
+        categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).toList()
+        );
 	}
 
 	/**
@@ -66,9 +67,9 @@ public class CategoriaServiceImp implements CategoriaService {
 	 */
 	@Override
 	public ResponseDTO agregaCategoria(final CategoriaDTO categoria) {
-		CategoriaDTO categoriaI = categoriaMapper
-				.categoriaDTO(categoriaR.save(categoriaMapper.categoriaEntity(categoria)));
-		return responseService.response(Constantes.SUCCESS_READ, categoriaI);
+		return responseService.response(Constantes.SUCCESS_READ,
+		categoriaMapper.categoriaDTO(categoriaR.save(categoriaMapper.categoriaEntity(categoria)))
+        );
 	}
 
 	/***
@@ -95,7 +96,7 @@ public class CategoriaServiceImp implements CategoriaService {
 	 */
 	@Override
 	public ResponseDeleteDTO eliminarCategoria(final Integer idCategoria) {
-		categoriaR.findById(idCategoria);
+		categoriaR.findById(idCategoria).orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
 		categoriaR.deleteById(idCategoria);
 		return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}

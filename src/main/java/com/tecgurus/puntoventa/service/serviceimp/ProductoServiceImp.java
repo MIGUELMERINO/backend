@@ -53,8 +53,10 @@ public class ProductoServiceImp implements ProductoService {
      * **/
     @Override
 	public ResponseDTO listaProducto(final Integer id) {
-		List<ProductoDTO> producto = productoR.findById(id).stream().map(productoMapper::productoDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, producto);
+		return responseService.response(Constantes.SUCCESS_READ, 
+		productoR.findById(id).stream()
+            .map(productoMapper::productoDTO).toList()
+        );
 	}
 
 	/**
@@ -65,8 +67,10 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDTO agregaProducto(final ProductoDTO producto) {
-		ProductoDTO productoDTO = productoMapper.productoDTO(productoR.save(productoMapper.productoEntity(producto)));
-		return responseService.response(Constantes.SUCCESS_CREATE, productoDTO);
+		return responseService.response(Constantes.SUCCESS_CREATE, 
+		productoMapper.productoDTO(productoR.save(
+                productoMapper.productoEntity(producto)))
+        );
 	}
 
 	/**
@@ -96,7 +100,7 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDeleteDTO eliminaProducto(final Integer idProducto) {
-		productoR.findById(idProducto);
+		productoR.findById(idProducto).orElseThrow(() -> new EntityNotFoundException(Constantes.ERROR));
 		productoR.findByElimnaProducto(idProducto);
 		return responseService.responseDelete(Constantes.SUCCESS_DELETE);
 	}
@@ -109,9 +113,10 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDTO busquedaProducto(String nombreProducto) {
-		List<ProductoDTO> producto = productoR.busquedaProducto(nombreProducto).stream()
-				.map(productoMapper::productoDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, producto);
+		return responseService.response(Constantes.SUCCESS_READ, 
+		productoR.busquedaProducto(nombreProducto).stream()
+            .map(productoMapper::productoDTO).toList()
+        );
 	}
 
 }
