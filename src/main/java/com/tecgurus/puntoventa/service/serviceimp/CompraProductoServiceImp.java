@@ -48,9 +48,10 @@ public class CompraProductoServiceImp implements CompraProductoService {
      * **/
 	@Override
 	public ResponseDTO listarCompraProducto(final Integer id) {
-		List<CompraProductoDTO> compra = compraPRepository.findById(id).stream().map(compraProductoM::compraProductoDTO)
-				.toList();
-		return responseService.response(Constantes.SUCCESS_READ, compra);
+		return responseService.response(Constantes.SUCCESS_READ,
+		compraPRepository.findById(id).stream()
+            .map(compraProductoM::compraProductoDTO).toList()
+        );
 	}
 
 	/**
@@ -61,9 +62,10 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	 */
 	@Override
 	public ResponseDTO agregaCompraProducto(final CompraProductoDTO compraProducto) {
-		CompraProductoDTO compraP = compraProductoM
-				.compraProductoDTO(compraPRepository.save(compraProductoM.compraProductoEntity(compraProducto)));
-		return responseService.response(Constantes.SUCCESS_CREATE, compraP);
+		return responseService.response(Constantes.SUCCESS_CREATE,
+		compraProductoM.compraProductoDTO(compraPRepository.save(compraProductoM
+                .compraProductoEntity(compraProducto)))
+        );
 	}
 
 	/***
@@ -74,9 +76,10 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	 */
 	@Override
 	public ResponseDTO busquedaCompra(final Integer idCompra) {
-		List<CompraProductoDTO> producto = compraPRepository.busquedaCompra(idCompra).stream()
-				.map(compraProductoM::compraProductoDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, producto);
+		return responseService.response(Constantes.SUCCESS_READ, 
+		compraPRepository.busquedaCompra(idCompra).stream()
+            .map(compraProductoM::compraProductoDTO).toList()
+        );
 	}
 
 }

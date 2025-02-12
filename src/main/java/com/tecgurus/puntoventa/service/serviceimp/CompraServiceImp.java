@@ -49,8 +49,10 @@ public class CompraServiceImp implements CompraService {
 	 */
 	@Override
 	public ResponseDTO agregaCompra(final CompraDTO compra) {
-		CompraDTO compraDTO = compraMapper.compraDTO(compraRepository.save(compraMapper.compraEntity(compra)));
-		return responseService.response(Constantes.SUCCESS_CREATE, compraDTO);
+		return responseService.response(Constantes.SUCCESS_CREATE, 
+		compraMapper.compraDTO(compraRepository.save(
+                compraMapper.compraEntity(compra)))
+        );
 	}
 
 	/***
@@ -61,9 +63,10 @@ public class CompraServiceImp implements CompraService {
 	 */
 	@Override
 	public ResponseDTO busquedaCompraId(final Integer idUsuario) {
-		List<CompraDTO> compra = compraRepository.busquedaUsuarioId(idUsuario).stream().map(compraMapper::compraDTO)
-				.toList();
-		return responseService.response(Constantes.SUCCESS_READ, compra);
+		return responseService.response(Constantes.SUCCESS_READ, 
+		compraRepository.busquedaUsuarioId(idUsuario).stream()
+            .map(compraMapper::compraDTO).toList()
+        );
 	}
 
 }

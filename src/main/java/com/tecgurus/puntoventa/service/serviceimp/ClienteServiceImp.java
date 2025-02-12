@@ -64,8 +64,9 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public ResponseDTO agregaCliente(final ClienteDTO clienteDTO) {
-		ClienteDTO cliente = clienteMapper.clienteDTO(clienteRepository.save(clienteMapper.clienteEntity(clienteDTO)));
-		return responseService.response(Constantes.SUCCESS_CREATE, cliente);
+		return responseService.response(Constantes.SUCCESS_CREATE, 
+        clienteMapper.clienteDTO(clienteRepository.save(clienteMapper.clienteEntity(clienteDTO)))
+        );
 	}
 
 	/**
