@@ -64,9 +64,8 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public ResponseDTO agregaCliente(final ClienteDTO clienteDTO) {
-		return responseService.response(Constantes.SUCCESS_CREATE, 
-        clienteMapper.clienteDTO(clienteRepository.save(clienteMapper.clienteEntity(clienteDTO)))
-        );
+		return responseService.response(Constantes.SUCCESS_CREATE,
+				clienteMapper.clienteDTO(clienteRepository.save(clienteMapper.clienteEntity(clienteDTO))));
 	}
 
 	/**
@@ -108,9 +107,8 @@ public class ClienteServiceImp implements ClienteService {
 	 */
 	@Override
 	public ResponseDTO buscaClienteNombre(final String nombre) {
-		List<ClienteDTO> cliente = clienteRepository.findByNombre(nombre).stream().map(clienteMapper::clienteDTO)
-				.toList();
-		return responseService.response(Constantes.SUCCESS_READ, cliente);
+		return responseService.response(Constantes.SUCCESS_READ, clienteRepository.findAll().stream()
+				.filter(item -> item.getNombre().equalsIgnoreCase(nombre)).map(clienteMapper::clienteDTO).toList());
 	}
 
 }

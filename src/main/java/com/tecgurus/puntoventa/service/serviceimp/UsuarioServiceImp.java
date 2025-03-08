@@ -53,9 +53,8 @@ public class UsuarioServiceImp implements UsuarioService {
 	 **/
 	@Override
 	public ResponseDTO usuario(final Integer id) {
-		return responseService.response(Constantes.SUCCESS_READ, 
-		usuarioR.findById(id).stream().map(usuarioMapper::usuarioDTO).toList()
-        );
+		return responseService.response(Constantes.SUCCESS_READ,
+				usuarioR.findById(id).stream().map(usuarioMapper::usuarioDTO).toList());
 	}
 
 	/**
@@ -66,9 +65,8 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public ResponseDTO obtenerUsuariosActivos() {
 		final int estatus = 1;
-		return responseService.response(Constantes.SUCCESS_READ, 
-		usuarioR.findByActivo(estatus).stream().map(usuarioMapper::usuarioDTO).toList()
-        );
+		return responseService.response(Constantes.SUCCESS_READ,
+				usuarioR.findByActivo(estatus).stream().map(usuarioMapper::usuarioDTO).toList());
 	}
 
 	/**
@@ -79,9 +77,8 @@ public class UsuarioServiceImp implements UsuarioService {
 	 */
 	@Override
 	public ResponseDTO agregaUsuario(final UsuarioDTO usuario) {
-		return responseService.response(Constantes.SUCCESS_CREATE, 
-		usuarioMapper.usuarioDTO(usuarioR.save(usuarioMapper.usuarioEntity(usuario)))
-        );
+		return responseService.response(Constantes.SUCCESS_CREATE,
+				usuarioMapper.usuarioDTO(usuarioR.save(usuarioMapper.usuarioEntity(usuario))));
 	}
 
 	/**
@@ -123,10 +120,8 @@ public class UsuarioServiceImp implements UsuarioService {
 	 */
 	@Override
 	public ResponseDTO infoUsuario(final String correo) {
-		return responseService.response(Constantes.SUCCESS_READ, 
-            usuarioMapper.usuarioDTO(
-            usuarioR.findByEmailPassword(correo)
-        ));
+		return responseService.response(Constantes.SUCCESS_READ,
+				usuarioMapper.usuarioDTO(usuarioR.findByEmailPassword(correo)));
 	}
 
 }

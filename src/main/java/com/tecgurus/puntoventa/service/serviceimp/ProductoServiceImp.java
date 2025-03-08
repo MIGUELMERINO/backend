@@ -47,16 +47,15 @@ public class ProductoServiceImp implements ProductoService {
 	}
 
 	/**
-     * Lista de un Producto mediante su identificador.
-     * @param id identificador del producto.
-     * @return lista de Producto.
-     * **/
-    @Override
+	 * Lista de un Producto mediante su identificador.
+	 * 
+	 * @param id identificador del producto.
+	 * @return lista de Producto.
+	 **/
+	@Override
 	public ResponseDTO listaProducto(final Integer id) {
-		return responseService.response(Constantes.SUCCESS_READ, 
-		productoR.findById(id).stream()
-            .map(productoMapper::productoDTO).toList()
-        );
+		return responseService.response(Constantes.SUCCESS_READ,
+				productoR.findById(id).stream().map(productoMapper::productoDTO).toList());
 	}
 
 	/**
@@ -67,10 +66,8 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDTO agregaProducto(final ProductoDTO producto) {
-		return responseService.response(Constantes.SUCCESS_CREATE, 
-		productoMapper.productoDTO(productoR.save(
-                productoMapper.productoEntity(producto)))
-        );
+		return responseService.response(Constantes.SUCCESS_CREATE,
+				productoMapper.productoDTO(productoR.save(productoMapper.productoEntity(producto))));
 	}
 
 	/**
@@ -113,10 +110,9 @@ public class ProductoServiceImp implements ProductoService {
 	 */
 	@Override
 	public ResponseDTO busquedaProducto(String nombreProducto) {
-		return responseService.response(Constantes.SUCCESS_READ, 
-		productoR.busquedaProducto(nombreProducto).stream()
-            .map(productoMapper::productoDTO).toList()
-        );
+		return responseService.response(Constantes.SUCCESS_READ,
+				productoR.findAll().stream().filter(item -> item.getNombre().equalsIgnoreCase(nombreProducto))
+						.map(productoMapper::productoDTO).toList());
 	}
 
 }

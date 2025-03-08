@@ -40,18 +40,17 @@ public class CompraProductoServiceImp implements CompraProductoService {
 		List<CompraProductoDTO> compras = comp.getContent().stream().map(compraProductoM::compraProductoDTO).toList();
 		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(comp, compras));
 	}
-    
-    /**
-     * Obtener una lista de Compra Producto mediante su identificador.
-     * @param id identificador de la compra producto.
-     * @return lista de una Compra Producto.
-     * **/
+
+	/**
+	 * Obtener una lista de Compra Producto mediante su identificador.
+	 * 
+	 * @param id identificador de la compra producto.
+	 * @return lista de una Compra Producto.
+	 **/
 	@Override
 	public ResponseDTO listarCompraProducto(final Integer id) {
 		return responseService.response(Constantes.SUCCESS_READ,
-		compraPRepository.findById(id).stream()
-            .map(compraProductoM::compraProductoDTO).toList()
-        );
+				compraPRepository.findById(id).stream().map(compraProductoM::compraProductoDTO).toList());
 	}
 
 	/**
@@ -62,10 +61,8 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	 */
 	@Override
 	public ResponseDTO agregaCompraProducto(final CompraProductoDTO compraProducto) {
-		return responseService.response(Constantes.SUCCESS_CREATE,
-		compraProductoM.compraProductoDTO(compraPRepository.save(compraProductoM
-                .compraProductoEntity(compraProducto)))
-        );
+		return responseService.response(Constantes.SUCCESS_CREATE, compraProductoM
+				.compraProductoDTO(compraPRepository.save(compraProductoM.compraProductoEntity(compraProducto))));
 	}
 
 	/***
@@ -76,10 +73,9 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	 */
 	@Override
 	public ResponseDTO busquedaCompra(final Integer idCompra) {
-		return responseService.response(Constantes.SUCCESS_READ, 
-		compraPRepository.busquedaCompra(idCompra).stream()
-            .map(compraProductoM::compraProductoDTO).toList()
-        );
+		return responseService.response(Constantes.SUCCESS_READ,
+				compraPRepository.findAll().stream().filter(item -> item.getCompra().getIdCompra() == idCompra)
+						.map(compraProductoM::compraProductoDTO).toList());
 	}
 
 }
