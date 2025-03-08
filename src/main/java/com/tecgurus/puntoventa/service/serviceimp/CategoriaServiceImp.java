@@ -46,16 +46,16 @@ public class CategoriaServiceImp implements CategoriaService {
 		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(cat, categoria));
 	}
 
-    /**
-     * Listar categorias mediante su identificador.
-     * @param id identificador de la categoria.
-     * @return una lista de categoria por Identificador.
-     * **/
+	/**
+	 * Listar categorias mediante su identificador.
+	 * 
+	 * @param id identificador de la categoria.
+	 * @return una lista de categoria por Identificador.
+	 **/
 	@Override
 	public ResponseDTO listaCategoriaId(final Integer id) {
 		return responseService.response(Constantes.SUCCESS_READ,
-        categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).toList()
-        );
+				categoriaR.findById(id).stream().map(categoriaMapper::categoriaDTO).toList());
 	}
 
 	/**
@@ -68,8 +68,7 @@ public class CategoriaServiceImp implements CategoriaService {
 	@Override
 	public ResponseDTO agregaCategoria(final CategoriaDTO categoria) {
 		return responseService.response(Constantes.SUCCESS_READ,
-		categoriaMapper.categoriaDTO(categoriaR.save(categoriaMapper.categoriaEntity(categoria)))
-        );
+				categoriaMapper.categoriaDTO(categoriaR.save(categoriaMapper.categoriaEntity(categoria))));
 	}
 
 	/***
@@ -109,11 +108,8 @@ public class CategoriaServiceImp implements CategoriaService {
 	 */
 	@Override
 	public ResponseDTO busquedaCategoria(final String nombre) {
-		// stream forma de recoleccion de datos, map (mapeo de datos), genera una
-		// coleccion de datos y se el asignan a una lista.
-		List<CategoriaDTO> categoria = categoriaR.findByNombre(nombre).stream().map(categoriaMapper::categoriaDTO)
-				.toList();
-		return responseService.response(Constantes.SUCCESS_READ, categoria);
+		return responseService.response(Constantes.SUCCESS_READ, categoriaR.findAll().stream()
+				.filter(item -> item.getNombre().equalsIgnoreCase(nombre)).map(categoriaMapper::categoriaDTO).toList());
 	}
 
 }

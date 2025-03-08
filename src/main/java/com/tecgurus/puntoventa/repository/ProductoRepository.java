@@ -1,6 +1,5 @@
 package com.tecgurus.puntoventa.repository;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,7 +22,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 	@Query(value = "delete from producto where idproducto = :idProducto", nativeQuery = true)
 	void findByElimnaProducto(@Param("idProducto") Integer idProducto);
 
-	@Query(value = "SELECT * FROM producto where nombre like %:nombre% ", nativeQuery = true)
-	List<Producto> busquedaProducto(@Param("nombre") String nombre);
+
 
 }
