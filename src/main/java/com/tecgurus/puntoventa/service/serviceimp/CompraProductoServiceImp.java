@@ -1,11 +1,8 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.CompraProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
@@ -37,9 +34,8 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	@Override
 	public ResponseDTO listarComprasProductos(final Integer pageNo, final Integer pageSize) {
 		Page<CompraProducto> comp = compraPRepository.findAll(PageRequest.of(pageNo, pageSize));
-		return responseService.response(Constantes.SUCCESS_READ, 
-            pageResponseService.paginacionDTO(comp, 
-                 comp.getContent().stream().map(compraProductoM::compraProductoDTO).toList()));
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(comp,
+				comp.getContent().stream().map(compraProductoM::compraProductoDTO).toList()));
 	}
 
 	/**

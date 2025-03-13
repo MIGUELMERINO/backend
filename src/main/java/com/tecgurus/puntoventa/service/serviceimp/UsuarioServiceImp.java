@@ -1,11 +1,8 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
@@ -41,10 +38,8 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public ResponseDTO obtenerUsuarios(final Integer pageNo, final Integer pageSize) {
 		Page<Usuario> usuario = usuarioR.findAll(PageRequest.of(pageNo, pageSize));
-		return responseService.response(Constantes.SUCCESS_READ, 
-            pageResponseService.paginacionDTO(usuario, 
-usuario.getContent().stream().map(usuarioMapper::usuarioDTO).toList()
-            ));
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(usuario,
+				usuario.getContent().stream().map(usuarioMapper::usuarioDTO).toList()));
 	}
 
 	/**
