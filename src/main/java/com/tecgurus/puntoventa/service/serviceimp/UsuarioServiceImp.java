@@ -41,8 +41,10 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public ResponseDTO obtenerUsuarios(final Integer pageNo, final Integer pageSize) {
 		Page<Usuario> usuario = usuarioR.findAll(PageRequest.of(pageNo, pageSize));
-		List<UsuarioDTO> usuarios = usuario.getContent().stream().map(usuarioMapper::usuarioDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(usuario, usuarios));
+		return responseService.response(Constantes.SUCCESS_READ, 
+            pageResponseService.paginacionDTO(usuario, 
+usuario.getContent().stream().map(usuarioMapper::usuarioDTO).toList()
+            ));
 	}
 
 	/**

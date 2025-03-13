@@ -40,8 +40,10 @@ public class ClienteServiceImp implements ClienteService {
 	public ResponseDTO obtenerClientes(final Integer pageNo, final Integer pageSize) {
 		// :: asingacion de metodo en un map. instancia::metodo
 		Page<Cliente> client = clienteRepository.findAll(PageRequest.of(pageNo, pageSize));
-		List<ClienteDTO> clientes = client.getContent().stream().map(clienteMapper::clienteDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(client, clientes));
+		return responseService.response(Constantes.SUCCESS_READ, 
+            pageResponseService.paginacionDTO(client,
+            client.getContent().stream().map(clienteMapper::clienteDTO).toList()
+            ));
 	}
 
 	/**
@@ -52,8 +54,9 @@ public class ClienteServiceImp implements ClienteService {
 	 **/
 	@Override
 	public ResponseDTO listaClienteId(final Integer id) {
-		List<ClienteDTO> cliente = clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, cliente);
+		return responseService.response(Constantes.SUCCESS_READ, 
+         clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).toList()
+        );
 	}
 
 	/**

@@ -37,8 +37,9 @@ public class CompraProductoServiceImp implements CompraProductoService {
 	@Override
 	public ResponseDTO listarComprasProductos(final Integer pageNo, final Integer pageSize) {
 		Page<CompraProducto> comp = compraPRepository.findAll(PageRequest.of(pageNo, pageSize));
-		List<CompraProductoDTO> compras = comp.getContent().stream().map(compraProductoM::compraProductoDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(comp, compras));
+		return responseService.response(Constantes.SUCCESS_READ, 
+            pageResponseService.paginacionDTO(comp, 
+                 comp.getContent().stream().map(compraProductoM::compraProductoDTO).toList()));
 	}
 
 	/**

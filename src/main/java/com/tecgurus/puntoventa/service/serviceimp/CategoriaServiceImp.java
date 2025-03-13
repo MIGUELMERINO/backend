@@ -42,8 +42,10 @@ public class CategoriaServiceImp implements CategoriaService {
 	@Override
 	public ResponseDTO listaCategorias(final Integer pageNo, final Integer pageSize) {
 		Page<Categoria> cat = categoriaR.findAll(PageRequest.of(pageNo, pageSize));
-		List<CategoriaDTO> categoria = cat.getContent().stream().map(categoriaMapper::categoriaDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(cat, categoria));
+		return responseService.response(Constantes.SUCCESS_READ, 
+            pageResponseService.paginacionDTO(cat,
+            cat.getContent().stream().map(categoriaMapper::categoriaDTO).toList()
+            ));
 	}
 
 	/**

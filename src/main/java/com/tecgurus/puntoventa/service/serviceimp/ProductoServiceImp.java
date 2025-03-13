@@ -41,9 +41,10 @@ public class ProductoServiceImp implements ProductoService {
 	@Override
 	public ResponseDTO listarProductos(final Integer pageNo, final Integer pageSize) {
 		Page<Producto> producto = productoR.findAll(PageRequest.of(pageNo, pageSize));
-		List<ProductoDTO> productos = producto.getContent().stream().map(productoMapper::productoDTO).toList();
 		return responseService.response(Constantes.SUCCESS_READ,
-				pageResponseService.paginacionDTO(producto, productos));
+				pageResponseService.paginacionDTO(producto, 
+producto.getContent().stream().map(productoMapper::productoDTO).toList()
+            ));
 	}
 
 	/**
