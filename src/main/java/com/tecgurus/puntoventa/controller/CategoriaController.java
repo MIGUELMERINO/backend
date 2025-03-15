@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
+import com.tecgurus.puntoventa.config.Enpoint;
 import com.tecgurus.puntoventa.dto.CategoriaDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
@@ -28,7 +29,7 @@ import lombok.AllArgsConstructor;
 
 @Tag(name = "Categoria", description = "Servicio que maneja el catalogo de categorias")
 @RestController
-@RequestMapping(Constantes.API + "categoria")
+@RequestMapping(Constantes.API + Enpoint.CATEGORIA)
 @CrossOrigin
 @AllArgsConstructor
 public class CategoriaController {
@@ -156,7 +157,7 @@ public class CategoriaController {
 	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	@GetMapping("/busqueda")
+	@GetMapping(Enpoint.BUSQUEDA)
 	public ResponseDTO busqueda(
 			@Parameter(name = "nombre", description = "Nombre de la categoria", example = "Refresco") @RequestParam final String nombre) {
 		return categoriaS.busquedaCategoria(nombre);

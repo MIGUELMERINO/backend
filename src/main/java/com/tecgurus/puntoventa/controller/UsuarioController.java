@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
+import com.tecgurus.puntoventa.config.Enpoint;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
 import com.tecgurus.puntoventa.dto.UsuarioDTO;
@@ -28,7 +29,7 @@ import lombok.AllArgsConstructor;
 
 @Tag(name = "Usuario", description = "Servicio que maneja a los usuarios.")
 @RestController
-@RequestMapping(Constantes.API + "usuario")
+@RequestMapping(Constantes.API + Enpoint.USUARIO)
 @CrossOrigin
 @AllArgsConstructor
 public class UsuarioController {
@@ -71,7 +72,7 @@ public class UsuarioController {
 	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	@GetMapping("/activos")
+	@GetMapping(Enpoint.USUARIO_ACTIVO)
 	public ResponseDTO listaUsuariosActivos() {
 		return usuarioS.obtenerUsuariosActivos();
 	}
@@ -153,7 +154,7 @@ public class UsuarioController {
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	// info?correo=example@example.com.
-	@GetMapping("/info")
+	@GetMapping(Enpoint.INFO)
 	public ResponseDTO infoUser(
 			@Parameter(name = "correo", description = "correo del usuario obtenido del token", example = "example@example.com") @RequestParam("correo") final String correo) {
 		return usuarioS.infoUsuario(correo);

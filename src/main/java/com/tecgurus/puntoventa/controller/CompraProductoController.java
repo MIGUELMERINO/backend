@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
+import com.tecgurus.puntoventa.config.Enpoint;
 import com.tecgurus.puntoventa.dto.CompraProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.service.CompraProductoService;
@@ -25,7 +26,7 @@ import lombok.AllArgsConstructor;
 
 @Tag(name = "Compra Producto", description = "Servicio que maneja una compra con su producto")
 @RestController
-@RequestMapping(Constantes.API + "compraproducto")
+@RequestMapping(Constantes.API + Enpoint.COMPRA_PRODUCTO)
 @CrossOrigin
 @AllArgsConstructor
 public class CompraProductoController {
@@ -109,7 +110,7 @@ public class CompraProductoController {
 	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	@GetMapping("/compra/{idCompra}")
+	@GetMapping(Enpoint.COMPRA + "/{idCompra}")
 	public ResponseDTO busquedaCompra(
 			@Parameter(name = "idCompra", description = "identificador de la compra", example = "1") @PathVariable Integer idCompra) {
 		return compraProductoS.busquedaCompra(idCompra);

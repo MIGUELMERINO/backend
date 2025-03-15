@@ -10,7 +10,7 @@ public final class ConstantesTest {
 	public static final String API_CATEGORIA = API + "categoria";
 	public static final String API_CLIENTE = API + "cliente";
 	public static final String API_COMPRA = API + "compra";
-	public static final String API_COMPRA_PRODUCTO = API + "compraproducto";
+	public static final String API_COMPRA_PRODUCTO = API + "compra-producto";
 	public static final String API_PRODUCTO = API + "producto";
 	public static final String API_USUARIO = API + "usuario";
 
