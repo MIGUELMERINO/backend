@@ -28,6 +28,9 @@ public final class Enpoint {
     // enpoint categoria
     public static final String CATEGORIA = "/categoria";
 
+    // enpoint autentificacion del proyecto
+    public static final String AUTH = "/authentication";
+
 
 }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
+import com.tecgurus.puntoventa.config.Enpoint;
 import com.tecgurus.puntoventa.security.dto.RequestDTO;
 import com.tecgurus.puntoventa.security.dto.ResponseJWTDTO;
 import com.tecgurus.puntoventa.security.service.JWTService;
@@ -26,7 +27,7 @@ import lombok.AllArgsConstructor;
 
 @Tag(name = "Autentificador", description = "autentificacion de usuarios registrados.")
 @RestController
-@RequestMapping(Constantes.API + "authentication")
+@RequestMapping(Constantes.API + Enpoint.AUTH)
 @CrossOrigin
 @AllArgsConstructor
 public class AutenticacionController {
