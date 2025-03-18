@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
+import com.tecgurus.puntoventa.config.Enpoint;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.dto.ResponseDeleteDTO;
@@ -28,7 +29,7 @@ import lombok.AllArgsConstructor;
 
 @Tag(name = "Cliente", description = "Servicio que maneja a los clientes")
 @RestController
-@RequestMapping(Constantes.API + "cliente")
+@RequestMapping(Constantes.API + Enpoint.CLIENTE)
 @CrossOrigin
 @AllArgsConstructor
 public class ClienteController {
@@ -158,7 +159,7 @@ public class ClienteController {
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
 	// {} lo que se encuentre dentro de una variable tipo cadena debe de ser
 	// completo. (cadena completa).
-	@GetMapping("/busqueda/{cliente}")
+	@GetMapping(Enpoint.BUSQUEDA + "/{cliente}")
 	public ResponseDTO buscarClienteNombre(
 			@Parameter(name = "cliente", description = "Nombre completo del cliente", example = "Miguel, Juan Pedro") @PathVariable final String cliente) {
 		return clienteS.buscaClienteNombre(cliente);

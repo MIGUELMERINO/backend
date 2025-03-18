@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecgurus.puntoventa.config.Constantes;
+import com.tecgurus.puntoventa.config.Enpoint;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
 import com.tecgurus.puntoventa.service.ProductoService;
@@ -26,7 +27,7 @@ import lombok.AllArgsConstructor;
 
 @Tag(name = "Producto", description = "Servicio que manejena los productos.")
 @RestController
-@RequestMapping(Constantes.API + "producto")
+@RequestMapping(Constantes.API + Enpoint.PRODUCTO)
 @CrossOrigin
 @AllArgsConstructor
 public class ProductoController {
@@ -131,7 +132,7 @@ public class ProductoController {
 	@ApiResponse(responseCode = Constantes.FORBIDDEN, description = Constantes.FORBIDDEN_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.NOT_FOUND, description = Constantes.NOT_FOUND_V, content = @Content)
 	@ApiResponse(responseCode = Constantes.UNEXPECTED_ERROR, description = Constantes.UNEXPECTED_ERROR_V, content = @Content)
-	@GetMapping("/busqueda")
+	@GetMapping(Enpoint.BUSQUEDA)
 	public ResponseDTO busqueda(
 			@Parameter(name = "nombre", description = "nombre del producto o caracter", example = "Pro, producto, p") @RequestParam String nombre) {
 		return productoS.busquedaProducto(nombre);

@@ -1,7 +1,5 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -37,8 +35,8 @@ public class CompraServiceImp implements CompraService {
 	@Override
 	public ResponseDTO listarCompras(final Integer pageNo, final Integer pageSize) {
 		Page<Compra> comp = compraRepository.findAll(PageRequest.of(pageNo, pageSize));
-		List<CompraDTO> compras = comp.getContent().stream().map(compraMapper::compraDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(comp, compras));
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(comp,
+				comp.getContent().stream().map(compraMapper::compraDTO).toList()));
 	}
 
 	/***

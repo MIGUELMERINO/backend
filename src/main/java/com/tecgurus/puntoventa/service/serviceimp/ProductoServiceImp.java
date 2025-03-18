@@ -1,11 +1,8 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ProductoDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
@@ -41,9 +38,8 @@ public class ProductoServiceImp implements ProductoService {
 	@Override
 	public ResponseDTO listarProductos(final Integer pageNo, final Integer pageSize) {
 		Page<Producto> producto = productoR.findAll(PageRequest.of(pageNo, pageSize));
-		List<ProductoDTO> productos = producto.getContent().stream().map(productoMapper::productoDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ,
-				pageResponseService.paginacionDTO(producto, productos));
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(producto,
+				producto.getContent().stream().map(productoMapper::productoDTO).toList()));
 	}
 
 	/**

@@ -1,11 +1,9 @@
 package com.tecgurus.puntoventa.service.serviceimp;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.tecgurus.puntoventa.config.Constantes;
 import com.tecgurus.puntoventa.dto.ClienteDTO;
 import com.tecgurus.puntoventa.dto.ResponseDTO;
@@ -40,8 +38,8 @@ public class ClienteServiceImp implements ClienteService {
 	public ResponseDTO obtenerClientes(final Integer pageNo, final Integer pageSize) {
 		// :: asingacion de metodo en un map. instancia::metodo
 		Page<Cliente> client = clienteRepository.findAll(PageRequest.of(pageNo, pageSize));
-		List<ClienteDTO> clientes = client.getContent().stream().map(clienteMapper::clienteDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(client, clientes));
+		return responseService.response(Constantes.SUCCESS_READ, pageResponseService.paginacionDTO(client,
+				client.getContent().stream().map(clienteMapper::clienteDTO).toList()));
 	}
 
 	/**
@@ -52,8 +50,8 @@ public class ClienteServiceImp implements ClienteService {
 	 **/
 	@Override
 	public ResponseDTO listaClienteId(final Integer id) {
-		List<ClienteDTO> cliente = clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).toList();
-		return responseService.response(Constantes.SUCCESS_READ, cliente);
+		return responseService.response(Constantes.SUCCESS_READ,
+				clienteRepository.findById(id).stream().map(clienteMapper::clienteDTO).toList());
 	}
 
 	/**

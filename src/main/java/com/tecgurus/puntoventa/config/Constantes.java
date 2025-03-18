@@ -41,7 +41,7 @@ public final class Constantes {
 	public static final String DESCRIPTION_SWAGGER = "Proyecto tecnologico para curso de spring boot.";
 
 	// configuracion api
-	public static final String API = "/api/v1/";
+	public static final String API = "/api/v1";
 
 	// expresiones regular para validar atributos.
 	public static final String VALID_PASSWORD = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";

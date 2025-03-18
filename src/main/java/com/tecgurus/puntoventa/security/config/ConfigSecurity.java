@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.tecgurus.puntoventa.config.Constantes;
-
+import com.tecgurus.puntoventa.config.Enpoint;
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -60,7 +60,7 @@ public class ConfigSecurity {
 		return http.cors(withDefaults()).csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers("/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
-						.requestMatchers(Constantes.API + "authentication").permitAll().anyRequest().authenticated())
+						.requestMatchers(Constantes.API + Enpoint.AUTH).permitAll().anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
