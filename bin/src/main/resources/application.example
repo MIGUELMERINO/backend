@@ -1,0 +1,20 @@
+spring.config.import = file:.env[.properties]
+
+# server.port = 8081 se puede cambiar el puerto mediante esta configuracion. 
+spring.datasource.url= ${URL}/${DB_NAME}
+spring.datasource.username = ${USERNAME}
+spring.datasource.password = ${PASSWORD}
+
+# se coloca en true si se esta desarrollando, si es coloca en produccion se coloca false.
+spring.jpa.show-sql= false
+# update (Si no existe se crea, si existe pero un atributo no se altera), 
+# create (se crea si o si existe), 
+# create-drop (Se elimina la tabla y se crea una nueva)
+# none este no realiza nada.
+spring.jpa.hibernate.ddl-auto = none
+
+# una variable que se puede obtener a una clase pero se configura dentro de un archico properties o yaml o yarm
+spring.application.secret.key = ${SECRET_KEY}
+spring.application.secret.test = ${SECRET_TEST_KEY}
+
+

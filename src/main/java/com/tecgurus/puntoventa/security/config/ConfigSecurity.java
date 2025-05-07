@@ -27,7 +27,7 @@ public class ConfigSecurity {
 
 	/***
 	 * Metodo que crea un enlace con el encriptador de BCrypt
-	 * 
+	 *
 	 * @return un forma de encriptacion.
 	 */
 	@Bean
@@ -37,7 +37,7 @@ public class ConfigSecurity {
 
 	/***
 	 * Metodo que configura la auntentificacion de usuario.
-	 * 
+	 *
 	 * @param authenticationConfiguration configuracion.
 	 * @return un atentificacion personalizada.
 	 * @throws Exception exception o error al momento del proceso.
@@ -50,7 +50,7 @@ public class ConfigSecurity {
 
 	/***
 	 * Metodo que realiza el filtrado y permisos de los usuarios registrados.
-	 * 
+	 *
 	 * @param http configuracion de http security.
 	 * @return una session y permisos del back end.
 	 * @throws Exception envia una excepcion por algun error.

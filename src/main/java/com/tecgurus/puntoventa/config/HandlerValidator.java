@@ -3,10 +3,13 @@ package com.tecgurus.puntoventa.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.NonNull;
@@ -25,7 +28,7 @@ public class HandlerValidator {
 	public Map<String, String> methodArgumentNotFoundException(@NonNull final MethodArgumentNotValidException ex) {
 		try {
 			String mensage = ex.getFieldError().getDefaultMessage();
-			return errros(validaNull(mensage));
+			return errros(validaNull(mensage), HttpStatus.UNAUTHORIZED);
 		} catch (NullPointerException e) {
 			return new HashMap<>();
 		}
@@ -39,7 +42,7 @@ public class HandlerValidator {
 	 */
 	@ExceptionHandler(EntityNotFoundException.class)
 	public Map<String, String> handlerEntityNotFoundException(final EntityNotFoundException ex) {
-		return errros(ex.getMessage());
+		return errros(ex.getMessage(), HttpStatus.UNAUTHORIZED);
 	}
 
 	/***
@@ -50,7 +53,19 @@ public class HandlerValidator {
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public Map<String, String> httpMenssage(final HttpMessageNotReadableException ex) {
-		return errros(ex.getMessage());
+		return errros(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+	}
+
+    /***
+     *  Metodo para mostrar errores 400
+     *	@param ex Exception que se obtiene
+     *	@param request valor del request
+     *  @return mensaje de error para que se pueda generalizar.
+     ***/
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public Map<String, String> hpptNotFound(Exception ex, WebRequest request) {
+		return errros(Constantes.NOT_FOUND_V, HttpStatus.NOT_FOUND);
 	}
 
 	/**
@@ -59,9 +74,9 @@ public class HandlerValidator {
 	 * @param message mensage a mostar al usuario.
 	 * @return map con los datos del error.
 	 **/
-	public Map<String, String> errros(String message) {
+	public Map<String, String> errros(final String message, final HttpStatus status) {
 		Map<String, String> error = new HashMap<>();
-		error.put("clave", Constantes.UNEXPECTED_ERROR);
+		error.put("clave", status.toString());
 		error.put("valor", message);
 		return error;
 
