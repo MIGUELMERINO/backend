@@ -9,7 +9,7 @@ spring:
     password: ${PASSWORD}
   # Configuracion de jpa e hibernate.
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: none
   # Configuracion de enviroment de clave para crear 
@@ -18,9 +18,6 @@ spring:
     secret:
       key: ${SECRET_KEY}
       test: ${SECRET_TEST_KEY}
-logging:
-  level:
-    org.hibernate.type: TRACE
 # Configuracion del puerto que podemos, 
 # colocar dependiente del microservicio si se ocupara.
 server:
